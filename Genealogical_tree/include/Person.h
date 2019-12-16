@@ -1,6 +1,7 @@
 #ifndef PERSON_H
 #define PERSON_H
 
+#include <iostream>
 #include <string>
 
 class Person
@@ -9,6 +10,8 @@ class Person
         Person();
         Person(std::string, std::string, int, char);
         virtual ~Person();
+
+        friend std::ostream& operator<<(std::ostream&, const Person&);
 
     std::string first_name;
     std::string last_name;

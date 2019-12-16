@@ -1,7 +1,7 @@
 #ifndef GENTREE_H
 #define GENTREE_H
 
-#include "Person.h"
+#include "GenTreeItem.h"
 
 class GenTree
 {
@@ -9,9 +9,13 @@ class GenTree
         GenTree();
         virtual ~GenTree();
 
+        GenTreeItem * add_person(GenTreeItem *p,Person &);
+
+        void show();
     protected:
 
     private:
+        GenTreeItem *root;
 };
 
 #endif // GENTREE_H

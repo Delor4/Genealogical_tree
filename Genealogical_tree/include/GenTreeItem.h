@@ -8,7 +8,11 @@ class GenTreeItem
 {
     public:
         GenTreeItem();
+        GenTreeItem(Person &);
         virtual ~GenTreeItem();
+
+        void show();
+        GenTreeItem * add_children(Person &);
 
     protected:
 
