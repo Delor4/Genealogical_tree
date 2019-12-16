@@ -29,17 +29,27 @@ void GenTreeItem::show()
         }
     }
 }
-void GenTreeItem::show(std::string indent)
+void GenTreeItem::show(std::string indent, int line, GT_Menu &menu,int curr_line)
 {
-    std::cout << indent << (has_right_sibling()?"\xc3":"\xc0") << " " << data <<'\n';
-
+    std::cout << indent << (has_right_sibling()?"\xc3":"\xc0") << " ";
+    WORD old_attr;
+    if(curr_line == line){
+        old_attr = menu.SetConsoleAttr(BACKGROUND_INTENSITY);
+    }
+    std::cout << data;
+    if(curr_line == line){
+        menu.SetConsoleAttr(old_attr);
+    }
+    //std::cout << '\n';
+    std::cout << line << " " << curr_line << '\n';
     std::string add_indent = (has_right_sibling()?"\xb3 ":"  ");
 
     for(auto i: childrens){
         if(i){
-            i->show(indent + add_indent);
+            i->show(indent + add_indent, line, menu, ++curr_line);
         }
     }
+
 }
 
 GenTreeItem * GenTreeItem::add_children(Person &p)

@@ -36,9 +36,18 @@ int main()
 
     menu.show();
     cout << "O" << endl;
-    tree.show("");
+    tree.show("", 0, menu);
 
-    menu.get_option();
+    switch(menu.get_option()){
+    case EXIT:
+        exit(0);
+    case ADD_PERSON:
+    case EDIT_PERSON:
+    case DELETE_PERSON:
+    case LOAD:
+    case SAVE:
+        break;
+    };
 
     return 0;
 }

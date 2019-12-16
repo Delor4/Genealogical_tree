@@ -24,7 +24,7 @@ void GenTree::show()
     if(root) root->show();
 }
 
-void GenTree::show(std::string indent)
+void GenTree::show(std::string indent, int line, GT_Menu &menu)
 {
-    if(root) root->show(indent);
+    if(root) root->show(indent, line, menu, 0);
 }

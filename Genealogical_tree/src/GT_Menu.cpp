@@ -1,7 +1,6 @@
 #include "GT_Menu.h"
 
 #include <iostream>
-#include <Windows.h>
 
 GT_Menu::GT_Menu()
 {
@@ -65,4 +64,15 @@ void GT_Menu::cls(void) {
     FillConsoleOutputAttribute(hConsole, csbi.wAttributes,
        dwConSize, coordScreen, &cCharsWritten);
     SetConsoleCursorPosition(hConsole, coordScreen);
+}
+WORD GT_Menu::SetConsoleAttr(WORD attr){
+    CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
+    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    GetConsoleScreenBufferInfo(hStdout, &csbiInfo);
+    WORD wOldColorAttrs = csbiInfo.wAttributes;
+
+    SetConsoleTextAttribute(hStdout, attr);
+
+    return wOldColorAttrs;
 }

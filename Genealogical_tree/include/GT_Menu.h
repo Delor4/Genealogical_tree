@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <windows.h>
 
 enum MENU_ITEMS {
             NONE,
@@ -39,6 +40,7 @@ class GT_Menu
 
         void gotoxy(int x, int y);
         void cls();
+        WORD SetConsoleAttr(WORD attr);
     protected:
 
     private:
@@ -48,7 +50,7 @@ class GT_Menu
         {DELETE_PERSON, "d - usun osobe",                  {'6'}, false},
         {SAVE,          "s - zapisz drzewo",               {'8'}, false},
         {LOAD,          "l - odczytaj drzewo",             {'9'}, false},
-        {EXIT,          "q - zakoncz program",             {'0'}, false},
+        {EXIT,          "q - zakoncz program",             {'0', 'q'}, false},
     };
 };
 

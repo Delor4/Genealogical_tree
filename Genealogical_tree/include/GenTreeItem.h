@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Person.h"
+#include "GT_Menu.h"
 
 class GenTreeItem
 {
@@ -12,7 +13,7 @@ class GenTreeItem
         virtual ~GenTreeItem();
 
         void show();
-        void show(std::string indent);
+        void show(std::string indent, int line, GT_Menu &menu, int curr_line);
         GenTreeItem * add_children(Person &);
 
     protected:
