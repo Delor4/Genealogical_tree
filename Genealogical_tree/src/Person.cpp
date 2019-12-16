@@ -20,6 +20,6 @@ Person::~Person()
 
 std::ostream& operator<<(std::ostream& os, const Person& p)
 {
-    os << p.first_name << ' ' << p.last_name << ' ' << p.birth_year << ' ' << p.sex;
+    os << p.first_name << ' ' << p.last_name << ", " << p.birth_year << ", " << p.sex;
     return os;
 }
