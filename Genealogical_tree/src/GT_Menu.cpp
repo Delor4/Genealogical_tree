@@ -15,12 +15,13 @@ GT_Menu::~GT_Menu()
 
 void GT_Menu::show()
 {
-    //std::cout << "Menu:\n";
     bool first = true;
     for(auto &i: items){
-        if(!first) std::cout << ", ";
-        std::cout << i.label;
-        first = false;
+        if(i.show){
+            if(!first) std::cout << ", ";
+            std::cout << i.label;
+            first = false;
+        }
     }
     std::cout << "\n";
 }

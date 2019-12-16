@@ -28,7 +28,7 @@ struct GT_MenuItem {
     MENU_ITEMS ID;
     std::string label;
     std::vector<int> short_keys;
-    bool disabled;
+    bool show;
 };
 
 class GT_Menu
@@ -53,12 +53,12 @@ class GT_Menu
 
     private:
     std::vector<GT_MenuItem> items = {
-        {ADD_CHILDREN,  "a - dodaj osobe",                 {65}, false},
-        {EDIT_PERSON,   "e - modyfikuj osobe",             {69}, false},
-        {DELETE_PERSON, "d - usun osobe",                  {68}, false},
-        {SAVE,          "s - zapisz drzewo",               {83}, false},
-        {LOAD,          "l - odczytaj drzewo",             {76}, false},
-        {EXIT,          "q - zakoncz program",             {81, 27}, false},
+        {ADD_CHILDREN,  "a - dodaj osobe",                 {65}, true},
+        {EDIT_PERSON,   "e - modyfikuj osobe",             {69}, true},
+        {DELETE_PERSON, "d - usun osobe",                  {68}, true},
+        {SAVE,          "s - zapisz drzewo",               {83}, true},
+        {LOAD,          "l - odczytaj drzewo",             {76}, true},
+        {EXIT,          "q - zakoncz program",             {81, 27}, true},
         {ARROW_UP,      "",                                {38}, false},
         {ARROW_DOWN,    "",                                {40}, false},
         {ENTER,         "",                                {13}, false},
