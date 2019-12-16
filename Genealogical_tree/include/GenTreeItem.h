@@ -17,6 +17,10 @@ class GenTreeItem
         GenTreeItem * add_children(Person &);
 
         int get_size();
+        void remove_by_id(int id);
+        GenTreeItem * find_by_id(int id, int &curr);
+        GenTreeItem *get_parent();
+        void remove_child(GenTreeItem *);
 
     protected:
 

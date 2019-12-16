@@ -14,6 +14,8 @@ class GenTree
         void show();
         void show(std::string indent, int line, GT_Menu &menu);
         int get_size();
+        void remove_by_id(int id);
+        GenTreeItem * find_by_id(int id);
     protected:
 
     private:

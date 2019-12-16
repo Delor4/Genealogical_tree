@@ -46,6 +46,8 @@ int main()
     case ADD_PERSON:
     case EDIT_PERSON:
     case DELETE_PERSON:
+        tree.remove_by_id(menu.get_curr_line());
+        break;
     case LOAD:
     case SAVE:
         break;

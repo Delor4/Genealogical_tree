@@ -35,3 +35,22 @@ int GenTree::get_size()
     if(root) return root->get_size();
     return 0;
 }
+void GenTree::remove_by_id(int id)
+{
+    GenTreeItem * p = find_by_id(id);
+    if(p){
+        if(p == root){
+            auto tmp = root;
+            root = nullptr;
+            delete tmp;
+        }else{
+            p->get_parent()->remove_child(p);
+        }
+    }
+}
+GenTreeItem * GenTree::find_by_id(int id)
+{
+    int start = 0;
+    if(root) return root->find_by_id(id, start);
+    return nullptr;
+}

@@ -80,3 +80,29 @@ int GenTreeItem::get_size()
 {
     return std::accumulate(childrens.begin(), childrens.end(), 1, get_item_size);
 }
+GenTreeItem * GenTreeItem::find_by_id(int id, int &curr)
+{
+    if(id==curr) return this;
+    for(auto i: childrens){
+        if(i){
+            auto f = i->find_by_id(id, ++curr);
+            if(f) return f;
+        }
+    }
+    return nullptr;
+}
+GenTreeItem * GenTreeItem::get_parent()
+{
+    return parent;
+}
+void GenTreeItem::remove_child(GenTreeItem *c)
+{
+    for(auto i=childrens.begin(); i!=childrens.end();++i)
+    {
+        if(*i == c){
+            *i = nullptr;
+            delete c;
+            return;
+        }
+    }
+}
