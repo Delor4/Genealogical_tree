@@ -5,7 +5,18 @@
 #include <vector>
 
 enum MENU_ITEMS {
-            NONE, ADD_PERSON, ADD_CHILDREN, EDIT_PERSON, DELETE_PERSON, DELETE_TREE, SHOW_CHILDRENS, SHOW_TREE, SAVE, LOAD, EXIT, ERROR
+            NONE,
+            ADD_PERSON,
+            ADD_CHILDREN,
+            EDIT_PERSON,
+            DELETE_PERSON,
+            DELETE_TREE,
+            SHOW_CHILDRENS,
+            SHOW_TREE,
+            SAVE,
+            LOAD,
+            EXIT,
+            GT_ERROR
         };
 
 
@@ -26,20 +37,18 @@ class GT_Menu
         void show();
         MENU_ITEMS get_option();
 
+        void gotoxy(int x, int y);
+        void cls();
     protected:
 
     private:
     std::vector<GT_MenuItem> items = {
-        {ADD_PERSON,    "1 - dodaj osobe w drzewie",       {'1'}, false},
-        {ADD_CHILDREN,  "2 - dodaj dziecko",               {'2'}, false},
-        {EDIT_PERSON,   "3 - modyfikuj osobe w drzewie",   {'3'}, false},
-        {SHOW_CHILDRENS,"4 - wypisz dzieci",               {'4'}, false},
-        {SHOW_TREE,     "5 - wypisz cale drzewo",          {'5'}, false},
-        {DELETE_PERSON, "6 - usun osobe",                  {'6'}, false},
-        {DELETE_TREE,   "7 - usun drzewo",                 {'7'}, false},
-        {SAVE,          "8 - zapisz drzewo",               {'8'}, false},
-        {LOAD,          "9 - odczytaj drzewo",             {'9'}, false},
-        {EXIT,          "0 - zakoncz program",             {'0'}, false},
+        {ADD_CHILDREN,  "a - dodaj osobe",                 {'2'}, false},
+        {EDIT_PERSON,   "e - modyfikuj osobe",             {'3'}, false},
+        {DELETE_PERSON, "d - usun osobe",                  {'6'}, false},
+        {SAVE,          "s - zapisz drzewo",               {'8'}, false},
+        {LOAD,          "l - odczytaj drzewo",             {'9'}, false},
+        {EXIT,          "q - zakoncz program",             {'0'}, false},
     };
 };
 

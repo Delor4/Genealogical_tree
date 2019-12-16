@@ -1,4 +1,6 @@
 #include <iostream>
+#include <windows.h>
+
 #include "GT_Menu.h"
 #include "GenTree.h"
 
@@ -21,19 +23,21 @@ void init_tree(GenTree& tree)
             Person p4("Grazyna", "Kowalska", 1994, 'K');
             GenTreeItem *i4 = tree.add_person(i3, p4);
 }
+
 int main()
 {
     GT_Menu menu;
     GenTree tree;
-    cout << "Genealogical Tree." << endl;
 
     init_tree(tree);
-    tree.show();
-    std::cout << '\n';
-    tree.show("");
 
+    menu.cls();
+    cout << "Genealogical Tree." << endl;
 
     menu.show();
+    cout << "O" << endl;
+    tree.show("");
+
     menu.get_option();
 
     return 0;
