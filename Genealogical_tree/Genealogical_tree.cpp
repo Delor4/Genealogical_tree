@@ -24,8 +24,32 @@ void init_tree(GenTree& tree)
             tree.add_person(i3, p4);
 
            }
+void intro()
+{
+    cout << "Drzewo genealogiczne.\n";
+}
+
 Person input_new_person(){
-    return Person();
+    intro();
+    std::cout << "Tworzenie nowej osoby.\n\n";
+
+    std::string fn;
+    std::cout << "Imie:\n";
+    std::getline(std::cin, fn);
+
+    std::string ln;
+    std::cout << "Nazwisko:\n";
+    std::getline(std::cin, ln);
+
+    int by;
+    std::cout << "Rok urodzenia:\n";
+    std::cin >> by;
+
+    std::string sx;
+    std::cout << "P³eæ (K/M):\n";
+    std::cin >> sx;
+
+    return Person(fn,ln, by, sx[0]);
 }
 int main()
 {
@@ -34,22 +58,23 @@ int main()
 
     init_tree(tree);
     while(true){
-    menu.set_curr_max_lines(tree.get_size());
-    menu.cls();
-    cout << "Drzewo genealogiczne." << endl;
+        menu.set_curr_max_lines(tree.get_size());
+        menu.cls();
+        intro();
 
-    menu.show();
+        menu.show();
 
-    tree.show("", menu.get_curr_line(), menu);
-    std::cout.flush();
-    Sleep(50);
+        tree.show("", menu.get_curr_line(), menu);
+        std::cout.flush();
+        Sleep(50);
 
-    auto opt = menu.get_option();
-    switch(opt){
+        auto opt = menu.get_option();
+        switch(opt){
         case EXIT:
             exit(0);
         case ADD_PERSON:
             {
+                menu.cls();
                 Person p = input_new_person();
                 tree.add_person(tree.find_by_id(menu.get_curr_line()), p);
             }
