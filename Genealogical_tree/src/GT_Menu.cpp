@@ -1,6 +1,7 @@
 #include "GT_Menu.h"
 
 #include <iostream>
+#include <Windows.h>
 
 GT_Menu::GT_Menu()
 {
@@ -13,9 +14,9 @@ GT_Menu::~GT_Menu()
 }
 
 
-/** @brief (one liner)
+/** @brief Show menu.
   *
-  * (documentation goes here)
+  *
   */
 void GT_Menu::show()
 {
@@ -25,3 +26,21 @@ void GT_Menu::show()
     }
 }
 
+MENU_ITEMS GT_Menu::get_option()
+{
+    HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
+    DWORD events;
+    INPUT_RECORD buffer;
+
+    while(true){
+        ReadConsoleInput(handle, &buffer, 1, &events);
+        if(!buffer.Event.KeyEvent.bKeyDown){
+            char c = buffer.Event.KeyEvent.uChar.AsciiChar;
+            for(auto &i: items){
+                for(auto k: i.short_keys){
+                    if(k==c) return i.ID;
+                }
+            }
+        }
+    }
+};

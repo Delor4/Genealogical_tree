@@ -9,6 +9,7 @@ int main()
     cout << "Genealogical Tree." << endl;
 
     menu.show();
+    menu.get_option();
 
     return 0;
 }
