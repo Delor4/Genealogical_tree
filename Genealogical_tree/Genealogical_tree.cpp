@@ -33,7 +33,7 @@ int main()
 
     init_tree(tree);
     while(true){
-    menu.set_max_lines(tree.get_size());
+    menu.set_curr_max_lines(tree.get_size());
     menu.cls();
     cout << "Drzewo genealogiczne." << endl;
 

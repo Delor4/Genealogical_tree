@@ -75,8 +75,8 @@ WORD GT_Menu::SetConsoleAttr(WORD attr){
 }
 
 void GT_Menu::check_constrants(){
-    if(act_line >= max_items){
-        act_line = max_items - 1;
+    if(act_line >= curr_max_items){
+        act_line = curr_max_items - 1;
     }
     if(act_line < 0){
         act_line = 0;
@@ -90,8 +90,8 @@ void GT_Menu::line_up(){
     --act_line;
     check_constrants();
 }
-void GT_Menu::set_max_lines(int _m){
-    max_items = _m;
+void GT_Menu::set_curr_max_lines(int _m){
+    curr_max_items = _m;
     check_constrants();
 }
 int GT_Menu::get_curr_line(){
