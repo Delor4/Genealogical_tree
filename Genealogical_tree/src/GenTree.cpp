@@ -7,7 +7,7 @@ GenTree::GenTree()
 
 GenTree::~GenTree()
 {
-    //dtor
+    delete root;
 }
 
 GenTreeItem * GenTree::add_person(GenTreeItem *r,Person &p)
@@ -38,14 +38,12 @@ int GenTree::get_size()
 void GenTree::remove_by_id(int id)
 {
     GenTreeItem * p = find_by_id(id);
-    if(p){
-        if(p == root){
-            auto tmp = root;
-            root = nullptr;
-            delete tmp;
-        }else{
-            p->get_parent()->remove_child(p);
-        }
+    if(!p) return;
+    if(p == root){
+        root = nullptr;
+        delete p;
+    }else{
+        p->get_parent()->remove_child(p);
     }
 }
 GenTreeItem * GenTree::find_by_id(int id)

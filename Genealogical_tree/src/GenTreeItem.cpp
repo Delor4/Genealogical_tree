@@ -16,7 +16,9 @@ GenTreeItem::GenTreeItem(Person &_p)
 
 GenTreeItem::~GenTreeItem()
 {
-    //dtor
+    for(auto i=childrens.begin();i!=childrens.end();++i){
+        delete *i;
+    }
 }
 
 void GenTreeItem::show()
