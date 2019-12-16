@@ -11,6 +11,10 @@ void init_tree(GenTree& tree)
 
         Person p2("Janina", "Kowalska", 1974, 'K');
         GenTreeItem *i2 = tree.add_person(i1, p2);
+            Person p5("Dorota", "Kowalska", 1994, 'K');
+            GenTreeItem *i5 = tree.add_person(i2, p5);
+            Person p6("Daria", "Kowalska", 1994, 'K');
+            GenTreeItem *i6 = tree.add_person(i2, p6);
 
         Person p3("Jambrozy", "Kowalski", 1977, 'M');
         GenTreeItem *i3 = tree.add_person(i1, p3);
@@ -25,6 +29,8 @@ int main()
 
     init_tree(tree);
     tree.show();
+    std::cout << '\n';
+    tree.show("");
 
 
     menu.show();

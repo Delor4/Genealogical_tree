@@ -23,3 +23,8 @@ void GenTree::show()
 {
     if(root) root->show();
 }
+
+void GenTree::show(std::string indent)
+{
+    if(root) root->show(indent);
+}

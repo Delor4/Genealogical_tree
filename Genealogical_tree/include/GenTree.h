@@ -12,6 +12,7 @@ class GenTree
         GenTreeItem * add_person(GenTreeItem *p,Person &);
 
         void show();
+        void show(std::string indent);
     protected:
 
     private:

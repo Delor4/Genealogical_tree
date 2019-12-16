@@ -12,14 +12,17 @@ class GenTreeItem
         virtual ~GenTreeItem();
 
         void show();
+        void show(std::string indent);
         GenTreeItem * add_children(Person &);
 
     protected:
 
     private:
-    GenTreeItem* parent;
-    std:: vector <GenTreeItem*> childrens;
-    Person data;
+        bool has_right_sibling();
+
+        Person data;
+        GenTreeItem* parent;
+        std:: vector <GenTreeItem*> childrens;
 };
 
 #endif // GENTREEITEM_H
