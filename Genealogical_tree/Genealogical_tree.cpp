@@ -48,6 +48,7 @@ Person input_new_person(){
     std::string sx;
     std::cout << "P³eæ (K/M):\n";
     std::cin >> sx;
+    sx += ".";
 
     return Person(fn,ln, by, sx[0]);
 }
