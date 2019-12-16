@@ -34,7 +34,7 @@ MENU_ITEMS GT_Menu::get_option()
 
     while(true){
         ReadConsoleInput(handle, &buffer, 1, &events);
-        if(!buffer.Event.KeyEvent.bKeyDown){
+        if(buffer.Event.KeyEvent.bKeyDown){
             char c = buffer.Event.KeyEvent.wVirtualKeyCode;
             std::cout << buffer.Event.KeyEvent.wVirtualKeyCode;
             for(auto &i: items){

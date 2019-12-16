@@ -39,6 +39,8 @@ int main()
 
     cout << "O" << endl;
     tree.show("", menu.get_curr_line(), menu);
+    std::cout.flush();
+    Sleep(10);
 
     switch(menu.get_option()){
     case EXIT:
