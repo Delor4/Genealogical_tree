@@ -46,12 +46,19 @@ int main()
         case EXIT:
             exit(0);
         case ADD_PERSON:
+            // TODO:
+            break;
         case EDIT_PERSON:
+            // TODO:
+            break;
         case DELETE_PERSON:
             tree.remove_by_id(menu.get_curr_line());
             break;
         case LOAD:
+            // TODO:
+            break;
         case SAVE:
+            // TODO:
             break;
         case ARROW_DOWN:
             menu.line_down();
