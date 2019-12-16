@@ -28,7 +28,7 @@ struct GT_MenuItem {
 
 class GT_Menu
 {
-    static const int MAXLINES = 20;
+    static const int MAXLINES = 24;
 
     public:
 
@@ -47,6 +47,7 @@ class GT_Menu
         void set_curr_max_lines(int);
 
         int get_curr_line();
+        int get_skip_lines();
         static int get_max_lines(){ return MAXLINES;};
     protected:
 
@@ -64,6 +65,7 @@ class GT_Menu
 
     int act_line;
     int curr_max_items;
+    int skip_lines;
 
     HANDLE hStdout;
 

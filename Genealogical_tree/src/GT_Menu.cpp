@@ -4,6 +4,7 @@
 
 GT_Menu::GT_Menu()
 :act_line{0}
+,skip_lines{0}
 {
     hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 }
@@ -74,26 +75,41 @@ WORD GT_Menu::SetConsoleAttr(WORD attr){
     return wOldColorAttrs;
 }
 
-void GT_Menu::check_constrants(){
+void GT_Menu::check_constrants()
+{
     if(act_line >= curr_max_items){
         act_line = curr_max_items - 1;
     }
     if(act_line < 0){
         act_line = 0;
     }
+    if(skip_lines > act_line){
+        skip_lines = act_line;
+    }
+    if((act_line - skip_lines) >= MAXLINES){
+        skip_lines = act_line - MAXLINES + 1;
+    }
 }
-void GT_Menu::line_down(){
+void GT_Menu::line_down()
+{
     ++act_line;
     check_constrants();
 }
-void GT_Menu::line_up(){
+void GT_Menu::line_up()
+{
     --act_line;
     check_constrants();
 }
-void GT_Menu::set_curr_max_lines(int _m){
+void GT_Menu::set_curr_max_lines(int _m)
+{
     curr_max_items = _m;
     check_constrants();
 }
-int GT_Menu::get_curr_line(){
+int GT_Menu::get_curr_line()
+{
     return act_line;
+}
+int GT_Menu::get_skip_lines()
+{
+    return skip_lines;
 }

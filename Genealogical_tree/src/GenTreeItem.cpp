@@ -31,26 +31,41 @@ void GenTreeItem::show()
         }
     }
 }
-void GenTreeItem::show(std::string indent, int line, GT_Menu &menu,int &curr_line)
+int GenTreeItem::show(std::string indent, int line, GT_Menu &menu,int &curr_line)
 {
-    std::cout << indent << (has_right_sibling()?"\xc3":"\xc0") << " ";
-    WORD old_attr;
-    if(curr_line == line){
-        old_attr = menu.SetConsoleAttr(BACKGROUND_INTENSITY);
+    if(curr_line==0){
+        if(menu.get_skip_lines()==0){
+            std::cout << "O\n";
+        }else{
+            std::cout << "^^^\n";
+        }
     }
-    std::cout << data;
-    if(curr_line == line){
-        menu.SetConsoleAttr(old_attr);
+    if((curr_line - menu.get_skip_lines()) >= menu.get_max_lines()){
+            std::cout << "vvv\n";
+            return -1;
     }
-    std::cout << '\n';
+
+    if(menu.get_skip_lines() <= curr_line){
+        std::cout << indent << (has_right_sibling()?"\xc3":"\xc0") << " ";
+        WORD old_attr;
+        if(curr_line == line){
+            old_attr = menu.SetConsoleAttr(BACKGROUND_INTENSITY);
+        }
+        std::cout << data;
+        if(curr_line == line){
+            menu.SetConsoleAttr(old_attr);
+        }
+        std::cout << '\n';
+    }
 
     std::string add_indent = (has_right_sibling()?"\xb3 ":"  ");
 
     for(auto i: childrens){
         if(i){
-            i->show(indent + add_indent, line, menu, ++curr_line);
+            if(i->show(indent + add_indent, line, menu, ++curr_line)<0) return -1;
         }
     }
+    return 0;
 
 }
 
