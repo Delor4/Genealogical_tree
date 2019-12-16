@@ -8,18 +8,13 @@
 enum MENU_ITEMS {
             NONE,
             ADD_PERSON,
-            ADD_CHILDREN,
             EDIT_PERSON,
             DELETE_PERSON,
-            DELETE_TREE,
-            SHOW_CHILDRENS,
-            SHOW_TREE,
             SAVE,
             LOAD,
             EXIT,
             ARROW_UP,
             ARROW_DOWN,
-            ENTER,
             GT_ERROR
         };
 
@@ -53,15 +48,14 @@ class GT_Menu
 
     private:
     std::vector<GT_MenuItem> items = {
-        {ADD_CHILDREN,  "a - dodaj osobe",                 {65}, true},
-        {EDIT_PERSON,   "e - modyfikuj osobe",             {69}, true},
+        {ADD_PERSON,    "a - dodaj osobe",                 {65}, true},
+        {EDIT_PERSON,   "e - modyfikuj osobe",             {69, 13}, true},
         {DELETE_PERSON, "d - usun osobe",                  {68}, true},
         {SAVE,          "s - zapisz drzewo",               {83}, true},
         {LOAD,          "l - odczytaj drzewo",             {76}, true},
         {EXIT,          "q - zakoncz program",             {81, 27}, true},
         {ARROW_UP,      "",                                {38}, false},
         {ARROW_DOWN,    "",                                {40}, false},
-        {ENTER,         "",                                {13}, false},
     };
 
     int act_line;

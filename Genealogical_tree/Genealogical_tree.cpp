@@ -23,7 +23,9 @@ void init_tree(GenTree& tree)
             Person p4("Grazyna", "Kowalska", 1994, 'K');
             GenTreeItem *i4 = tree.add_person(i3, p4);
 }
-
+Person input_new_person(){
+    return Person();
+}
 int main()
 {
     GT_Menu menu;
@@ -42,11 +44,15 @@ int main()
     std::cout.flush();
     Sleep(10);
 
-    switch(menu.get_option()){
+    auto opt = menu.get_option();
+    switch(opt){
         case EXIT:
             exit(0);
         case ADD_PERSON:
-            // TODO:
+            {
+                Person p = input_new_person();
+                tree.add_person(tree.find_by_id(menu.get_curr_line()), p);
+            }
             break;
         case EDIT_PERSON:
             // TODO:
@@ -67,6 +73,7 @@ int main()
             menu.line_up();
             break;
         default:
+            cout << opt;
             break;
         };
     }
