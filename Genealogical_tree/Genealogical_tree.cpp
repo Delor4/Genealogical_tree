@@ -43,23 +43,25 @@ int main()
     Sleep(10);
 
     switch(menu.get_option()){
-    case EXIT:
-        exit(0);
-    case ADD_PERSON:
-    case EDIT_PERSON:
-    case DELETE_PERSON:
-        tree.remove_by_id(menu.get_curr_line());
-        break;
-    case LOAD:
-    case SAVE:
-        break;
-    case ARROW_DOWN:
-        menu.line_down();
-        break;
+        case EXIT:
+            exit(0);
+        case ADD_PERSON:
+        case EDIT_PERSON:
+        case DELETE_PERSON:
+            tree.remove_by_id(menu.get_curr_line());
+            break;
+        case LOAD:
+        case SAVE:
+            break;
+        case ARROW_DOWN:
+            menu.line_down();
+            break;
         case ARROW_UP:
-        menu.line_up();
-        break;
-    };
+            menu.line_up();
+            break;
+        default:
+            break;
+        };
     }
     return 0;
 }

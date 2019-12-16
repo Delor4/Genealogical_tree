@@ -41,7 +41,7 @@ class GT_Menu
         void show();
         MENU_ITEMS get_option();
 
-        void gotoxy(int x, int y);
+        void gotoxy(short x, short y);
         void cls();
         WORD SetConsoleAttr(WORD attr);
 
@@ -66,6 +66,8 @@ class GT_Menu
 
     int act_line;
     int max_items;
+
+    HANDLE hStdout;
 
     void check_constrants();
 };

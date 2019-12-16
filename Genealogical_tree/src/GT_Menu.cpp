@@ -5,7 +5,7 @@
 GT_Menu::GT_Menu()
 :act_line{0}
 {
-
+    hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 }
 
 GT_Menu::~GT_Menu()
@@ -36,7 +36,6 @@ MENU_ITEMS GT_Menu::get_option()
         ReadConsoleInput(handle, &buffer, 1, &events);
         if(buffer.Event.KeyEvent.bKeyDown){
             char c = buffer.Event.KeyEvent.wVirtualKeyCode;
-            std::cout << buffer.Event.KeyEvent.wVirtualKeyCode;
             for(auto &i: items){
                 for(auto k: i.short_keys){
                     if(k==c) return i.ID;
@@ -46,32 +45,27 @@ MENU_ITEMS GT_Menu::get_option()
     }
 };
 
-void GT_Menu::gotoxy(int x, int y) {
-        COORD cur;
-        cur.X = x;
-        cur.Y = y;
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cur);
+void GT_Menu::gotoxy(short x, short y) {
+        COORD coordScreen = {x, y};
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordScreen);
 
 }
 void GT_Menu::cls(void) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD coordScreen = {0, 0};
     DWORD cCharsWritten;
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     DWORD dwConSize;
-    GetConsoleScreenBufferInfo(hConsole, &csbi);
+    GetConsoleScreenBufferInfo(hStdout, &csbi);
     dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-    FillConsoleOutputCharacter(hConsole, (TCHAR)' ',
+    FillConsoleOutputCharacter(hStdout, (TCHAR)' ',
        dwConSize, coordScreen, &cCharsWritten);
-    GetConsoleScreenBufferInfo(hConsole, &csbi);
-    FillConsoleOutputAttribute(hConsole, csbi.wAttributes,
+    GetConsoleScreenBufferInfo(hStdout, &csbi);
+    FillConsoleOutputAttribute(hStdout, csbi.wAttributes,
        dwConSize, coordScreen, &cCharsWritten);
-    SetConsoleCursorPosition(hConsole, coordScreen);
+    SetConsoleCursorPosition(hStdout, coordScreen);
 }
 WORD GT_Menu::SetConsoleAttr(WORD attr){
     CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
-    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-
     GetConsoleScreenBufferInfo(hStdout, &csbiInfo);
     WORD wOldColorAttrs = csbiInfo.wAttributes;
 
