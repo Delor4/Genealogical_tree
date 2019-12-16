@@ -26,5 +26,12 @@ void GenTree::show()
 
 void GenTree::show(std::string indent, int line, GT_Menu &menu)
 {
-    if(root) root->show(indent, line, menu, 0);
+    int start = 0;
+    if(root) root->show(indent, line, menu, start);
+}
+
+int GenTree::get_size()
+{
+    if(root) return root->get_size();
+    return 0;
 }

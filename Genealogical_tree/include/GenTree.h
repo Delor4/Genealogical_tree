@@ -13,6 +13,7 @@ class GenTree
 
         void show();
         void show(std::string indent, int line, GT_Menu &menu);
+        int get_size();
     protected:
 
     private:

@@ -17,6 +17,9 @@ enum MENU_ITEMS {
             SAVE,
             LOAD,
             EXIT,
+            ARROW_UP,
+            ARROW_DOWN,
+            ENTER,
             GT_ERROR
         };
 
@@ -41,17 +44,30 @@ class GT_Menu
         void gotoxy(int x, int y);
         void cls();
         WORD SetConsoleAttr(WORD attr);
+
+        void line_down();
+        void line_up();
+        void set_max_lines(int);
+        int get_curr_line();
     protected:
 
     private:
     std::vector<GT_MenuItem> items = {
-        {ADD_CHILDREN,  "a - dodaj osobe",                 {'2'}, false},
-        {EDIT_PERSON,   "e - modyfikuj osobe",             {'3'}, false},
-        {DELETE_PERSON, "d - usun osobe",                  {'6'}, false},
-        {SAVE,          "s - zapisz drzewo",               {'8'}, false},
-        {LOAD,          "l - odczytaj drzewo",             {'9'}, false},
-        {EXIT,          "q - zakoncz program",             {'0', 'q'}, false},
+        {ADD_CHILDREN,  "a - dodaj osobe",                 {65}, false},
+        {EDIT_PERSON,   "e - modyfikuj osobe",             {69}, false},
+        {DELETE_PERSON, "d - usun osobe",                  {68}, false},
+        {SAVE,          "s - zapisz drzewo",               {83}, false},
+        {LOAD,          "l - odczytaj drzewo",             {76}, false},
+        {EXIT,          "q - zakoncz program",             {81, 27}, false},
+        {ARROW_UP,      "",                                {38}, false},
+        {ARROW_DOWN,    "",                                {40}, false},
+        {ENTER,         "",                                {13}, false},
     };
+
+    int act_line;
+    int max_items;
+
+    void check_constrants();
 };
 
 #endif // GT_MENU_H

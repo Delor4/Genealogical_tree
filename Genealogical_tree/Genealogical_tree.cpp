@@ -30,13 +30,15 @@ int main()
     GenTree tree;
 
     init_tree(tree);
-
+    while(true){
+    menu.set_max_lines(tree.get_size());
     menu.cls();
-    cout << "Genealogical Tree." << endl;
+    cout << "Drzewo genealogiczne." << endl;
 
     menu.show();
+
     cout << "O" << endl;
-    tree.show("", 0, menu);
+    tree.show("", menu.get_curr_line(), menu);
 
     switch(menu.get_option()){
     case EXIT:
@@ -47,7 +49,13 @@ int main()
     case LOAD:
     case SAVE:
         break;
+    case ARROW_DOWN:
+        menu.line_down();
+        break;
+        case ARROW_UP:
+        menu.line_up();
+        break;
     };
-
+    }
     return 0;
 }

@@ -29,7 +29,7 @@ void GenTreeItem::show()
         }
     }
 }
-void GenTreeItem::show(std::string indent, int line, GT_Menu &menu,int curr_line)
+void GenTreeItem::show(std::string indent, int line, GT_Menu &menu,int &curr_line)
 {
     std::cout << indent << (has_right_sibling()?"\xc3":"\xc0") << " ";
     WORD old_attr;
@@ -40,8 +40,8 @@ void GenTreeItem::show(std::string indent, int line, GT_Menu &menu,int curr_line
     if(curr_line == line){
         menu.SetConsoleAttr(old_attr);
     }
-    //std::cout << '\n';
-    std::cout << line << " " << curr_line << '\n';
+    std::cout << '\n';
+
     std::string add_indent = (has_right_sibling()?"\xb3 ":"  ");
 
     for(auto i: childrens){
@@ -69,4 +69,14 @@ bool GenTreeItem::has_right_sibling()
         }
     }
     return false;
+}
+auto get_item_size = [](int a, GenTreeItem* b) {
+                         return a + (b?b->get_size():0);
+                     };
+
+
+
+int GenTreeItem::get_size()
+{
+    return std::accumulate(childrens.begin(), childrens.end(), 1, get_item_size);
 }

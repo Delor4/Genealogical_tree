@@ -3,6 +3,7 @@
 #include <iostream>
 
 GT_Menu::GT_Menu()
+:act_line{0}
 {
 
 }
@@ -33,7 +34,8 @@ MENU_ITEMS GT_Menu::get_option()
     while(true){
         ReadConsoleInput(handle, &buffer, 1, &events);
         if(!buffer.Event.KeyEvent.bKeyDown){
-            char c = buffer.Event.KeyEvent.uChar.AsciiChar;
+            char c = buffer.Event.KeyEvent.wVirtualKeyCode;
+            std::cout << buffer.Event.KeyEvent.wVirtualKeyCode;
             for(auto &i: items){
                 for(auto k: i.short_keys){
                     if(k==c) return i.ID;
@@ -75,4 +77,28 @@ WORD GT_Menu::SetConsoleAttr(WORD attr){
     SetConsoleTextAttribute(hStdout, attr);
 
     return wOldColorAttrs;
+}
+
+void GT_Menu::check_constrants(){
+    if(act_line >= max_items){
+        act_line = max_items - 1;
+    }
+    if(act_line < 0){
+        act_line = 0;
+    }
+}
+void GT_Menu::line_down(){
+    ++act_line;
+    check_constrants();
+}
+void GT_Menu::line_up(){
+    --act_line;
+    check_constrants();
+}
+void GT_Menu::set_max_lines(int _m){
+    max_items = _m;
+    check_constrants();
+}
+int GT_Menu::get_curr_line(){
+    return act_line;
 }
