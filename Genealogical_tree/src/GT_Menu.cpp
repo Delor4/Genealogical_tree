@@ -35,7 +35,6 @@ GT_Menu::MENU_ITEMS GT_Menu::get_option()
 
     ReadConsoleInput(h_stdin, &buffer, 1, &events);
     if (buffer.Event.KeyEvent.bKeyDown) {
-            std::cout << buffer.Event.KeyEvent.wVirtualKeyCode;
         for (auto& i : items) {
             for (auto k : i.short_keys) {
                 if (k == buffer.Event.KeyEvent.wVirtualKeyCode)

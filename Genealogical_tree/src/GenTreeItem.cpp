@@ -174,3 +174,10 @@ int GenTreeItem::get_id(GenTreeItem *t, int &curr)
     }
     return -1;
 }
+GenTreeItem *GenTreeItem::get_leftmost_child()
+{
+    for (auto i : childrens) {
+        if (i) return i;
+    }
+    return nullptr;
+}
