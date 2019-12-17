@@ -2,6 +2,7 @@
 #define GENTREEITEM_H
 
 #include <vector>
+#include <fstream>
 #include "Person.h"
 #include "GT_Menu.h"
 
@@ -23,10 +24,13 @@ class GenTreeItem
         void remove_child(GenTreeItem *);
         Person get_person();
         void set_person(Person &);
+
+        void save(std::ostream &os);
     protected:
 
     private:
         bool has_right_sibling();
+        int count_childrens();
 
         Person data;
         GenTreeItem* parent;

@@ -22,3 +22,19 @@ std::ostream& operator<<(std::ostream& os, const Person& p)
     os << p.first_name << ' ' << p.last_name << ", " << p.birth_year << ", " << p.sex;
     return os;
 }
+
+void Person::save(std::ostream &os)
+{
+    short tmp;
+    tmp = first_name.length();
+    os.write(reinterpret_cast<const char *>(&tmp), sizeof(tmp));
+    os << first_name;
+
+    tmp = last_name.length();
+    os.write(reinterpret_cast<const char *>(&tmp), sizeof(tmp));
+    os << last_name;
+
+    os.write(reinterpret_cast<const char *>(&birth_year), sizeof(birth_year));
+
+    os << sex;
+}

@@ -93,7 +93,16 @@ Person edit_person(GenTreeItem *i){
 
     return Person(ofn,oln, by, sx[0]);
 }
+void save_tree(GenTree &tree)
+{
+    intro();
+    std::cout << "Zapisywanie drzewa do pliku.\n\n";
+    std::cout << "Podaj nazwe pliku:\n";
+    std::string path = get_string("");
+    if(!path.length()) return;
 
+    tree.save(path);
+}
 int main()
 {
     GT_Menu menu;
@@ -143,7 +152,10 @@ int main()
             // TODO:
             break;
         case GT_Menu::SAVE:
-            // TODO:
+            if(tree.get_size()){
+                menu.cls();
+                save_tree(tree);
+            }
             break;
         case GT_Menu::ARROW_DOWN:
             menu.line_down();

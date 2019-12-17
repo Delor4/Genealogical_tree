@@ -97,6 +97,13 @@ int GenTreeItem::get_size()
 {
     return std::accumulate(childrens.begin(), childrens.end(), 1, get_item_size);
 }
+auto count_item_childrens = [](int a, GenTreeItem* b) {
+    return a + (b ? 1 : 0);
+};
+int GenTreeItem::count_childrens()
+{
+    return std::accumulate(childrens.begin(), childrens.end(), 0, count_item_childrens);
+}
 GenTreeItem* GenTreeItem::find_by_id(int id, int& curr)
 {
     if (id == curr)
@@ -131,4 +138,14 @@ Person GenTreeItem::get_person()
 void GenTreeItem::set_person(Person& p)
 {
     data = p;
+}
+void GenTreeItem::save(std::ostream &os)
+{
+    data.save(os);
+    short tmp;
+    tmp = count_childrens();
+    os.write(reinterpret_cast<const char *>(&tmp), sizeof(tmp));
+    for(auto i: childrens){
+        if(i) i->save(os);
+    }
 }

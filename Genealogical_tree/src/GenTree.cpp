@@ -1,5 +1,7 @@
 #include "GenTree.h"
 
+#include <fstream>
+
 GenTree::GenTree()
     : root{ nullptr }
 {
@@ -61,4 +63,13 @@ void GenTree::set_person(GenTreeItem* i, Person& p)
 {
     if (i)
         i->set_person(p);
+}
+
+void GenTree::save(std::string path)
+{
+    if(!root) return;
+    std::fstream out;
+    out.open(path, std::ios::out | std::ios::trunc | std::ios::binary);
+    root->save(out);
+    out.close();
 }

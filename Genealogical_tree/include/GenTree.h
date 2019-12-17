@@ -17,6 +17,8 @@ public:
     GenTreeItem* find_by_id(int id);
     void set_person(GenTreeItem* p, Person&);
 
+    void save(std::string path);
+
 protected:
 private:
     GenTreeItem* root;

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 class Person {
 public:
@@ -17,6 +18,7 @@ public:
     int birth_year;
     char sex;
 
+    void save(std::ostream &os);
 protected:
 private:
 };
