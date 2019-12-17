@@ -16,6 +16,7 @@ class GenTree
         int get_size();
         void remove_by_id(int id);
         GenTreeItem * find_by_id(int id);
+        void set_person(GenTreeItem *p, Person &);
     protected:
 
     private:

@@ -29,29 +29,58 @@ void intro()
     cout << "Drzewo genealogiczne.\n";
 }
 
+std::string get_string(std::string default_s){
+    char buff[256];
+
+    int out = scanf("%255[^\n]*c",buff);
+    fflush(stdin);
+    if(out <= 0) return default_s;
+    return std::string(buff);
+}
 Person input_new_person(){
     intro();
     std::cout << "Tworzenie nowej osoby.\n\n";
 
-    std::string fn;
     std::cout << "Imie:\n";
-    std::getline(std::cin, fn);
+    std::string ofn = get_string("John");
 
-    std::string ln;
     std::cout << "Nazwisko:\n";
-    std::getline(std::cin, ln);
+    std::string oln = get_string("Doe");
 
-    int by;
     std::cout << "Rok urodzenia:\n";
-    std::cin >> by;
+    std::string sby = get_string("1900");
+    int by = stoi(sby);
+    if(!by) by=1900;
 
-    std::string sx;
-    std::cout << "P³eæ (K/M):\n";
-    std::cin >> sx;
-    sx += ".";
+    std::cout << "Plec (K/M):\n";
+    std::string sx = get_string("M");
 
-    return Person(fn,ln, by, sx[0]);
+    return Person(ofn,oln, by, sx[0]);
 }
+Person edit_person(GenTreeItem *i){
+    Person p = i->get_person();
+    intro();
+    std::cout << "Edycja osoby.\n\n";
+
+    std::cout << "Imie ["<< p.first_name <<"]:\n";
+    std::string ofn = get_string(p.first_name);
+
+    std::cout << "Nazwisko ["<< p.last_name <<"]:\n";
+    std::string oln = get_string(p.last_name);
+
+    std::cout << "Rok urodzenia ["<< p.birth_year <<"]:\n";
+    std::string sby = get_string("0");
+    int by = stoi(sby);
+    if(!by){
+        by=p.birth_year;
+    }
+
+    std::cout << "Plec (K/M) ["<< p.sex <<"]:\n";
+    std::string sx = get_string(std::string("")+p.sex);
+
+    return Person(ofn,oln, by, sx[0]);
+}
+
 int main()
 {
     GT_Menu menu;
@@ -81,7 +110,16 @@ int main()
             }
             break;
         case EDIT_PERSON:
-            // TODO:
+            {
+                menu.cls();
+                GenTreeItem * i = tree.find_by_id(menu.get_curr_line());
+                if(!i){
+                    //TODO: show error
+                }else{
+                    Person p = edit_person(i);
+                    tree.set_person(i, p);
+                }
+            }
             break;
         case DELETE_PERSON:
             tree.remove_by_id(menu.get_curr_line());

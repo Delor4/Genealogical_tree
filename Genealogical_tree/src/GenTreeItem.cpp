@@ -123,3 +123,11 @@ void GenTreeItem::remove_child(GenTreeItem *c)
         }
     }
 }
+Person GenTreeItem::get_person()
+{
+    return data;
+}
+void GenTreeItem::set_person(Person &p)
+{
+    data = p;
+}

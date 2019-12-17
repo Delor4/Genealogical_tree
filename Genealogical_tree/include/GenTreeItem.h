@@ -21,7 +21,8 @@ class GenTreeItem
         GenTreeItem * find_by_id(int id, int &curr);
         GenTreeItem *get_parent();
         void remove_child(GenTreeItem *);
-
+        Person get_person();
+        void set_person(Person &);
     protected:
 
     private:

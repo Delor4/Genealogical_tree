@@ -52,3 +52,10 @@ GenTreeItem * GenTree::find_by_id(int id)
     if(root) return root->find_by_id(id, start);
     return nullptr;
 }
+
+void GenTree::set_person(GenTreeItem *i, Person &p)
+{
+    if(i!=nullptr){
+        i->set_person(p);
+    }
+}
