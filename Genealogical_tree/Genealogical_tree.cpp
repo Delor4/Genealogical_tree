@@ -177,6 +177,9 @@ int main()
         case GT_Menu::ARROW_UP:
             menu.line_up();
             break;
+        case GT_Menu::ARROW_LEFT:
+            menu.set_curr_line(tree.get_id(tree.find_by_id(menu.get_curr_line())->get_parent()));
+            break;
         default:
             cout << opt;
             break;

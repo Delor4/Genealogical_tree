@@ -24,7 +24,7 @@ class GenTreeItem
         void remove_child(GenTreeItem *);
         Person get_person();
         void set_person(Person &);
-
+        int get_id(GenTreeItem *, int &curr);
         void save(std::ostream &os);
         bool load(std::istream &os);
     protected:

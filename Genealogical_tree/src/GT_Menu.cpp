@@ -35,6 +35,7 @@ GT_Menu::MENU_ITEMS GT_Menu::get_option()
 
     ReadConsoleInput(h_stdin, &buffer, 1, &events);
     if (buffer.Event.KeyEvent.bKeyDown) {
+            std::cout << buffer.Event.KeyEvent.wVirtualKeyCode;
         for (auto& i : items) {
             for (auto k : i.short_keys) {
                 if (k == buffer.Event.KeyEvent.wVirtualKeyCode)
@@ -118,4 +119,9 @@ int GT_Menu::get_curr_line()
 int GT_Menu::get_skip_lines()
 {
     return skip_lines;
+}
+void GT_Menu::set_curr_line(int line)
+{
+    act_line = line;
+    check_constraints();
 }

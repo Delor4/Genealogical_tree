@@ -21,6 +21,8 @@ public:
         EXIT,
         ARROW_UP,
         ARROW_DOWN,
+        ARROW_LEFT,
+        ARROW_RIGHT,
         GT_ERROR
     };
     GT_Menu();
@@ -38,6 +40,7 @@ public:
     void set_curr_max_lines(int);
 
     int get_curr_line();
+    void set_curr_line(int line);
     int get_skip_lines();
     static int get_max_lines() { return MAXLINES; };
 protected:
@@ -49,14 +52,16 @@ private:
         bool show;
     };
     std::vector<GT_MenuItem> items = {
-        { ADD_PERSON,   "a - dodaj potomka",    { 65 },     true },
-        { EDIT_PERSON,  "e - modyfikuj osobe",  { 69, 13 }, true },
-        { DELETE_PERSON, "d - usun osobe",      { 68 },     true },
-        { SAVE,         "s - zapisz drzewo",    { 83 },     true },
-        { LOAD,         "l - odczytaj drzewo",  { 76 },     true },
-        { EXIT,         "q - zakoncz program",  { 81, 27 }, true },
-        { ARROW_UP,     "",                     { 38 },     false },
-        { ARROW_DOWN,   "",                     { 40 },     false },
+        { ADD_PERSON,   "a - dodaj potomka",    { 65, VK_INSERT },      true },
+        { EDIT_PERSON,  "e - modyfikuj osobe",  { 69, VK_RETURN },      true },
+        { DELETE_PERSON, "d - usun osobe",      { 68, VK_DELETE },      true },
+        { SAVE,         "s - zapisz drzewo",    { 83 },                 true },
+        { LOAD,         "l - odczytaj drzewo",  { 76 },                 true },
+        { EXIT,         "q - zakoncz program",  { 81, VK_ESCAPE },      true },
+        { ARROW_UP,     "",                     { VK_UP },              false },
+        { ARROW_DOWN,   "",                     { VK_DOWN },            false },
+        { ARROW_LEFT,   "",                     { VK_LEFT },            false },
+        { ARROW_RIGHT,  "",                     { VK_RIGHT },           false },
     };
 
     int act_line;

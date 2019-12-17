@@ -89,3 +89,8 @@ void GenTree::swap(GenTree &t)
 {
     std::swap(root, t.root);
 }
+int GenTree::get_id(GenTreeItem *i)
+{
+    int start = 0;
+    return root?root->get_id(i, start):-1;
+}

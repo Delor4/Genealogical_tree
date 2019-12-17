@@ -15,11 +15,13 @@ public:
     int get_size();
     void remove_by_id(int id);
     GenTreeItem* find_by_id(int id);
+    int get_id(GenTreeItem *);
     void set_person(GenTreeItem* p, Person&);
 
     void save(std::string path);
     bool load(std::string path);
     void swap(GenTree &);
+
 protected:
 private:
     GenTreeItem* root;

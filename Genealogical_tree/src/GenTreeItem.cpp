@@ -163,3 +163,14 @@ bool GenTreeItem::load(std::istream &os)
     }
     return true;
 }
+int GenTreeItem::get_id(GenTreeItem *t, int &curr)
+{
+    if (this == t)
+        return curr;
+    int out;
+    for (auto i : childrens) {
+        if (i && (out = i->get_id(t, ++curr)) >=0 )
+            return out;
+    }
+    return -1;
+}
