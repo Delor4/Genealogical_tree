@@ -73,3 +73,19 @@ void GenTree::save(std::string path)
     root->save(out);
     out.close();
 }
+bool GenTree::load(std::string path)
+{
+    std::fstream in;
+    in.open(path, std::ios::in | std::ios::binary);
+
+    GenTreeItem * g = new GenTreeItem();
+    g->load(in);
+    in.close();
+    delete root;
+    root = g;
+    return true;
+}
+void GenTree::swap(GenTree &t)
+{
+    std::swap(root, t.root);
+}

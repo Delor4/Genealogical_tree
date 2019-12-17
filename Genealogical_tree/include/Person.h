@@ -19,6 +19,7 @@ public:
     char sex;
 
     void save(std::ostream &os);
+    bool load(std::istream &os);
 protected:
 private:
 };

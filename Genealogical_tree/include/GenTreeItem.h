@@ -26,6 +26,7 @@ class GenTreeItem
         void set_person(Person &);
 
         void save(std::ostream &os);
+        bool load(std::istream &os);
     protected:
 
     private:

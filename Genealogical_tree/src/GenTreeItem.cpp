@@ -149,3 +149,17 @@ void GenTreeItem::save(std::ostream &os)
         if(i) i->save(os);
     }
 }
+bool GenTreeItem::load(std::istream &os)
+{
+    data.load(os);
+    std::cout << "Zaladowalem " << data << "\n";
+    short tmp;
+    os.read(reinterpret_cast<char *>(&tmp), sizeof(tmp));
+    for(int i = 0; i<tmp; ++i){
+        GenTreeItem * g = new GenTreeItem();
+        g->load(os);
+        g->parent = this;
+        childrens.push_back(g);
+    }
+    return true;
+}

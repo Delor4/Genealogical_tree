@@ -18,7 +18,8 @@ public:
     void set_person(GenTreeItem* p, Person&);
 
     void save(std::string path);
-
+    bool load(std::string path);
+    void swap(GenTree &);
 protected:
 private:
     GenTreeItem* root;

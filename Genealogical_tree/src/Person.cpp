@@ -38,3 +38,25 @@ void Person::save(std::ostream &os)
 
     os << sex;
 }
+std::string read_string(std::istream &os)
+{
+    short tmp;
+    os.read(reinterpret_cast<char *>(&tmp), sizeof(tmp));
+    char *buff = new char[tmp + 1];
+    os.read(buff, tmp);
+    buff[tmp] = 0;
+    std::string out(buff);
+    delete[] buff;
+    return out;
+}
+
+bool Person::load(std::istream &os)
+{
+    first_name = read_string(os);
+    last_name = read_string(os);
+
+    os.read(reinterpret_cast<char *>(&birth_year), sizeof(birth_year));
+    os >> sex;
+
+    return true;
+}

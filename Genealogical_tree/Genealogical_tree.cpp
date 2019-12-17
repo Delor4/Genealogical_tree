@@ -103,6 +103,19 @@ void save_tree(GenTree &tree)
 
     tree.save(path);
 }
+void load_tree(GenTree &tree)
+{
+    intro();
+    std::cout << "Wczytywanie drzewa z pliku.\n\n";
+    std::cout << "Podaj nazwe pliku:\n";
+    std::string path = get_string("");
+    if(!path.length()) return;
+
+    GenTree n_tree;
+    if (n_tree.load(path)){
+        tree.swap(n_tree);
+    };
+}
 int main()
 {
     GT_Menu menu;
@@ -149,7 +162,8 @@ int main()
             tree.remove_by_id(menu.get_curr_line());
             break;
         case GT_Menu::LOAD:
-            // TODO:
+            menu.cls();
+            load_tree(tree);
             break;
         case GT_Menu::SAVE:
             if(tree.get_size()){
