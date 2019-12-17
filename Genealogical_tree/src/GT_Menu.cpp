@@ -3,23 +3,24 @@
 #include <iostream>
 
 GT_Menu::GT_Menu()
-:act_line{0}
-,skip_lines{0}
+    : act_line{ 0 }
+    , skip_lines{ 0 }
+    , h_stdout{ GetStdHandle(STD_OUTPUT_HANDLE) }
+    , h_stdin{ GetStdHandle(STD_INPUT_HANDLE) }
 {
-    hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
 }
 
 GT_Menu::~GT_Menu()
 {
-    //dtor
 }
 
 void GT_Menu::show()
 {
     bool first = true;
-    for(auto &i: items){
-        if(i.show){
-            if(!first) std::cout << ", ";
+    for (auto& i : items) {
+        if (i.show) {
+            if (!first)
+                std::cout << ", ";
             std::cout << i.label;
             first = false;
         }
@@ -27,88 +28,93 @@ void GT_Menu::show()
     std::cout << "\n";
 }
 
-MENU_ITEMS GT_Menu::get_option()
+GT_Menu::MENU_ITEMS GT_Menu::get_option()
 {
-    HANDLE handle = GetStdHandle(STD_INPUT_HANDLE);
     DWORD events;
     INPUT_RECORD buffer;
 
-    while(true){
-        ReadConsoleInput(handle, &buffer, 1, &events);
-        if(buffer.Event.KeyEvent.bKeyDown){
-            char c = buffer.Event.KeyEvent.wVirtualKeyCode;
-            for(auto &i: items){
-                for(auto k: i.short_keys){
-                    if(k==c) return i.ID;
-                }
+    ReadConsoleInput(h_stdin, &buffer, 1, &events);
+    if (buffer.Event.KeyEvent.bKeyDown) {
+        for (auto& i : items) {
+            for (auto k : i.short_keys) {
+                if (k == buffer.Event.KeyEvent.wVirtualKeyCode)
+                    return i.ID;
             }
         }
     }
+    return GT_Menu::NONE;
 };
 
-void GT_Menu::gotoxy(short x, short y) {
-        COORD coordScreen = {x, y};
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coordScreen);
-
-}
-void GT_Menu::cls(void) {
-    COORD coordScreen = {0, 0};
-    DWORD cCharsWritten;
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    DWORD dwConSize;
-    GetConsoleScreenBufferInfo(hStdout, &csbi);
-    dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-    FillConsoleOutputCharacter(hStdout, (TCHAR)' ',
-       dwConSize, coordScreen, &cCharsWritten);
-    GetConsoleScreenBufferInfo(hStdout, &csbi);
-    FillConsoleOutputAttribute(hStdout, csbi.wAttributes,
-       dwConSize, coordScreen, &cCharsWritten);
-    SetConsoleCursorPosition(hStdout, coordScreen);
-}
-WORD GT_Menu::SetConsoleAttr(WORD attr){
-    CONSOLE_SCREEN_BUFFER_INFO csbiInfo;
-    GetConsoleScreenBufferInfo(hStdout, &csbiInfo);
-    WORD wOldColorAttrs = csbiInfo.wAttributes;
-
-    SetConsoleTextAttribute(hStdout, attr);
-
-    return wOldColorAttrs;
-}
-
-void GT_Menu::check_constrants()
+void GT_Menu::gotoxy(short x, short y)
 {
-    if(act_line >= curr_max_items){
-        act_line = curr_max_items - 1;
-    }
-    if(act_line < 0){
-        act_line = 0;
-    }
-    if(skip_lines > act_line){
-        skip_lines = act_line;
-    }
-    if((act_line - skip_lines) >= MAXLINES){
-        skip_lines = act_line - MAXLINES + 1;
-    }
+    COORD coord_screen = { x, y };
+    SetConsoleCursorPosition(h_stdout, coord_screen);
 }
+
+void GT_Menu::cls(void)
+{
+    COORD coord_screen = { 0, 0 };
+    DWORD chars_written;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    DWORD con_size;
+
+    GetConsoleScreenBufferInfo(h_stdout, &csbi);
+    con_size = csbi.dwSize.X * csbi.dwSize.Y;
+    FillConsoleOutputCharacter(h_stdout, (TCHAR)' ', con_size, coord_screen, &chars_written);
+    GetConsoleScreenBufferInfo(h_stdout, &csbi);
+    FillConsoleOutputAttribute(h_stdout, csbi.wAttributes, con_size, coord_screen, &chars_written);
+    SetConsoleCursorPosition(h_stdout, coord_screen);
+}
+
+WORD GT_Menu::set_text_attr(WORD attr)
+{
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(h_stdout, &csbi);
+    WORD old_attr = csbi.wAttributes;
+
+    SetConsoleTextAttribute(h_stdout, attr);
+
+    return old_attr;
+}
+
+void GT_Menu::check_constraints()
+{
+    if (act_line >= curr_max_items)
+        act_line = curr_max_items - 1;
+
+    if (act_line < 0)
+        act_line = 0;
+
+    if (skip_lines > act_line)
+        skip_lines = act_line;
+
+    if ((act_line - skip_lines) >= MAXLINES)
+        skip_lines = act_line - MAXLINES + 1;
+}
+
 void GT_Menu::line_down()
 {
     ++act_line;
-    check_constrants();
+    check_constraints();
 }
+
 void GT_Menu::line_up()
 {
     --act_line;
-    check_constrants();
+    check_constraints();
 }
+
 void GT_Menu::set_curr_max_lines(int _m)
 {
     curr_max_items = _m;
-    check_constrants();
+    check_constraints();
 }
+
 int GT_Menu::get_curr_line()
 {
     return act_line;
 }
+
 int GT_Menu::get_skip_lines()
 {
     return skip_lines;

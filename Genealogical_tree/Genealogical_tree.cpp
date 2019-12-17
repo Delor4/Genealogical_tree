@@ -99,17 +99,19 @@ int main()
         Sleep(50);
 
         auto opt = menu.get_option();
+        while(opt == GT_Menu::NONE) opt = menu.get_option();
+
         switch(opt){
-        case EXIT:
+        case GT_Menu::EXIT:
             exit(0);
-        case ADD_PERSON:
+        case GT_Menu::ADD_PERSON:
             {
                 menu.cls();
                 Person p = input_new_person();
                 tree.add_person(tree.find_by_id(menu.get_curr_line()), p);
             }
             break;
-        case EDIT_PERSON:
+        case GT_Menu::EDIT_PERSON:
             {
                 menu.cls();
                 GenTreeItem * i = tree.find_by_id(menu.get_curr_line());
@@ -121,19 +123,19 @@ int main()
                 }
             }
             break;
-        case DELETE_PERSON:
+        case GT_Menu::DELETE_PERSON:
             tree.remove_by_id(menu.get_curr_line());
             break;
-        case LOAD:
+        case GT_Menu::LOAD:
             // TODO:
             break;
-        case SAVE:
+        case GT_Menu::SAVE:
             // TODO:
             break;
-        case ARROW_DOWN:
+        case GT_Menu::ARROW_DOWN:
             menu.line_down();
             break;
-        case ARROW_UP:
+        case GT_Menu::ARROW_UP:
             menu.line_up();
             break;
         default:

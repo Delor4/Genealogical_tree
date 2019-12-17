@@ -1,8 +1,8 @@
 #include "GenTree.h"
 
 GenTree::GenTree()
+    : root{ nullptr }
 {
-    //ctor
 }
 
 GenTree::~GenTree()
@@ -10,10 +10,10 @@ GenTree::~GenTree()
     delete root;
 }
 
-GenTreeItem * GenTree::add_person(GenTreeItem *r,Person &p)
+GenTreeItem* GenTree::add_person(GenTreeItem* r, Person& p)
 {
-    //TODO: root!=nullpointer and r==null
-    if(r==nullptr){//add to root of tree
+    if (r == nullptr) { //add to root of tree
+        delete root;
         return root = new GenTreeItem(p);
     }
     return r->add_children(p);
@@ -21,41 +21,44 @@ GenTreeItem * GenTree::add_person(GenTreeItem *r,Person &p)
 
 void GenTree::show()
 {
-    if(root) root->show();
+    if (root)
+        root->show();
 }
 
-void GenTree::show(std::string indent, int line, GT_Menu &menu)
+void GenTree::show(std::string indent, int line, GT_Menu& menu)
 {
     int start = 0;
-    if(root) root->show(indent, line, menu, start);
+    if (root)
+        root->show(indent, line, menu, start);
 }
 
 int GenTree::get_size()
 {
-    if(root) return root->get_size();
-    return 0;
+    return root ? root->get_size() : 0;
 }
+
 void GenTree::remove_by_id(int id)
 {
-    GenTreeItem * p = find_by_id(id);
-    if(!p) return;
-    if(p == root){
+    GenTreeItem* p = find_by_id(id);
+    if (!p)
+        return;
+    if (p == root) {
         root = nullptr;
         delete p;
-    }else{
+    }
+    else {
         p->get_parent()->remove_child(p);
     }
 }
-GenTreeItem * GenTree::find_by_id(int id)
+
+GenTreeItem* GenTree::find_by_id(int id)
 {
     int start = 0;
-    if(root) return root->find_by_id(id, start);
-    return nullptr;
+    return root ? root->find_by_id(id, start) : nullptr;
 }
 
-void GenTree::set_person(GenTreeItem *i, Person &p)
+void GenTree::set_person(GenTreeItem* i, Person& p)
 {
-    if(i!=nullptr){
+    if (i)
         i->set_person(p);
-    }
 }

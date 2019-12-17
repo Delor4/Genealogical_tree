@@ -13,7 +13,7 @@ class GenTreeItem
         virtual ~GenTreeItem();
 
         void show();
-        int show(std::string indent, int line, GT_Menu &menu, int &curr_line);
+        bool show(std::string indent, int line, GT_Menu &menu, int &curr_line);
         GenTreeItem * add_children(Person &);
 
         int get_size();
