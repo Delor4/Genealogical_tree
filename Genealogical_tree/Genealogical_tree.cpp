@@ -186,6 +186,12 @@ int main()
                 if(c) menu.set_curr_line(tree.get_id(c));
             }
             break;
+        case GT_Menu::PAGE_UP:
+            menu.set_curr_line(menu.get_curr_line() - menu.get_max_lines());
+            break;
+        case GT_Menu::PAGE_DOWN:
+            menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines());
+            break;
         default:
             cout << opt;
             break;

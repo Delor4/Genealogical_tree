@@ -23,6 +23,8 @@ public:
         ARROW_DOWN,
         ARROW_LEFT,
         ARROW_RIGHT,
+        PAGE_DOWN,
+        PAGE_UP,
         GT_ERROR
     };
     GT_Menu();
@@ -62,6 +64,8 @@ private:
         { ARROW_DOWN,   "",                     { VK_DOWN },            false },
         { ARROW_LEFT,   "",                     { VK_LEFT },            false },
         { ARROW_RIGHT,  "",                     { VK_RIGHT },           false },
+        { PAGE_DOWN,    "",                     { VK_NEXT },            false },
+        { PAGE_UP,      "",                     { VK_PRIOR },           false },
     };
 
     int act_line;
