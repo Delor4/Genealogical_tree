@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <windows.h>
+#include <unordered_map>
 
 class GT_Menu
 
@@ -76,6 +77,8 @@ private:
     HANDLE h_stdin;
 
     void check_constraints();
+    void populate_map();
+    std::unordered_map<int, MENU_ITEMS> keys_map;
 };
 
 #endif // GT_MENU_H

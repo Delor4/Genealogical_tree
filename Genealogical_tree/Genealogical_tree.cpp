@@ -187,10 +187,10 @@ int main()
             }
             break;
         case GT_Menu::PAGE_UP:
-            menu.set_curr_line(menu.get_curr_line() - menu.get_max_lines());
+            menu.set_curr_line(menu.get_curr_line() - menu.get_max_lines() + 1);
             break;
         case GT_Menu::PAGE_DOWN:
-            menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines());
+            menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines() - 1);
             break;
         default:
             cout << opt;

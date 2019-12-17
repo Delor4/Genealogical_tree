@@ -8,12 +8,20 @@ GT_Menu::GT_Menu()
     , h_stdout{ GetStdHandle(STD_OUTPUT_HANDLE) }
     , h_stdin{ GetStdHandle(STD_INPUT_HANDLE) }
 {
+    populate_map();
 }
 
 GT_Menu::~GT_Menu()
 {
 }
-
+void GT_Menu::populate_map()
+{
+    for (auto& i : items) {
+        for (auto k : i.short_keys) {
+            keys_map[k] = i.ID;
+        }
+    }
+}
 void GT_Menu::show()
 {
     bool first = true;
@@ -34,13 +42,10 @@ GT_Menu::MENU_ITEMS GT_Menu::get_option()
     INPUT_RECORD buffer;
 
     ReadConsoleInput(h_stdin, &buffer, 1, &events);
-    if (buffer.Event.KeyEvent.bKeyDown) {
-        for (auto& i : items) {
-            for (auto k : i.short_keys) {
-                if (k == buffer.Event.KeyEvent.wVirtualKeyCode)
-                    return i.ID;
-            }
-        }
+    if (buffer.Event.KeyEvent.bKeyDown &&
+         keys_map.find(buffer.Event.KeyEvent.wVirtualKeyCode) != keys_map.end()){
+            return keys_map[buffer.Event.KeyEvent.wVirtualKeyCode];
+
     }
     return GT_Menu::NONE;
 };
