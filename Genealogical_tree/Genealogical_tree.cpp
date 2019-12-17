@@ -37,6 +37,18 @@ std::string get_string(std::string default_s){
     if(out <= 0) return default_s;
     return std::string(buff);
 }
+int s_to_i(std::string s)
+{
+    int out;
+    try{
+        out = std::stoi(s);
+    } catch (const std::invalid_argument& ) {
+        return 0;
+    } catch (const std::out_of_range& ) {
+        return 0;
+    }
+    return out;
+}
 Person input_new_person(){
     intro();
     std::cout << "Tworzenie nowej osoby.\n\n";
@@ -49,7 +61,7 @@ Person input_new_person(){
 
     std::cout << "Rok urodzenia:\n";
     std::string sby = get_string("1900");
-    int by = stoi(sby);
+    int by = s_to_i(sby);
     if(!by) by=1900;
 
     std::cout << "Plec (K/M):\n";
@@ -57,6 +69,7 @@ Person input_new_person(){
 
     return Person(ofn,oln, by, sx[0]);
 }
+
 Person edit_person(GenTreeItem *i){
     Person p = i->get_person();
     intro();
@@ -70,7 +83,7 @@ Person edit_person(GenTreeItem *i){
 
     std::cout << "Rok urodzenia ["<< p.birth_year <<"]:\n";
     std::string sby = get_string("0");
-    int by = stoi(sby);
+    int by = s_to_i(sby);
     if(!by){
         by=p.birth_year;
     }
