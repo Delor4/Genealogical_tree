@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+#include <iomanip>
 
 #include "GT_Menu.h"
 #include "GenTree.h"
@@ -26,7 +27,7 @@ void init_tree(GenTree& tree)
            }
 void intro()
 {
-    cout << "Drzewo genealogiczne.\n";
+    cout << "Drzewo genealogiczne potomkow.\n";
 }
 
 std::string get_string(std::string default_s)
@@ -127,11 +128,36 @@ void load_tree(GenTree& tree)
 }
 void show_version()
 {
+    intro();
     std::cout << "\n";
-    std::cout << "Drzewo genealogiczne.\n\n";
-    std::cout << "Ver: 1.0\n\n";
     std::cout << "by Sebastian Kucharczyk, 2019\n\n";
+    std::cout << "Ver: 1.0\n\n";
     std::cout << "Build: " __TIME__ " " __DATE__ "\n\n";
+}
+void show_persons_list(std::vector<Person>& l, std::string title){
+    if(l.size()){
+        std::cout << title << "\n";
+        for(auto i: l){
+            std:: cout << " " << i << "\n";
+        }
+    }
+}
+void show_info(GenTreeItem *p)
+{
+    std::vector<Person> siblings, childrens, grandchildrens;
+
+    intro();
+    std::cout << "\n";
+    std::cout << p->get_person() << "\n";
+
+    p->get_siblings(siblings);
+    show_persons_list(siblings, "\nRodzenstwo:");
+
+    p->get_childrens(childrens);
+    show_persons_list(childrens, "\nDzieci:");
+
+    p->get_grandchildrens(grandchildrens);
+    show_persons_list(grandchildrens, "\nWnuki:");
 }
 int main()
 {
@@ -167,13 +193,18 @@ int main()
         } break;
         case GT_Menu::EDIT_PERSON: {
             menu.cls();
-            GenTreeItem* i = tree.find_by_id(menu.get_curr_line());
-            if (!i) {
-                //TODO: show error
-            }
-            else {
-                Person p = edit_person(i);
+            auto i = tree.find_by_id(menu.get_curr_line());
+            if (i) {
+                auto p = edit_person(i);
                 tree.set_person(i, p);
+            }
+        } break;
+        case GT_Menu::SHOW_INFO: {
+            menu.cls();
+            auto i = tree.find_by_id(menu.get_curr_line());
+            if(i){
+                show_info(i);
+                menu.wait_for_any_key();
             }
         } break;
         case GT_Menu::DELETE_PERSON:

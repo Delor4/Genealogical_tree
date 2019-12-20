@@ -182,3 +182,21 @@ GenTreeItem* GenTreeItem::get_leftmost_child()
     }
     return nullptr;
 }
+void GenTreeItem::get_siblings(std::vector<Person>& v)
+{
+    if(parent) parent->get_childrens(v, this);
+}
+void GenTreeItem::get_childrens(std::vector<Person>& v, GenTreeItem *skip)
+{
+    for (auto i : childrens) {
+        if (i && i != skip)
+            v.push_back(i->get_person());
+    }
+}
+void GenTreeItem::get_grandchildrens(std::vector<Person>& v)
+{
+    for (auto i : childrens) {
+        if (i)
+            i->get_childrens(v);
+    }
+}

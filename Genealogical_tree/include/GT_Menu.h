@@ -62,16 +62,16 @@ private:
     };
 #define CHAR_TO_VCODE(c) ((c) - 'a' + 65)
     std::vector<GT_MenuItem> items = {
-        { ADD_PERSON,   "a/e/d - dodaj/modyfikuj/usun osobe",
+        { ADD_PERSON,   "a/i/e/d - dodaj/pokaz/modyfikuj/usun osobe",
                                               { CHAR_TO_VCODE('a'), VK_INSERT },      true },
         { EDIT_PERSON,  "e-modyfikuj osobe",  { CHAR_TO_VCODE('e'), VK_RETURN },      false },
         { DELETE_PERSON, "d-usun osobe",      { CHAR_TO_VCODE('d'), VK_DELETE },      false },
         { SHOW_INFO,    "i - inform. o osobie",
-                                              { CHAR_TO_VCODE('i'), VK_SPACE },       true },
-        { LOAD,         "n/l/s - nowe/odczytaj/zapisz drzewo",
-                                              { CHAR_TO_VCODE('l') },                 true },
+                                              { CHAR_TO_VCODE('i'), VK_SPACE },       false },
         { SAVE,         "s - zapisz drzewo",  { CHAR_TO_VCODE('s') },                 false },
-        { NEW_TREE,     "n - nowe drzewo",    { CHAR_TO_VCODE('n') },                 false },
+        { LOAD,         "l/s - odczytaj/zapisz drzewo",
+                                              { CHAR_TO_VCODE('l') },                 true },
+        { NEW_TREE,     "n - nowe drzewo",    { CHAR_TO_VCODE('n') },                 true },
         { EXIT,         "q - zakoncz program",{ CHAR_TO_VCODE('q'), VK_ESCAPE },      true },
         { ARROW_UP,     "",                   { VK_UP },                              false },
         { ARROW_DOWN,   "",                   { VK_DOWN },                            false },
@@ -79,7 +79,7 @@ private:
         { ARROW_RIGHT,  "",                   { VK_RIGHT },                           false },
         { PAGE_DOWN,    "",                   { VK_NEXT },                            false },
         { PAGE_UP,      "",                   { VK_PRIOR },                           false },
-        { VERSION,      "F1-about",           { VK_F1 },                              false },
+        { VERSION,      "F1 - about",         { VK_F1 },                              false },
     };
 
     int act_line;

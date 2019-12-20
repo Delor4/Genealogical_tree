@@ -21,6 +21,10 @@ class GenTreeItem
         Person get_person();
         void set_person(Person &);
 
+        void get_siblings(std::vector<Person>&);
+        void get_childrens(std::vector<Person>&, GenTreeItem *skip=nullptr);
+        void get_grandchildrens(std::vector<Person>&);
+
         int get_id(GenTreeItem *, int &curr);
         GenTreeItem * find_by_id(int id, int &curr);
 
