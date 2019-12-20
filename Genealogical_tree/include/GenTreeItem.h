@@ -15,17 +15,23 @@ class GenTreeItem
 
         void show();
         bool show(std::string indent, int line, GT_Menu &menu, int &curr_line);
+
         GenTreeItem * add_children(Person &);
 
-        int get_size();
-        void remove_by_id(int id);
-        GenTreeItem * find_by_id(int id, int &curr);
-        GenTreeItem *get_parent();
-        GenTreeItem *get_leftmost_child();
-        void remove_child(GenTreeItem *);
         Person get_person();
         void set_person(Person &);
+
         int get_id(GenTreeItem *, int &curr);
+        GenTreeItem * find_by_id(int id, int &curr);
+
+        void remove_by_id(int id);
+        void remove_child(GenTreeItem *);
+
+        GenTreeItem *get_parent();
+        GenTreeItem *get_leftmost_child();
+
+        int get_size();
+
         void save(std::ostream &os);
         bool load(std::istream &os);
     protected:

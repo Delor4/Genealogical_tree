@@ -12,6 +12,7 @@ class GT_Menu
 
 public:
     static const int MAXLINES = 24;
+
     enum MENU_ITEMS {
         NONE,
         ADD_PERSON,
@@ -30,13 +31,15 @@ public:
         VERSION,
         GT_ERROR
     };
+
     GT_Menu();
     virtual ~GT_Menu();
 
     void show();
-    WORD wait_for_any_key();
+
     MENU_ITEMS get_option();
 
+    WORD wait_for_any_key();
     void gotoxy(short x, short y);
     void cls();
     WORD set_text_attr(WORD attr);
@@ -44,7 +47,6 @@ public:
     void line_down();
     void line_up();
     void set_curr_max_lines(int);
-
     int get_curr_line();
     void set_curr_line(int line);
     int get_skip_lines();
