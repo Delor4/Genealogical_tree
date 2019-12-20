@@ -79,12 +79,18 @@ bool GenTree::load(std::string path)
     std::fstream in;
     in.open(path, std::ios::in | std::ios::binary);
 
+    if(!in.good()){
+        in.close();
+        return false;
+    }
+
     GenTreeItem* g = new GenTreeItem();
     g->load(in);
-    in.close();
+
     delete root;
     root = g;
     return true;
+
 }
 void GenTree::swap(GenTree& t)
 {
