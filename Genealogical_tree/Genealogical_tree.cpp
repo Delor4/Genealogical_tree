@@ -116,6 +116,14 @@ void load_tree(GenTree &tree)
         tree.swap(n_tree);
     };
 }
+void show_version()
+{
+    std::cout << "\n";
+    std::cout << "Drzewo genealogiczne.\n\n";
+    std::cout << "Ver: 1.0\n\n";
+    std::cout << "by Sebastian Kucharczyk, 2019\n\n";
+    std::cout << "Build: " __TIME__ " " __DATE__ "\n\n";
+}
 int main()
 {
     GT_Menu menu;
@@ -194,6 +202,11 @@ int main()
             break;
         case GT_Menu::PAGE_DOWN:
             menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines() - 1);
+            break;
+        case GT_Menu::VERSION:
+            menu.cls();
+            show_version();
+            menu.wait_for_any_key();
             break;
         default:
             cout << opt;

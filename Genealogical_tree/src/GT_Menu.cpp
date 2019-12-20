@@ -48,7 +48,17 @@ GT_Menu::MENU_ITEMS GT_Menu::get_option()
     }
     return GT_Menu::NONE;
 };
+WORD GT_Menu::wait_for_any_key()
+{
+    DWORD events;
+    INPUT_RECORD buffer;
 
+    do{
+        ReadConsoleInput(h_stdin, &buffer, 1, &events);
+    }while(!buffer.Event.KeyEvent.bKeyDown);
+
+    return buffer.Event.KeyEvent.wVirtualKeyCode;
+};
 void GT_Menu::gotoxy(short x, short y)
 {
     COORD coord_screen = { x, y };

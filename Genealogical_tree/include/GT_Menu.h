@@ -27,12 +27,14 @@ public:
         ARROW_RIGHT,
         PAGE_DOWN,
         PAGE_UP,
+        VERSION,
         GT_ERROR
     };
     GT_Menu();
     virtual ~GT_Menu();
 
     void show();
+    WORD wait_for_any_key();
     MENU_ITEMS get_option();
 
     void gotoxy(short x, short y);
@@ -70,6 +72,7 @@ private:
         { ARROW_RIGHT,  "",                   { VK_RIGHT },                           false },
         { PAGE_DOWN,    "",                   { VK_NEXT },                            false },
         { PAGE_UP,      "",                   { VK_PRIOR },                           false },
+        { VERSION,      "F1-about",           { VK_F1 },                              false },
     };
 
     int act_line;
