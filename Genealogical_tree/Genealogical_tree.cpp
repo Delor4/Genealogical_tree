@@ -161,6 +161,9 @@ int main()
         case GT_Menu::DELETE_PERSON:
             tree.remove_by_id(menu.get_curr_line());
             break;
+        case GT_Menu::NEW_TREE:
+            tree.remove_by_id(0);
+            break;
         case GT_Menu::LOAD:
             menu.cls();
             load_tree(tree);
