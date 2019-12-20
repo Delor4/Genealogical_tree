@@ -129,7 +129,10 @@ int main()
     GT_Menu menu;
     GenTree tree;
 
+#ifdef _DEBUG_
     init_tree(tree);
+#endif // __DEBUG
+
     while(true){
         menu.set_curr_max_lines(tree.get_size());
         menu.cls();
