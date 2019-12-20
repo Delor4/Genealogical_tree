@@ -139,45 +139,46 @@ void GenTreeItem::set_person(Person& p)
 {
     data = p;
 }
-void GenTreeItem::save(std::ostream &os)
+void GenTreeItem::save(std::ostream& os)
 {
     data.save(os);
     short tmp;
     tmp = count_childrens();
-    os.write(reinterpret_cast<const char *>(&tmp), sizeof(tmp));
-    for(auto i: childrens){
-        if(i) i->save(os);
+    os.write(reinterpret_cast<const char*>(&tmp), sizeof(tmp));
+    for (auto i : childrens) {
+        if (i)
+            i->save(os);
     }
 }
-bool GenTreeItem::load(std::istream &os)
+bool GenTreeItem::load(std::istream& os)
 {
     data.load(os);
-    std::cout << "Zaladowalem " << data << "\n";
     short tmp;
-    os.read(reinterpret_cast<char *>(&tmp), sizeof(tmp));
-    for(int i = 0; i<tmp; ++i){
-        GenTreeItem * g = new GenTreeItem();
+    os.read(reinterpret_cast<char*>(&tmp), sizeof(tmp));
+    for (int i = 0; i < tmp; ++i) {
+        GenTreeItem* g = new GenTreeItem();
         g->load(os);
         g->parent = this;
         childrens.push_back(g);
     }
     return true;
 }
-int GenTreeItem::get_id(GenTreeItem *t, int &curr)
+int GenTreeItem::get_id(GenTreeItem* t, int& curr)
 {
     if (this == t)
         return curr;
     int out;
     for (auto i : childrens) {
-        if (i && (out = i->get_id(t, ++curr)) >=0 )
+        if (i && (out = i->get_id(t, ++curr)) >= 0)
             return out;
     }
     return -1;
 }
-GenTreeItem *GenTreeItem::get_leftmost_child()
+GenTreeItem* GenTreeItem::get_leftmost_child()
 {
     for (auto i : childrens) {
-        if (i) return i;
+        if (i)
+            return i;
     }
     return nullptr;
 }

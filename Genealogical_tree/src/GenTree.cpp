@@ -67,7 +67,8 @@ void GenTree::set_person(GenTreeItem* i, Person& p)
 
 void GenTree::save(std::string path)
 {
-    if(!root) return;
+    if (!root)
+        return;
     std::fstream out;
     out.open(path, std::ios::out | std::ios::trunc | std::ios::binary);
     root->save(out);
@@ -78,19 +79,19 @@ bool GenTree::load(std::string path)
     std::fstream in;
     in.open(path, std::ios::in | std::ios::binary);
 
-    GenTreeItem * g = new GenTreeItem();
+    GenTreeItem* g = new GenTreeItem();
     g->load(in);
     in.close();
     delete root;
     root = g;
     return true;
 }
-void GenTree::swap(GenTree &t)
+void GenTree::swap(GenTree& t)
 {
     std::swap(root, t.root);
 }
-int GenTree::get_id(GenTreeItem *i)
+int GenTree::get_id(GenTreeItem* i)
 {
     int start = 0;
-    return root?root->get_id(i, start):-1;
+    return root ? root->get_id(i, start) : -1;
 }

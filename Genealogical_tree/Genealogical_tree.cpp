@@ -29,27 +29,32 @@ void intro()
     cout << "Drzewo genealogiczne.\n";
 }
 
-std::string get_string(std::string default_s){
+std::string get_string(std::string default_s)
+{
     char buff[256];
 
-    int out = scanf("%255[^\n]*c",buff);
+    int out = scanf("%255[^\n]*c", buff);
     fflush(stdin);
-    if(out <= 0) return default_s;
+    if (out <= 0)
+        return default_s;
     return std::string(buff);
 }
 int s_to_i(std::string s)
 {
     int out;
-    try{
+    try {
         out = std::stoi(s);
-    } catch (const std::invalid_argument& ) {
+    }
+    catch (const std::invalid_argument&) {
         return 0;
-    } catch (const std::out_of_range& ) {
+    }
+    catch (const std::out_of_range&) {
         return 0;
     }
     return out;
 }
-Person input_new_person(){
+Person input_new_person()
+{
     intro();
     std::cout << "Tworzenie nowej osoby.\n\n";
 
@@ -62,57 +67,61 @@ Person input_new_person(){
     std::cout << "Rok urodzenia:\n";
     std::string sby = get_string("1900");
     int by = s_to_i(sby);
-    if(!by) by=1900;
+    if (!by)
+        by = 1900;
 
     std::cout << "Plec (K/M):\n";
     std::string sx = get_string("M");
 
-    return Person(ofn,oln, by, sx[0]);
+    return Person(ofn, oln, by, sx[0]);
 }
 
-Person edit_person(GenTreeItem *i){
+Person edit_person(GenTreeItem* i)
+{
     Person p = i->get_person();
     intro();
     std::cout << "Edycja osoby.\n\n";
 
-    std::cout << "Imie ["<< p.first_name <<"]:\n";
+    std::cout << "Imie [" << p.first_name << "]:\n";
     std::string ofn = get_string(p.first_name);
 
-    std::cout << "Nazwisko ["<< p.last_name <<"]:\n";
+    std::cout << "Nazwisko [" << p.last_name << "]:\n";
     std::string oln = get_string(p.last_name);
 
-    std::cout << "Rok urodzenia ["<< p.birth_year <<"]:\n";
+    std::cout << "Rok urodzenia [" << p.birth_year << "]:\n";
     std::string sby = get_string("0");
     int by = s_to_i(sby);
-    if(!by){
-        by=p.birth_year;
+    if (!by) {
+        by = p.birth_year;
     }
 
-    std::cout << "Plec (K/M) ["<< p.sex <<"]:\n";
-    std::string sx = get_string(std::string("")+p.sex);
+    std::cout << "Plec (K/M) [" << p.sex << "]:\n";
+    std::string sx = get_string(std::string("") + p.sex);
 
-    return Person(ofn,oln, by, sx[0]);
+    return Person(ofn, oln, by, sx[0]);
 }
-void save_tree(GenTree &tree)
+void save_tree(GenTree& tree)
 {
     intro();
     std::cout << "Zapisywanie drzewa do pliku.\n\n";
     std::cout << "Podaj nazwe pliku:\n";
     std::string path = get_string("");
-    if(!path.length()) return;
+    if (!path.length())
+        return;
 
     tree.save(path);
 }
-void load_tree(GenTree &tree)
+void load_tree(GenTree& tree)
 {
     intro();
     std::cout << "Wczytywanie drzewa z pliku.\n\n";
     std::cout << "Podaj nazwe pliku:\n";
     std::string path = get_string("");
-    if(!path.length()) return;
+    if (!path.length())
+        return;
 
     GenTree n_tree;
-    if (n_tree.load(path)){
+    if (n_tree.load(path)) {
         tree.swap(n_tree);
     };
 }
@@ -133,7 +142,7 @@ int main()
     init_tree(tree);
 #endif // __DEBUG
 
-    while(true){
+    while (true) {
         menu.set_curr_max_lines(tree.get_size());
         menu.cls();
         intro();
@@ -145,30 +154,28 @@ int main()
         Sleep(50);
 
         auto opt = menu.get_option();
-        while(opt == GT_Menu::NONE) opt = menu.get_option();
+        while (opt == GT_Menu::NONE)
+            opt = menu.get_option();
 
-        switch(opt){
+        switch (opt) {
         case GT_Menu::EXIT:
             exit(0);
-        case GT_Menu::ADD_PERSON:
-            {
-                menu.cls();
-                Person p = input_new_person();
-                tree.add_person(tree.find_by_id(menu.get_curr_line()), p);
+        case GT_Menu::ADD_PERSON: {
+            menu.cls();
+            Person p = input_new_person();
+            tree.add_person(tree.find_by_id(menu.get_curr_line()), p);
+        } break;
+        case GT_Menu::EDIT_PERSON: {
+            menu.cls();
+            GenTreeItem* i = tree.find_by_id(menu.get_curr_line());
+            if (!i) {
+                //TODO: show error
             }
-            break;
-        case GT_Menu::EDIT_PERSON:
-            {
-                menu.cls();
-                GenTreeItem * i = tree.find_by_id(menu.get_curr_line());
-                if(!i){
-                    //TODO: show error
-                }else{
-                    Person p = edit_person(i);
-                    tree.set_person(i, p);
-                }
+            else {
+                Person p = edit_person(i);
+                tree.set_person(i, p);
             }
-            break;
+        } break;
         case GT_Menu::DELETE_PERSON:
             tree.remove_by_id(menu.get_curr_line());
             break;
@@ -180,7 +187,7 @@ int main()
             load_tree(tree);
             break;
         case GT_Menu::SAVE:
-            if(tree.get_size()){
+            if (tree.get_size()) {
                 menu.cls();
                 save_tree(tree);
             }
@@ -194,12 +201,11 @@ int main()
         case GT_Menu::ARROW_LEFT:
             menu.set_curr_line(tree.get_id(tree.find_by_id(menu.get_curr_line())->get_parent()));
             break;
-        case GT_Menu::ARROW_RIGHT:
-            {
-                auto c = tree.find_by_id(menu.get_curr_line())->get_leftmost_child();
-                if(c) menu.set_curr_line(tree.get_id(c));
-            }
-            break;
+        case GT_Menu::ARROW_RIGHT: {
+            auto c = tree.find_by_id(menu.get_curr_line())->get_leftmost_child();
+            if (c)
+                menu.set_curr_line(tree.get_id(c));
+        } break;
         case GT_Menu::PAGE_UP:
             menu.set_curr_line(menu.get_curr_line() - menu.get_max_lines() + 1);
             break;
