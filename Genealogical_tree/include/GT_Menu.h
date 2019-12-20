@@ -17,6 +17,7 @@ public:
         ADD_PERSON,
         EDIT_PERSON,
         DELETE_PERSON,
+        NEW_TREE,
         SAVE,
         LOAD,
         EXIT,
@@ -54,19 +55,21 @@ private:
         std::vector<int> short_keys;
         bool show;
     };
+#define CHAR_TO_VCODE(c) ((c) - 'a' + 65)
     std::vector<GT_MenuItem> items = {
-        { ADD_PERSON,   "a - dodaj potomka",    { 65, VK_INSERT },      true },
-        { EDIT_PERSON,  "e - modyfikuj osobe",  { 69, VK_RETURN },      true },
-        { DELETE_PERSON, "d - usun osobe",      { 68, VK_DELETE },      true },
-        { SAVE,         "s - zapisz drzewo",    { 83 },                 true },
-        { LOAD,         "l - odczytaj drzewo",  { 76 },                 true },
-        { EXIT,         "q - zakoncz program",  { 81, VK_ESCAPE },      true },
-        { ARROW_UP,     "",                     { VK_UP },              false },
-        { ARROW_DOWN,   "",                     { VK_DOWN },            false },
-        { ARROW_LEFT,   "",                     { VK_LEFT },            false },
-        { ARROW_RIGHT,  "",                     { VK_RIGHT },           false },
-        { PAGE_DOWN,    "",                     { VK_NEXT },            false },
-        { PAGE_UP,      "",                     { VK_PRIOR },           false },
+        { ADD_PERSON,   "a-dodaj potomka",    { CHAR_TO_VCODE('a'), VK_INSERT },      true },
+        { EDIT_PERSON,  "e-modyfikuj osobe",  { CHAR_TO_VCODE('e'), VK_RETURN },      true },
+        { DELETE_PERSON, "d-usun osobe",      { CHAR_TO_VCODE('d'), VK_DELETE },      true },
+        { SAVE,         "s-zapisz drzewo",    { CHAR_TO_VCODE('s') },                 true },
+        { LOAD,         "l-odczytaj drzewo",  { CHAR_TO_VCODE('l') },                 true },
+        { NEW_TREE,     "n-nowe drzewo",      { CHAR_TO_VCODE('n') },                 true },
+        { EXIT,         "q-zakoncz program",  { CHAR_TO_VCODE('q'), VK_ESCAPE },      true },
+        { ARROW_UP,     "",                   { VK_UP },                              false },
+        { ARROW_DOWN,   "",                   { VK_DOWN },                            false },
+        { ARROW_LEFT,   "",                   { VK_LEFT },                            false },
+        { ARROW_RIGHT,  "",                   { VK_RIGHT },                           false },
+        { PAGE_DOWN,    "",                   { VK_NEXT },                            false },
+        { PAGE_UP,      "",                   { VK_PRIOR },                           false },
     };
 
     int act_line;

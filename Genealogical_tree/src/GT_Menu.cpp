@@ -44,8 +44,7 @@ GT_Menu::MENU_ITEMS GT_Menu::get_option()
     ReadConsoleInput(h_stdin, &buffer, 1, &events);
     if (buffer.Event.KeyEvent.bKeyDown &&
          keys_map.find(buffer.Event.KeyEvent.wVirtualKeyCode) != keys_map.end()){
-            return keys_map[buffer.Event.KeyEvent.wVirtualKeyCode];
-
+            return keys_map.at(buffer.Event.KeyEvent.wVirtualKeyCode);
     }
     return GT_Menu::NONE;
 };
