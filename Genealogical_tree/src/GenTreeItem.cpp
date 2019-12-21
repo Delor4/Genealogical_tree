@@ -29,7 +29,7 @@ void GenTreeItem::show()
         }
     }
 }
-bool GenTreeItem::show(std::string indent, int line, GT_Menu& menu, int& curr_line)
+bool GenTreeItem::show(std::string indent, int line, GT_Menu& menu, int& curr_line, Console& console)
 {
     if (curr_line == 0) {
         if (menu.get_skip_lines() == 0) {
@@ -49,13 +49,13 @@ bool GenTreeItem::show(std::string indent, int line, GT_Menu& menu, int& curr_li
 
         WORD old_attr = 0;
         if (curr_line == line) {
-            old_attr = menu.set_text_attr(BACKGROUND_INTENSITY);
+            old_attr = console.set_text_attr(BACKGROUND_INTENSITY);
         }
 
         std::cout << data;
 
         if (curr_line == line) {
-            menu.set_text_attr(old_attr);
+            console.set_text_attr(old_attr);
         }
 
         std::cout << '\n';
@@ -64,7 +64,7 @@ bool GenTreeItem::show(std::string indent, int line, GT_Menu& menu, int& curr_li
     std::string add_indent = (has_right_sibling() ? "\xb3 " : "  ");
 
     for (auto i : childrens) {
-        if (i && i->show(indent + add_indent, line, menu, ++curr_line))
+        if (i && i->show(indent + add_indent, line, menu, ++curr_line, console))
             return true;
     }
     return false;

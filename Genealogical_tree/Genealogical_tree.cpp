@@ -161,7 +161,8 @@ void show_info(GenTreeItem *p)
 }
 int main()
 {
-    GT_Menu menu;
+    Console console;
+    GT_Menu menu(&console);
     GenTree tree;
 
 #ifdef _DEBUG_
@@ -170,12 +171,12 @@ int main()
 
     while (true) {
         menu.set_curr_max_lines(tree.get_size());
-        menu.cls();
+        console.cls();
         intro();
 
         menu.show();
 
-        tree.show("", menu.get_curr_line(), menu);
+        tree.show("", menu.get_curr_line(), menu, console);
         std::cout.flush();
         Sleep(50);
 
@@ -187,12 +188,12 @@ int main()
         case GT_Menu::EXIT:
             exit(0);
         case GT_Menu::ADD_PERSON: {
-            menu.cls();
+            console.cls();
             Person p = input_new_person();
             tree.add_person(tree.find_by_id(menu.get_curr_line()), p);
         } break;
         case GT_Menu::EDIT_PERSON: {
-            menu.cls();
+            console.cls();
             auto i = tree.find_by_id(menu.get_curr_line());
             if (i) {
                 auto p = edit_person(i);
@@ -200,11 +201,11 @@ int main()
             }
         } break;
         case GT_Menu::SHOW_INFO: {
-            menu.cls();
+            console.cls();
             auto i = tree.find_by_id(menu.get_curr_line());
             if(i){
                 show_info(i);
-                menu.wait_for_any_key();
+                console.wait_for_any_key();
             }
         } break;
         case GT_Menu::DELETE_PERSON:
@@ -214,12 +215,12 @@ int main()
             tree.remove_by_id(0);
             break;
         case GT_Menu::LOAD:
-            menu.cls();
+            console.cls();
             load_tree(tree);
             break;
         case GT_Menu::SAVE:
             if (tree.get_size()) {
-                menu.cls();
+                console.cls();
                 save_tree(tree);
             }
             break;
@@ -244,9 +245,9 @@ int main()
             menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines() - 1);
             break;
         case GT_Menu::VERSION:
-            menu.cls();
+            console.cls();
             show_version();
-            menu.wait_for_any_key();
+            console.wait_for_any_key();
             break;
         default:
             cout << opt;

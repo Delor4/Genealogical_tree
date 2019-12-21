@@ -6,6 +6,8 @@
 #include <windows.h>
 #include <unordered_map>
 
+#include "Console.h"
+
 class GT_Menu
 
     {
@@ -33,17 +35,12 @@ public:
         GT_ERROR
     };
 
-    GT_Menu();
+    GT_Menu(Console *);
     virtual ~GT_Menu();
 
     void show();
 
     MENU_ITEMS get_option();
-
-    WORD wait_for_any_key();
-    void gotoxy(short x, short y);
-    void cls();
-    WORD set_text_attr(WORD attr);
 
     void line_down();
     void line_up();
@@ -86,12 +83,11 @@ private:
     int curr_max_items;
     int skip_lines;
 
-    HANDLE h_stdout;
-    HANDLE h_stdin;
-
     void check_constraints();
     void populate_map();
     std::unordered_map<int, MENU_ITEMS> keys_map;
+
+    Console * console;
 };
 
 #endif // GT_MENU_H

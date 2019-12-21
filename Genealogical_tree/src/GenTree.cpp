@@ -27,11 +27,11 @@ void GenTree::show()
         root->show();
 }
 
-void GenTree::show(std::string indent, int line, GT_Menu& menu)
+void GenTree::show(std::string indent, int line, GT_Menu& menu, Console& console)
 {
     int start = 0;
     if (root)
-        root->show(indent, line, menu, start);
+        root->show(indent, line, menu, start, console);
 }
 
 int GenTree::get_size()

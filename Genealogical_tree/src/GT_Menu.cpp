@@ -2,11 +2,10 @@
 
 #include <iostream>
 
-GT_Menu::GT_Menu()
+GT_Menu::GT_Menu(Console *c)
     : act_line{ 0 }
     , skip_lines{ 0 }
-    , h_stdout{ GetStdHandle(STD_OUTPUT_HANDLE) }
-    , h_stdin{ GetStdHandle(STD_INPUT_HANDLE) }
+    , console { c }
 {
     populate_map();
 }
@@ -38,58 +37,13 @@ void GT_Menu::show()
 
 GT_Menu::MENU_ITEMS GT_Menu::get_option()
 {
-    DWORD events;
-    INPUT_RECORD buffer;
-
-    ReadConsoleInput(h_stdin, &buffer, 1, &events);
-    if (buffer.Event.KeyEvent.bKeyDown &&
-         keys_map.find(buffer.Event.KeyEvent.wVirtualKeyCode) != keys_map.end()){
-            return keys_map.at(buffer.Event.KeyEvent.wVirtualKeyCode);
+    WORD key = console->wait_for_any_key();
+    if(keys_map.find(key) != keys_map.end()){
+        return keys_map.at(key);
     }
     return GT_Menu::NONE;
 };
-WORD GT_Menu::wait_for_any_key()
-{
-    DWORD events;
-    INPUT_RECORD buffer;
 
-    do{
-        ReadConsoleInput(h_stdin, &buffer, 1, &events);
-    }while(!buffer.Event.KeyEvent.bKeyDown);
-
-    return buffer.Event.KeyEvent.wVirtualKeyCode;
-};
-void GT_Menu::gotoxy(short x, short y)
-{
-    COORD coord_screen = { x, y };
-    SetConsoleCursorPosition(h_stdout, coord_screen);
-}
-
-void GT_Menu::cls(void)
-{
-    COORD coord_screen = { 0, 0 };
-    DWORD chars_written;
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    DWORD con_size;
-
-    GetConsoleScreenBufferInfo(h_stdout, &csbi);
-    con_size = csbi.dwSize.X * csbi.dwSize.Y;
-    FillConsoleOutputCharacter(h_stdout, (TCHAR)' ', con_size, coord_screen, &chars_written);
-    GetConsoleScreenBufferInfo(h_stdout, &csbi);
-    FillConsoleOutputAttribute(h_stdout, csbi.wAttributes, con_size, coord_screen, &chars_written);
-    SetConsoleCursorPosition(h_stdout, coord_screen);
-}
-
-WORD GT_Menu::set_text_attr(WORD attr)
-{
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    GetConsoleScreenBufferInfo(h_stdout, &csbi);
-    WORD old_attr = csbi.wAttributes;
-
-    SetConsoleTextAttribute(h_stdout, attr);
-
-    return old_attr;
-}
 
 void GT_Menu::check_constraints()
 {
