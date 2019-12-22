@@ -89,19 +89,19 @@ bool GenTreeItem::has_right_sibling()
     }
     return false;
 }
-auto get_item_size = [](int a, GenTreeItem* b) {
-    return a + (b ? b->get_size() : 0);
-};
 
 int GenTreeItem::get_size()
 {
+    static auto get_item_size = [](int a, GenTreeItem* b) {
+        return a + (b ? b->get_size() : 0);
+    };
     return std::accumulate(childrens.begin(), childrens.end(), 1, get_item_size);
 }
-auto count_item_childrens = [](int a, GenTreeItem* b) {
-    return a + (b ? 1 : 0);
-};
 int GenTreeItem::count_childrens()
 {
+    static auto count_item_childrens = [](int a, GenTreeItem* b) {
+        return a + (b ? 1 : 0);
+    };
     return std::accumulate(childrens.begin(), childrens.end(), 0, count_item_childrens);
 }
 GenTreeItem* GenTreeItem::find_by_id(int id, int& curr)
