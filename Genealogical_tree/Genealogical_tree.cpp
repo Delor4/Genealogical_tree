@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <iomanip>
 
+#include "Console.h"
 #include "GT_Menu.h"
 #include "GenTree.h"
 
@@ -162,7 +163,7 @@ void show_info(GenTreeItem *p)
 int main()
 {
     Console console;
-    GT_Menu menu(&console);
+    GT_Menu menu;
     GenTree tree;
 
 #ifdef _DEBUG_
@@ -180,9 +181,9 @@ int main()
         std::cout.flush();
         Sleep(50);
 
-        auto opt = menu.get_option();
+        auto opt = menu.get_option(console.get_key());
         while (opt == GT_Menu::NONE)
-            opt = menu.get_option();
+            opt = menu.get_option(console.get_key());
 
         switch (opt) {
         case GT_Menu::EXIT:
@@ -205,7 +206,7 @@ int main()
             auto i = tree.find_by_id(menu.get_curr_line());
             if(i){
                 show_info(i);
-                console.wait_for_any_key();
+                console.get_key();
             }
         } break;
         case GT_Menu::DELETE_PERSON:
@@ -247,7 +248,7 @@ int main()
         case GT_Menu::VERSION:
             console.cls();
             show_version();
-            console.wait_for_any_key();
+            console.get_key();
             break;
         default:
             cout << opt;

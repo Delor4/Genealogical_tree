@@ -6,12 +6,8 @@
 #include <windows.h>
 #include <unordered_map>
 
-#include "Console.h"
-
 class GT_Menu
-
     {
-
 public:
     static const int MAXLINES = 24;
 
@@ -35,12 +31,12 @@ public:
         GT_ERROR
     };
 
-    GT_Menu(Console *);
+    GT_Menu();
     virtual ~GT_Menu();
 
     void show();
 
-    MENU_ITEMS get_option();
+    MENU_ITEMS get_option(WORD virtual_key);
 
     void line_down();
     void line_up();
@@ -86,8 +82,6 @@ private:
     void check_constraints();
     void populate_map();
     std::unordered_map<int, MENU_ITEMS> keys_map;
-
-    Console * console;
 };
 
 #endif // GT_MENU_H

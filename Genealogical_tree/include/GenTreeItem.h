@@ -5,6 +5,7 @@
 #include <fstream>
 #include "Person.h"
 #include "GT_Menu.h"
+#include "Console.h"
 
 class GenTreeItem
 {

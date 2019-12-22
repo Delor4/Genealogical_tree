@@ -2,10 +2,9 @@
 
 #include <iostream>
 
-GT_Menu::GT_Menu(Console *c)
+GT_Menu::GT_Menu()
     : act_line{ 0 }
     , skip_lines{ 0 }
-    , console { c }
 {
     populate_map();
 }
@@ -35,11 +34,10 @@ void GT_Menu::show()
     std::cout << "\n";
 }
 
-GT_Menu::MENU_ITEMS GT_Menu::get_option()
+GT_Menu::MENU_ITEMS GT_Menu::get_option(WORD virtual_key)
 {
-    WORD key = console->wait_for_any_key();
-    if(keys_map.find(key) != keys_map.end()){
-        return keys_map.at(key);
+    if(keys_map.find(virtual_key) != keys_map.end()){
+        return keys_map.at(virtual_key);
     }
     return GT_Menu::NONE;
 };
