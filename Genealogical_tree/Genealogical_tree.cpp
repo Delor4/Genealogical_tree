@@ -25,7 +25,8 @@ void init_tree(GenTree& tree)
             Person p4("Grazyna", "Kowalska", 1994, 'K');
             tree.add_person(i3, p4);
 
-           }
+}
+
 void intro()
 {
     cout << "Drzewo genealogiczne potomkow.\n";
@@ -55,34 +56,11 @@ int s_to_i(std::string s)
     }
     return out;
 }
-Person input_new_person()
+
+Person edit_person(const Person &p, std::string label = "Edycja osoby.")
 {
     intro();
-    std::cout << "Tworzenie nowej osoby.\n\n";
-
-    std::cout << "Imie:\n";
-    std::string ofn = get_string("John");
-
-    std::cout << "Nazwisko:\n";
-    std::string oln = get_string("Doe");
-
-    std::cout << "Rok urodzenia:\n";
-    std::string sby = get_string("1900");
-    int by = s_to_i(sby);
-    if (!by)
-        by = 1900;
-
-    std::cout << "Plec (K/M):\n";
-    std::string sx = get_string("M");
-
-    return Person(ofn, oln, by, sx[0]);
-}
-
-Person edit_person(GenTreeItem* i)
-{
-    Person p = i->get_person();
-    intro();
-    std::cout << "Edycja osoby.\n\n";
+    std::cout << label << "\n\n";
 
     std::cout << "Imie [" << p.first_name << "]:\n";
     std::string ofn = get_string(p.first_name);
@@ -102,6 +80,12 @@ Person edit_person(GenTreeItem* i)
 
     return Person(ofn, oln, by, sx[0]);
 }
+Person input_new_person()
+{
+    Person p;
+    return edit_person(p, "Tworzenie nowej osoby.");
+}
+
 void show_persons_list(std::vector<Person>& l, std::string title){
     if(l.size()){
         std::cout << title << "\n";
@@ -127,6 +111,7 @@ void show_info(GenTreeItem *p)
     p->get_grandchildrens(grandchildrens);
     show_persons_list(grandchildrens, "\nWnuki:");
 }
+
 void on_exit(GenTree &, GT_Menu &, Console &)
 {
     exit(0);
@@ -142,7 +127,7 @@ void on_edit_person(GenTree & tree, GT_Menu &menu, Console &console)
     console.cls();
     auto i = tree.find_by_id(menu.get_curr_line());
     if (i) {
-        auto p = edit_person(i);
+        auto p = edit_person(i->get_person());
         tree.set_person(i, p);
     }
 }
