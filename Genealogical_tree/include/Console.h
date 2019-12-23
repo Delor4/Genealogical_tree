@@ -8,7 +8,7 @@ class Console
 {
 public:
     Console();
-    virtual ~Console();
+    virtual ~Console() = default;
 
     WORD get_key();
     void gotoxy(short x, short y);

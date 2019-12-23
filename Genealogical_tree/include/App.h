@@ -17,15 +17,13 @@ public:
     static const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> loop_map;
 
     App();
-    virtual ~App();
+    virtual ~App() = default;
 
     void run();
 protected:
 private:
-    void intro() const;
-    Person edit_person(const Person &p, std::string label = "Edycja osoby.") const;
-    Person input_new_person() const;
-    void show_info(const Item *p) const;
+    static void intro();
+    static void show_info(const Item *p);
 
     void on_exit();
     void on_add_person();

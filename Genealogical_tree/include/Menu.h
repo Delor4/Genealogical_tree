@@ -35,7 +35,7 @@ public:
     };
 
     Menu();
-    virtual ~Menu();
+    virtual ~Menu() = default;
 
     void show() const;
 

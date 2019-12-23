@@ -35,11 +35,7 @@ App::App()
 #endif // __DEBUG
 }
 
-App::~App()
-{
-}
-
-void App::intro() const
+void App::intro()
 {
     std::cout << "Drzewo genealogiczne potomkow.\n";
 }
@@ -74,9 +70,8 @@ static int s_to_i(std::string s)
     }
     return out;
 }
-Person App::edit_person(const Person &p, std::string label) const
+static Person edit_person(const Person &p, std::string label = "Edycja osoby.")
 {
-    intro();
     std::cout << label << "\n\n";
 
     std::cout << "Imie [" << p.first_name << "]:\n";
@@ -98,7 +93,7 @@ Person App::edit_person(const Person &p, std::string label) const
 
     return Person(ofn, oln, by, sx[0]);
 }
-Person App::input_new_person() const
+static Person input_new_person()
 {
     Person p;
     return edit_person(p, "Tworzenie nowej osoby.");
@@ -115,7 +110,8 @@ static void show_persons_list(std::vector<Person>& l, std::string title)
         }
     }
 }
-void App::show_info(const Item *p) const
+
+void App::show_info(const Item *p)
 {
     std::vector<Person> siblings, childrens, grandchildrens;
 
@@ -140,12 +136,16 @@ void App::on_exit()
 void App::on_add_person()
 {
     console.cls();
+    intro();
+
     Person p = input_new_person();
     tree.add_person(tree.find_by_id(menu.get_curr_line()), p);
 }
 void App::on_edit_person()
 {
     console.cls();
+    intro();
+
     auto i = tree.find_by_id(menu.get_curr_line());
     if (i)
     {

@@ -11,7 +11,7 @@ class Person
 public:
     Person();
     Person(std::string, std::string, int, char);
-    virtual ~Person();
+    virtual ~Person() = default;
 
     friend std::ostream& operator<<(std::ostream&, const Person&);
 

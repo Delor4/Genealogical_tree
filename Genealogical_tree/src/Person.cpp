@@ -14,10 +14,6 @@ Person::Person(std::string _first_name, std::string _last_name, int _birth_year,
     sex = (tolower(_sex) == 'm' ? 'M' : 'K');
 };
 
-Person::~Person()
-{
-}
-
 std::ostream& operator<<(std::ostream& os, const Person& p)
 {
     os << p.first_name << ' ' << p.last_name << ", " << p.birth_year << ", " << p.sex;

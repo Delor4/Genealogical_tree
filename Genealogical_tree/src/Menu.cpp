@@ -10,9 +10,6 @@ Menu::Menu()
     populate_map();
 }
 
-Menu::~Menu()
-{
-}
 void Menu::populate_map()
 {
     for (auto& i : items)

@@ -8,10 +8,6 @@ Console::Console()
 {
 }
 
-Console::~Console()
-{
-}
-
 WORD Console::get_key()
 {
     DWORD events;
