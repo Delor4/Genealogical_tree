@@ -1,7 +1,7 @@
 #include <iostream>
 #include <windows.h>
 
-#include "GenTreeApp.h"
+#include "App.h"
 
 #ifdef _DEBUG_
 static void init_tree(Tree& tree)
@@ -24,7 +24,7 @@ static void init_tree(Tree& tree)
 }
 #endif // _DEBUG_
 
-GenTreeApp::GenTreeApp()
+App::App()
     : done { false }
 {
 #ifdef _DEBUG_
@@ -32,11 +32,11 @@ GenTreeApp::GenTreeApp()
 #endif // __DEBUG
 }
 
-GenTreeApp::~GenTreeApp()
+App::~App()
 {
 }
 
-void GenTreeApp::intro() const
+void App::intro() const
 {
     std::cout << "Drzewo genealogiczne potomkow.\n";
 }
@@ -68,7 +68,7 @@ static int s_to_i(std::string s)
     }
     return out;
 }
-Person GenTreeApp::edit_person(const Person &p, std::string label) const
+Person App::edit_person(const Person &p, std::string label) const
 {
     intro();
     std::cout << label << "\n\n";
@@ -91,7 +91,7 @@ Person GenTreeApp::edit_person(const Person &p, std::string label) const
 
     return Person(ofn, oln, by, sx[0]);
 }
-Person GenTreeApp::input_new_person() const
+Person App::input_new_person() const
 {
     Person p;
     return edit_person(p, "Tworzenie nowej osoby.");
@@ -106,7 +106,7 @@ static void show_persons_list(std::vector<Person>& l, std::string title)
         }
     }
 }
-void GenTreeApp::show_info(const GenTreeItem *p) const
+void App::show_info(const GenTreeItem *p) const
 {
     std::vector<Person> siblings, childrens, grandchildrens;
 
@@ -124,17 +124,17 @@ void GenTreeApp::show_info(const GenTreeItem *p) const
     show_persons_list(grandchildrens, "\nWnuki:");
 }
 
-void GenTreeApp::on_exit()
+void App::on_exit()
 {
     done = true;
 }
-void GenTreeApp::on_add_person()
+void App::on_add_person()
 {
     console.cls();
     Person p = input_new_person();
     tree.add_person(tree.find_by_id(menu.get_curr_line()), p);
 }
-void GenTreeApp::on_edit_person()
+void App::on_edit_person()
 {
     console.cls();
     auto i = tree.find_by_id(menu.get_curr_line());
@@ -143,11 +143,11 @@ void GenTreeApp::on_edit_person()
         tree.set_person(i, p);
     }
 }
-void GenTreeApp::on_delete_person()
+void App::on_delete_person()
 {
     tree.remove_by_id(menu.get_curr_line());
 }
-void GenTreeApp::on_show_info()
+void App::on_show_info()
 {
     console.cls();
     auto i = tree.find_by_id(menu.get_curr_line());
@@ -156,7 +156,7 @@ void GenTreeApp::on_show_info()
         console.get_key();
     }
 }
-void GenTreeApp::on_load()
+void App::on_load()
 {
     console.cls();
     intro();
@@ -172,7 +172,7 @@ void GenTreeApp::on_load()
         tree.swap(n_tree);
     };
 }
-void GenTreeApp::on_save()
+void App::on_save()
 {
     if (tree.get_size()) {
         console.cls();
@@ -186,7 +186,7 @@ void GenTreeApp::on_save()
         tree.save(path);
     }
 }
-void GenTreeApp::on_version()
+void App::on_version()
 {
     console.cls();
 
@@ -198,38 +198,38 @@ void GenTreeApp::on_version()
 
     console.get_key();
 }
-void GenTreeApp::on_new_tree()
+void App::on_new_tree()
 {
     tree.remove_by_id(0);
 }
-void GenTreeApp::on_arrow_up()
+void App::on_arrow_up()
 {
     menu.line_up();
 }
-void GenTreeApp::on_arrow_down()
+void App::on_arrow_down()
 {
     menu.line_down();
 }
-void GenTreeApp::on_arrow_left()
+void App::on_arrow_left()
 {
     menu.set_curr_line(tree.get_id(tree.find_by_id(menu.get_curr_line())->get_parent()));
 }
-void GenTreeApp::on_arrow_right()
+void App::on_arrow_right()
 {
     auto c = tree.find_by_id(menu.get_curr_line())->get_leftmost_child();
     if (c)
         menu.set_curr_line(tree.get_id(c));
 }
-void GenTreeApp::on_page_up()
+void App::on_page_up()
 {
     menu.set_curr_line(menu.get_curr_line() - menu.get_max_lines() + 1);
 }
-void GenTreeApp::on_page_down()
+void App::on_page_down()
 {
     menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines() - 1);
 }
 
-std::unordered_map<GenTreeMenu::MENU_ITEMS, loop_func, std::hash<int>> GenTreeApp::get_main_loop()
+std::unordered_map<GenTreeMenu::MENU_ITEMS, loop_func, std::hash<int>> App::get_main_loop()
 {
     std::unordered_map<GenTreeMenu::MENU_ITEMS, loop_func, std::hash<int>> loop_map;
 
@@ -259,7 +259,7 @@ std::unordered_map<GenTreeMenu::MENU_ITEMS, loop_func, std::hash<int>> GenTreeAp
     return loop_map;
 }
 
-void GenTreeApp::run()
+void App::run()
 {
     auto loop = get_main_loop();
     while (!done) {

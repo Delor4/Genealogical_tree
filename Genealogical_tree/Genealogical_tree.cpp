@@ -1,8 +1,8 @@
-#include "GenTreeApp.h"
+#include "App.h"
 
 int main()
 {
-    GenTreeApp app;
+    App app;
 
     app.run();
 

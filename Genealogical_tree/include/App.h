@@ -6,15 +6,15 @@
 #include "Tree.h"
 
 
-class GenTreeApp;
-typedef void (GenTreeApp::*loop_func)();
+class App;
+typedef void (App::*loop_func)();
 
-class GenTreeApp
+class App
 {
 
 public:
-    GenTreeApp();
-    virtual ~GenTreeApp();
+    App();
+    virtual ~App();
 
     void run();
 protected:
