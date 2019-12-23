@@ -242,41 +242,9 @@ void App::on_page_down()
     menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines() - 1);
 }
 
-const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>>& App::get_main_loop() const
-{
-    static const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> loop_map =
-    {
-
-        {Menu::EXIT, on_exit},
-        {Menu::ADD_PERSON, on_add_person},
-
-        {Menu::EDIT_PERSON, on_edit_person},
-        {Menu::DELETE_PERSON, on_delete_person},
-
-        {Menu::SHOW_INFO, on_show_info},
-
-        {Menu::LOAD, on_load},
-        {Menu::SAVE, on_save},
-
-        {Menu::NEW_TREE, on_new_tree},
-        {Menu::ARROW_UP, on_arrow_up},
-        {Menu::ARROW_DOWN, on_arrow_down},
-        {Menu::ARROW_LEFT, on_arrow_left},
-        {Menu::ARROW_RIGHT, on_arrow_right},
-
-        {Menu::PAGE_UP, on_page_up},
-        {Menu::PAGE_DOWN, on_page_down},
-
-        {Menu::EXIT, on_exit},
-
-        {Menu::VERSION, on_version},
-    };
-    return loop_map;
-}
 
 void App::run()
 {
-    auto loop = get_main_loop();
     while (!done)
     {
         menu.set_curr_max_lines(tree.get_size());
@@ -292,9 +260,9 @@ void App::run()
         while (opt == Menu::NONE)
             opt = menu.get_option(console.get_key());
 
-        if(loop.find(opt) != loop.end())
+        if(loop_map.find(opt) != loop_map.end())
         {
-            auto f = loop.at(opt);
+            auto f = loop_map.at(opt);
             (this->*f)();
         }
         else
@@ -303,4 +271,32 @@ void App::run()
         }
     }
 }
+
+const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> App::loop_map =
+{
+    {Menu::EXIT, on_exit},
+    {Menu::ADD_PERSON, on_add_person},
+
+    {Menu::EDIT_PERSON, on_edit_person},
+    {Menu::DELETE_PERSON, on_delete_person},
+
+    {Menu::SHOW_INFO, on_show_info},
+
+    {Menu::LOAD, on_load},
+    {Menu::SAVE, on_save},
+
+    {Menu::NEW_TREE, on_new_tree},
+    {Menu::ARROW_UP, on_arrow_up},
+    {Menu::ARROW_DOWN, on_arrow_down},
+    {Menu::ARROW_LEFT, on_arrow_left},
+    {Menu::ARROW_RIGHT, on_arrow_right},
+
+    {Menu::PAGE_UP, on_page_up},
+    {Menu::PAGE_DOWN, on_page_down},
+
+    {Menu::EXIT, on_exit},
+
+    {Menu::VERSION, on_version},
+};
+
 }
