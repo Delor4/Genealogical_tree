@@ -242,7 +242,7 @@ void App::on_page_down()
     menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines() - 1);
 }
 
-const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>>& App::get_main_loop()
+const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>>& App::get_main_loop() const
 {
     static const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> loop_map =
     {

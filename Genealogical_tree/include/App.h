@@ -40,7 +40,7 @@ private:
     void on_arrow_right();
     void on_page_up();
     void on_page_down();
-    const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>>& get_main_loop();
+    const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>>& get_main_loop() const;
 
     Console console;
     Menu menu;
