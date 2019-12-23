@@ -29,7 +29,7 @@ void Item::show()
         }
     }
 }
-bool Item::show(std::string indent, int line, GenTreeMenu& menu, int& curr_line, Console& console)
+bool Item::show(std::string indent, int line, Menu& menu, int& curr_line, Console& console)
 {
     if (curr_line == 0) {
         if (menu.get_skip_lines() == 0) {

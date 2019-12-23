@@ -27,7 +27,7 @@ void Tree::show() const
         root->show();
 }
 
-void Tree::show(std::string indent, int line, GenTreeMenu& menu, Console& console) const
+void Tree::show(std::string indent, int line, Menu& menu, Console& console) const
 {
     int start = 0;
     if (root)

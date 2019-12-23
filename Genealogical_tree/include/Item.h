@@ -4,7 +4,7 @@
 #include <vector>
 #include <fstream>
 #include "Person.h"
-#include "GenTreeMenu.h"
+#include "Menu.h"
 #include "Console.h"
 
 class Item
@@ -15,7 +15,7 @@ class Item
         virtual ~Item();
 
         void show();
-        bool show(std::string indent, int line, GenTreeMenu &menu, int &curr_line, Console&);
+        bool show(std::string indent, int line, Menu &menu, int &curr_line, Console&);
 
         Item * add_children(Person &);
 
