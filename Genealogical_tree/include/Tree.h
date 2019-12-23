@@ -12,7 +12,7 @@ public:
     virtual ~Tree();
 
     void show() const;
-    void show(std::string indent, int line, Menu& menu, Console&) const;
+    void show(std::string indent, int line, int skip_lines, int max_lines, Console&) const;
 
     void set_person(Item* p, Person&);
     Item* add_person(Item* p, Person&);

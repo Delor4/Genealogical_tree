@@ -34,11 +34,11 @@ void Item::show()
         }
     }
 }
-bool Item::show(std::string indent, int line, Menu& menu, int& curr_line, Console& console)
+bool Item::show(std::string indent, int line, int& curr_line, int skip_lines, int max_lines, Console& console)
 {
     if (curr_line == 0)
     {
-        if (menu.get_skip_lines() == 0)
+        if (skip_lines == 0)
         {
             std::cout << "O\n";
         }
@@ -47,13 +47,13 @@ bool Item::show(std::string indent, int line, Menu& menu, int& curr_line, Consol
             std::cout << "^^^\n";
         }
     }
-    if ((curr_line - menu.get_skip_lines()) >= menu.get_max_lines())
+    if ((curr_line - skip_lines) >= max_lines)
     {
         std::cout << "vvv\n";
         return true;
     }
 
-    if (menu.get_skip_lines() <= curr_line)
+    if (skip_lines <= curr_line)
     {
         std::cout << indent << (has_right_sibling() ? "\xc3" : "\xc0") << " ";
 
@@ -77,7 +77,7 @@ bool Item::show(std::string indent, int line, Menu& menu, int& curr_line, Consol
 
     for (auto i : childrens)
     {
-        if (i && i->show(indent + add_indent, line, menu, ++curr_line, console))
+        if (i && i->show(indent + add_indent, line, ++curr_line, skip_lines, max_lines, console))
             return true;
     }
     return false;

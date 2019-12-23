@@ -4,7 +4,6 @@
 #include <vector>
 #include <fstream>
 #include "Person.h"
-#include "Menu.h"
 #include "Console.h"
 
 namespace GenTree
@@ -17,7 +16,7 @@ public:
     virtual ~Item();
 
     void show();
-    bool show(std::string indent, int line, Menu &menu, int &curr_line, Console&);
+    bool show(std::string indent, int line, int &curr_line, int skip_lines, int max_lines, Console&);
 
     Item * add_children(Person &);
 

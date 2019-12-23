@@ -252,7 +252,7 @@ void App::run()
         console.cls();
         intro();
         menu.show();
-        tree.show("", menu.get_curr_line(), menu, console);
+        tree.show("", menu.get_curr_line(), menu.get_skip_lines(), menu.get_max_lines(), console);
         std::cout.flush();
         Sleep(50);
 

@@ -29,11 +29,11 @@ void Tree::show() const
         root->show();
 }
 
-void Tree::show(std::string indent, int line, Menu& menu, Console& console) const
+void Tree::show(std::string indent, int line, int skip_lines, int max_lines, Console& console) const
 {
     int start = 0;
     if (root)
-        root->show(indent, line, menu, start, console);
+        root->show(indent, line, start, skip_lines, max_lines, console);
 }
 
 int Tree::get_size() const
