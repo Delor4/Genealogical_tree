@@ -1,7 +1,7 @@
 #ifndef GENTREE_H
 #define GENTREE_H
 
-#include "GenTreeItem.h"
+#include "Item.h"
 
 class Tree {
 public:
@@ -11,12 +11,12 @@ public:
     void show() const;
     void show(std::string indent, int line, GenTreeMenu& menu, Console&) const;
 
-    void set_person(GenTreeItem* p, Person&);
-    GenTreeItem* add_person(GenTreeItem* p, Person&);
+    void set_person(Item* p, Person&);
+    Item* add_person(Item* p, Person&);
 
-    int get_id(GenTreeItem *) const;
+    int get_id(Item *) const;
 
-    GenTreeItem* find_by_id(int id) const;
+    Item* find_by_id(int id) const;
     void remove_by_id(int id);
 
     int get_size() const;
@@ -28,7 +28,7 @@ public:
 
 protected:
 private:
-    GenTreeItem* root;
+    Item* root;
 };
 
 #endif // GENTREE_H

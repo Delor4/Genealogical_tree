@@ -7,17 +7,17 @@
 static void init_tree(Tree& tree)
 {
     Person p1("Jan", "Kowalski", 1954, 'M');
-    GenTreeItem *i1 = tree.add_person(nullptr, p1);
+    Item *i1 = tree.add_person(nullptr, p1);
 
         Person p2("Janina", "Kowalska", 1974, 'K');
-        GenTreeItem *i2 = tree.add_person(i1, p2);
+        Item *i2 = tree.add_person(i1, p2);
             Person p5("Dorota", "Kowalska", 1994, 'K');
             tree.add_person(i2, p5);
             Person p6("Daria", "Kowalska", 1994, 'K');
             tree.add_person(i2, p6);
 
         Person p3("Jambrozy", "Kowalski", 1977, 'M');
-        GenTreeItem *i3 = tree.add_person(i1, p3);
+        Item *i3 = tree.add_person(i1, p3);
             Person p4("Grazyna", "Kowalska", 1994, 'K');
             tree.add_person(i3, p4);
 
@@ -106,7 +106,7 @@ static void show_persons_list(std::vector<Person>& l, std::string title)
         }
     }
 }
-void App::show_info(const GenTreeItem *p) const
+void App::show_info(const Item *p) const
 {
     std::vector<Person> siblings, childrens, grandchildrens;
 

@@ -22,7 +22,7 @@ private:
     void intro() const;
     Person edit_person(const Person &p, std::string label = "Edycja osoby.") const;
     Person input_new_person() const;
-    void show_info(const GenTreeItem *p) const;
+    void show_info(const Item *p) const;
 
     void on_exit();
     void on_add_person();

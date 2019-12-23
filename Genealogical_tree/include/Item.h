@@ -7,33 +7,33 @@
 #include "GenTreeMenu.h"
 #include "Console.h"
 
-class GenTreeItem
+class Item
 {
     public:
-        GenTreeItem();
-        GenTreeItem(Person &);
-        virtual ~GenTreeItem();
+        Item();
+        Item(Person &);
+        virtual ~Item();
 
         void show();
         bool show(std::string indent, int line, GenTreeMenu &menu, int &curr_line, Console&);
 
-        GenTreeItem * add_children(Person &);
+        Item * add_children(Person &);
 
         const Person& get_person() const;
         void set_person(Person &);
 
         void get_siblings(std::vector<Person>&) const;
-        void get_childrens(std::vector<Person>&, const GenTreeItem *skip=nullptr) const;
+        void get_childrens(std::vector<Person>&, const Item *skip=nullptr) const;
         void get_grandchildrens(std::vector<Person>&) const;
 
-        int get_id(const GenTreeItem *, int &curr) const;
-        GenTreeItem * find_by_id(int id, int &curr);
+        int get_id(const Item *, int &curr) const;
+        Item * find_by_id(int id, int &curr);
 
         void remove_by_id(int id);
-        void remove_child(GenTreeItem *);
+        void remove_child(Item *);
 
-        GenTreeItem *get_parent() const;
-        GenTreeItem *get_leftmost_child() const;
+        Item *get_parent() const;
+        Item *get_leftmost_child() const;
 
         int get_size() const;
 
@@ -46,8 +46,8 @@ class GenTreeItem
         int count_childrens() const;
 
         Person data;
-        GenTreeItem* parent;
-        std:: vector <GenTreeItem*> childrens;
+        Item* parent;
+        std:: vector <Item*> childrens;
 };
 
 #endif // GENTREEITEM_H
