@@ -1,21 +1,21 @@
-#include "Item.h"
+#include "Node.h"
 
 #include <algorithm>
 
 namespace GenTree
 {
-Item::Item()
+Node::Node()
     : parent{ nullptr }
 {
 }
 
-Item::Item(Person& _p)
+Node::Node(Person& _p)
     : data{ _p }
     , parent{ nullptr }
 {
 }
 
-Item::~Item()
+Node::~Node()
 {
     for (auto i = childrens.begin(); i != childrens.end(); ++i)
     {
@@ -23,7 +23,7 @@ Item::~Item()
     }
 }
 
-void Item::show()
+void Node::show()
 {
     std::cout << data << '\n';
     for (auto i : childrens)
@@ -34,7 +34,7 @@ void Item::show()
         }
     }
 }
-bool Item::show(std::string indent, int line, int& curr_line, int skip_lines, int max_lines, Console& console)
+bool Node::show(std::string indent, int line, int& curr_line, int skip_lines, int max_lines, Console& console)
 {
     if (curr_line == 0)
     {
@@ -83,15 +83,15 @@ bool Item::show(std::string indent, int line, int& curr_line, int skip_lines, in
     return false;
 }
 
-Item* Item::add_children(Person& p)
+Node* Node::add_children(Person& p)
 {
-    Item* i = new Item(p);
+    Node* i = new Node(p);
     i->parent = this;
     childrens.push_back(i);
     return i;
 }
 
-bool Item::has_right_sibling() const
+bool Node::has_right_sibling() const
 {
     if (parent)
     {
@@ -105,23 +105,23 @@ bool Item::has_right_sibling() const
     return false;
 }
 
-int Item::get_size() const
+int Node::get_size() const
 {
-    static auto get_item_size = [](int a, Item* b)
+    static auto get_item_size = [](int a, Node* b)
     {
         return a + (b ? b->get_size() : 0);
     };
     return std::accumulate(childrens.begin(), childrens.end(), 1, get_item_size);
 }
-int Item::count_childrens() const
+int Node::count_childrens() const
 {
-    static auto count_item_childrens = [](int a, Item* b)
+    static auto count_item_childrens = [](int a, Node* b)
     {
         return a + (b ? 1 : 0);
     };
     return std::accumulate(childrens.begin(), childrens.end(), 0, count_item_childrens);
 }
-Item* Item::find_by_id(int id, int& curr)
+Node* Node::find_by_id(int id, int& curr)
 {
     if (id == curr)
         return this;
@@ -136,11 +136,11 @@ Item* Item::find_by_id(int id, int& curr)
     }
     return nullptr;
 }
-Item* Item::get_parent() const
+Node* Node::get_parent() const
 {
     return parent;
 }
-void Item::remove_child(Item* c)
+void Node::remove_child(Node* c)
 {
     for (auto i = childrens.begin(); i != childrens.end(); ++i)
     {
@@ -152,15 +152,15 @@ void Item::remove_child(Item* c)
         }
     }
 }
-const Person& Item::get_person() const
+const Person& Node::get_person() const
 {
     return data;
 }
-void Item::set_person(Person& p)
+void Node::set_person(Person& p)
 {
     data = p;
 }
-void Item::save(std::ostream& os) const
+void Node::save(std::ostream& os) const
 {
     data.save(os);
     short tmp;
@@ -172,21 +172,21 @@ void Item::save(std::ostream& os) const
             i->save(os);
     }
 }
-bool Item::load(std::istream& os)
+bool Node::load(std::istream& os)
 {
     data.load(os);
     short tmp;
     os.read(reinterpret_cast<char*>(&tmp), sizeof(tmp));
     for (int i = 0; i < tmp; ++i)
     {
-        Item* g = new Item();
+        Node* g = new Node();
         g->load(os);
         g->parent = this;
         childrens.push_back(g);
     }
     return true;
 }
-int Item::get_id(const Item* t, int& curr) const
+int Node::get_id(const Node* t, int& curr) const
 {
     if (this == t)
         return curr;
@@ -198,7 +198,7 @@ int Item::get_id(const Item* t, int& curr) const
     }
     return -1;
 }
-Item* Item::get_leftmost_child() const
+Node* Node::get_leftmost_child() const
 {
     for (auto i : childrens)
     {
@@ -207,12 +207,12 @@ Item* Item::get_leftmost_child() const
     }
     return nullptr;
 }
-void Item::get_siblings(std::vector<Person>& v) const
+void Node::get_siblings(std::vector<Person>& v) const
 {
     if(parent)
         parent->get_childrens(v, this);
 }
-void Item::get_childrens(std::vector<Person>& v, const Item *skip) const
+void Node::get_childrens(std::vector<Person>& v, const Node *skip) const
 {
     for (auto &i : childrens)
     {
@@ -220,7 +220,7 @@ void Item::get_childrens(std::vector<Person>& v, const Item *skip) const
             v.push_back(i->get_person());
     }
 }
-void Item::get_grandchildrens(std::vector<Person>& v) const
+void Node::get_grandchildrens(std::vector<Person>& v) const
 {
     for (auto i : childrens)
     {

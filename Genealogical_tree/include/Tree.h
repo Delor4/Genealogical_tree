@@ -1,7 +1,7 @@
 #ifndef GENTREE_TREE_H
 #define GENTREE_TREE_H
 
-#include "Item.h"
+#include "Node.h"
 
 namespace GenTree
 {
@@ -14,12 +14,12 @@ public:
     void show() const;
     void show(std::string indent, int line, int skip_lines, int max_lines, Console&) const;
 
-    void set_person(Item* p, Person&);
-    Item* add_person(Item* p, Person&);
+    void set_person(Node* p, Person&);
+    Node* add_person(Node* p, Person&);
 
-    int get_id(Item *) const;
+    int get_id(Node *) const;
 
-    Item* find_by_id(int id) const;
+    Node* find_by_id(int id) const;
     void remove_by_id(int id);
 
     int get_size() const;
@@ -31,7 +31,7 @@ public:
 
 protected:
 private:
-    Item* root;
+    Node* root;
 };
 }
 #endif // GENTREE_TREE_H

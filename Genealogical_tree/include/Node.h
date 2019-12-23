@@ -1,5 +1,5 @@
-#ifndef GENTREE_ITEM_H
-#define GENTREE_ITEM_H
+#ifndef GENTREE_NODE_H
+#define GENTREE_NODE_H
 
 #include <vector>
 #include <fstream>
@@ -8,33 +8,33 @@
 
 namespace GenTree
 {
-class Item
+class Node
 {
 public:
-    Item();
-    Item(Person &);
-    virtual ~Item();
+    Node();
+    Node(Person &);
+    virtual ~Node();
 
     void show();
     bool show(std::string indent, int line, int &curr_line, int skip_lines, int max_lines, Console&);
 
-    Item * add_children(Person &);
+    Node * add_children(Person &);
 
     const Person& get_person() const;
     void set_person(Person &);
 
     void get_siblings(std::vector<Person>&) const;
-    void get_childrens(std::vector<Person>&, const Item *skip=nullptr) const;
+    void get_childrens(std::vector<Person>&, const Node *skip=nullptr) const;
     void get_grandchildrens(std::vector<Person>&) const;
 
-    int get_id(const Item *, int &curr) const;
-    Item * find_by_id(int id, int &curr);
+    int get_id(const Node *, int &curr) const;
+    Node * find_by_id(int id, int &curr);
 
     void remove_by_id(int id);
-    void remove_child(Item *);
+    void remove_child(Node *);
 
-    Item *get_parent() const;
-    Item *get_leftmost_child() const;
+    Node *get_parent() const;
+    Node *get_leftmost_child() const;
 
     int get_size() const;
 
@@ -47,8 +47,8 @@ private:
     int count_childrens() const;
 
     Person data;
-    Item* parent;
-    std:: vector <Item*> childrens;
+    Node* parent;
+    std:: vector <Node*> childrens;
 };
 }
-#endif // GENTREE_ITEM_H
+#endif // GENTREE_NODE_H

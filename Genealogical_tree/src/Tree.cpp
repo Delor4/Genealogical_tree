@@ -13,12 +13,12 @@ Tree::~Tree()
     delete root;
 }
 
-Item* Tree::add_person(Item* r, Person& p)
+Node* Tree::add_person(Node* r, Person& p)
 {
     if (r == nullptr)   //add to root of tree
     {
         delete root;
-        return root = new Item(p);
+        return root = new Node(p);
     }
     return r->add_children(p);
 }
@@ -43,7 +43,7 @@ int Tree::get_size() const
 
 void Tree::remove_by_id(int id)
 {
-    Item* p = find_by_id(id);
+    Node* p = find_by_id(id);
     if (!p)
         return;
     if (p == root)
@@ -57,13 +57,13 @@ void Tree::remove_by_id(int id)
     }
 }
 
-Item* Tree::find_by_id(int id) const
+Node* Tree::find_by_id(int id) const
 {
     int start = 0;
     return root ? root->find_by_id(id, start) : nullptr;
 }
 
-void Tree::set_person(Item* i, Person& p)
+void Tree::set_person(Node* i, Person& p)
 {
     if (i)
         i->set_person(p);
@@ -89,7 +89,7 @@ bool Tree::load(std::string path)
         return false;
     }
 
-    Item* g = new Item();
+    Node* g = new Node();
     g->load(in);
 
     delete root;
@@ -101,7 +101,7 @@ void Tree::swap(Tree& t)
 {
     std::swap(root, t.root);
 }
-int Tree::get_id(Item* i) const
+int Tree::get_id(Node* i) const
 {
     int start = 0;
     return root ? root->get_id(i, start) : -1;

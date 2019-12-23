@@ -23,7 +23,7 @@ public:
 protected:
 private:
     static void intro();
-    static void show_info(const Item *p);
+    static void show_info(const Node *p);
 
     void on_exit();
     void on_add_person();

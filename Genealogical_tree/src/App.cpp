@@ -10,17 +10,17 @@ namespace GenTree
 static void init_tree(Tree& tree)
 {
     Person p1("Jan", "Kowalski", 1954, 'M');
-    Item *i1 = tree.add_person(nullptr, p1);
+    Node *i1 = tree.add_person(nullptr, p1);
 
     Person p2("Janina", "Kowalska", 1974, 'K');
-    Item *i2 = tree.add_person(i1, p2);
+    Node *i2 = tree.add_person(i1, p2);
     Person p5("Dorota", "Kowalska", 1994, 'K');
     tree.add_person(i2, p5);
     Person p6("Daria", "Kowalska", 1994, 'K');
     tree.add_person(i2, p6);
 
     Person p3("Jambrozy", "Kowalski", 1977, 'M');
-    Item *i3 = tree.add_person(i1, p3);
+    Node *i3 = tree.add_person(i1, p3);
     Person p4("Grazyna", "Kowalska", 1994, 'K');
     tree.add_person(i3, p4);
 
@@ -111,7 +111,7 @@ static void show_persons_list(std::vector<Person>& l, std::string title)
     }
 }
 
-void App::show_info(const Item *p)
+void App::show_info(const Node *p)
 {
     std::vector<Person> siblings, childrens, grandchildrens;
 
