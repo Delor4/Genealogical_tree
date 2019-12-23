@@ -3,7 +3,10 @@
 
 #include "Item.h"
 
-class Tree {
+namespace GenTree
+{
+class Tree
+{
 public:
     Tree();
     virtual ~Tree();
@@ -30,5 +33,5 @@ protected:
 private:
     Item* root;
 };
-
+}
 #endif // GENTREE_H

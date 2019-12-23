@@ -2,7 +2,7 @@
 
 int main()
 {
-    App app;
+    GenTree::App app;
 
     app.run();
 

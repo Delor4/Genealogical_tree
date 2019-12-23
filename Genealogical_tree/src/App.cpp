@@ -3,23 +3,26 @@
 
 #include "App.h"
 
+namespace GenTree
+{
+
 #ifdef _DEBUG_
 static void init_tree(Tree& tree)
 {
     Person p1("Jan", "Kowalski", 1954, 'M');
     Item *i1 = tree.add_person(nullptr, p1);
 
-        Person p2("Janina", "Kowalska", 1974, 'K');
-        Item *i2 = tree.add_person(i1, p2);
-            Person p5("Dorota", "Kowalska", 1994, 'K');
-            tree.add_person(i2, p5);
-            Person p6("Daria", "Kowalska", 1994, 'K');
-            tree.add_person(i2, p6);
+    Person p2("Janina", "Kowalska", 1974, 'K');
+    Item *i2 = tree.add_person(i1, p2);
+    Person p5("Dorota", "Kowalska", 1994, 'K');
+    tree.add_person(i2, p5);
+    Person p6("Daria", "Kowalska", 1994, 'K');
+    tree.add_person(i2, p6);
 
-        Person p3("Jambrozy", "Kowalski", 1977, 'M');
-        Item *i3 = tree.add_person(i1, p3);
-            Person p4("Grazyna", "Kowalska", 1994, 'K');
-            tree.add_person(i3, p4);
+    Person p3("Jambrozy", "Kowalski", 1977, 'M');
+    Item *i3 = tree.add_person(i1, p3);
+    Person p4("Grazyna", "Kowalska", 1994, 'K');
+    tree.add_person(i3, p4);
 
 }
 #endif // _DEBUG_
@@ -57,13 +60,16 @@ static std::string get_string(std::string default_s)
 static int s_to_i(std::string s)
 {
     int out;
-    try {
+    try
+    {
         out = std::stoi(s);
     }
-    catch (const std::invalid_argument&) {
+    catch (const std::invalid_argument&)
+    {
         return 0;
     }
-    catch (const std::out_of_range&) {
+    catch (const std::out_of_range&)
+    {
         return 0;
     }
     return out;
@@ -82,7 +88,8 @@ Person App::edit_person(const Person &p, std::string label) const
     std::cout << "Rok urodzenia [" << p.birth_year << "]:\n";
     std::string sby = get_string("0");
     int by = s_to_i(sby);
-    if (!by) {
+    if (!by)
+    {
         by = p.birth_year;
     }
 
@@ -99,9 +106,11 @@ Person App::input_new_person() const
 
 static void show_persons_list(std::vector<Person>& l, std::string title)
 {
-    if(l.size()){
+    if(l.size())
+    {
         std::cout << title << "\n";
-        for(auto i: l){
+        for(auto i: l)
+        {
             std:: cout << " " << i << "\n";
         }
     }
@@ -138,7 +147,8 @@ void App::on_edit_person()
 {
     console.cls();
     auto i = tree.find_by_id(menu.get_curr_line());
-    if (i) {
+    if (i)
+    {
         auto p = edit_person(i->get_person());
         tree.set_person(i, p);
     }
@@ -151,7 +161,8 @@ void App::on_show_info()
 {
     console.cls();
     auto i = tree.find_by_id(menu.get_curr_line());
-    if(i){
+    if(i)
+    {
         show_info(i);
         console.get_key();
     }
@@ -168,13 +179,15 @@ void App::on_load()
         return;
 
     Tree n_tree;
-    if (n_tree.load(path)) {
+    if (n_tree.load(path))
+    {
         tree.swap(n_tree);
     };
 }
 void App::on_save()
 {
-    if (tree.get_size()) {
+    if (tree.get_size())
+    {
         console.cls();
         intro();
         std::cout << "Zapisywanie drzewa do pliku.\n\n";
@@ -262,7 +275,8 @@ std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> App::get_main_lo
 void App::run()
 {
     auto loop = get_main_loop();
-    while (!done) {
+    while (!done)
+    {
         menu.set_curr_max_lines(tree.get_size());
 
         console.cls();
@@ -276,11 +290,15 @@ void App::run()
         while (opt == Menu::NONE)
             opt = menu.get_option(console.get_key());
 
-        if(loop.find(opt) != loop.end()){
+        if(loop.find(opt) != loop.end())
+        {
             auto f = loop.at(opt);
             (this->*f)();
-        } else {
+        }
+        else
+        {
             std::cout << "[ERROR] Nieznana opcja: " << opt;
         }
     }
+}
 }

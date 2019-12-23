@@ -5,7 +5,8 @@
 #include "Menu.h"
 #include "Tree.h"
 
-
+namespace GenTree
+{
 class App;
 typedef void (App::*loop_func)();
 
@@ -47,5 +48,5 @@ private:
 
     bool done;
 };
-
+}
 #endif // GENTREE_APP_H

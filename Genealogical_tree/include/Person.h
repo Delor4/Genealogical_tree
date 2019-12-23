@@ -4,8 +4,10 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-
-class Person {
+namespace GenTree
+{
+class Person
+{
 public:
     Person();
     Person(std::string, std::string, int, char);
@@ -23,5 +25,5 @@ public:
 protected:
 private:
 };
-
+}
 #endif // PERSON_H

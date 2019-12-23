@@ -1,5 +1,6 @@
 #include "Person.h"
-
+namespace GenTree
+{
 Person::Person()
     : Person("John", "Doe", 1900, 'M')
 {
@@ -59,4 +60,5 @@ bool Person::load(std::istream &os)
     os >> sex;
 
     return true;
+}
 }

@@ -1,5 +1,7 @@
 #include "Console.h"
 
+namespace GenTree
+{
 Console::Console()
     : h_stdout{ GetStdHandle(STD_OUTPUT_HANDLE) }
     , h_stdin{ GetStdHandle(STD_INPUT_HANDLE) }
@@ -15,9 +17,11 @@ WORD Console::get_key()
     DWORD events;
     INPUT_RECORD buffer;
 
-    do{
+    do
+    {
         ReadConsoleInput(h_stdin, &buffer, 1, &events);
-    }while(!buffer.Event.KeyEvent.bKeyDown);
+    }
+    while(!buffer.Event.KeyEvent.bKeyDown);
 
     return buffer.Event.KeyEvent.wVirtualKeyCode;
 };
@@ -51,4 +55,5 @@ WORD Console::set_text_attr(WORD attr)
     SetConsoleTextAttribute(h_stdout, attr);
 
     return old_attr;
+}
 }

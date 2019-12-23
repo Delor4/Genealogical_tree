@@ -1,7 +1,8 @@
 #include "Tree.h"
 
 #include <fstream>
-
+namespace GenTree
+{
 Tree::Tree()
     : root{ nullptr }
 {
@@ -14,7 +15,8 @@ Tree::~Tree()
 
 Item* Tree::add_person(Item* r, Person& p)
 {
-    if (r == nullptr) { //add to root of tree
+    if (r == nullptr)   //add to root of tree
+    {
         delete root;
         return root = new Item(p);
     }
@@ -44,11 +46,13 @@ void Tree::remove_by_id(int id)
     Item* p = find_by_id(id);
     if (!p)
         return;
-    if (p == root) {
+    if (p == root)
+    {
         root = nullptr;
         delete p;
     }
-    else {
+    else
+    {
         p->get_parent()->remove_child(p);
     }
 }
@@ -79,7 +83,8 @@ bool Tree::load(std::string path)
     std::fstream in;
     in.open(path, std::ios::in | std::ios::binary);
 
-    if(!in.good()){
+    if(!in.good())
+    {
         in.close();
         return false;
     }
@@ -100,4 +105,5 @@ int Tree::get_id(Item* i) const
 {
     int start = 0;
     return root ? root->get_id(i, start) : -1;
+}
 }
