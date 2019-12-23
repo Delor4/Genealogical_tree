@@ -26,7 +26,7 @@ std::ostream& operator<<(std::ostream& os, const Person& p)
     return os;
 }
 
-void Person::save(std::ostream &os)
+void Person::save(std::ostream &os) const
 {
     short tmp;
     tmp = first_name.length();

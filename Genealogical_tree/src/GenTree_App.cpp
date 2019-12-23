@@ -34,16 +34,14 @@ GenTree_App::GenTree_App()
 
 GenTree_App::~GenTree_App()
 {
-    //dtor
 }
 
-
-
-void GenTree_App::intro()
+void GenTree_App::intro() const
 {
     std::cout << "Drzewo genealogiczne potomkow.\n";
 }
 
+//get line from stdin, returns default string on error or empty line
 static std::string get_string(std::string default_s)
 {
     char buff[256];
@@ -54,6 +52,8 @@ static std::string get_string(std::string default_s)
         return default_s;
     return std::string(buff);
 }
+
+//string to integer (silent exeptions)
 static int s_to_i(std::string s)
 {
     int out;
@@ -68,7 +68,7 @@ static int s_to_i(std::string s)
     }
     return out;
 }
-Person GenTree_App::edit_person(const Person &p, std::string label)
+Person GenTree_App::edit_person(const Person &p, std::string label) const
 {
     intro();
     std::cout << label << "\n\n";
@@ -91,7 +91,7 @@ Person GenTree_App::edit_person(const Person &p, std::string label)
 
     return Person(ofn, oln, by, sx[0]);
 }
-Person GenTree_App::input_new_person()
+Person GenTree_App::input_new_person() const
 {
     Person p;
     return edit_person(p, "Tworzenie nowej osoby.");
@@ -106,7 +106,7 @@ static void show_persons_list(std::vector<Person>& l, std::string title)
         }
     }
 }
-void GenTree_App::show_info(GenTreeItem *p)
+void GenTree_App::show_info(const GenTreeItem *p) const
 {
     std::vector<Person> siblings, childrens, grandchildrens;
 

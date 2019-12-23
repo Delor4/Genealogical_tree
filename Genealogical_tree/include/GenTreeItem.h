@@ -19,31 +19,31 @@ class GenTreeItem
 
         GenTreeItem * add_children(Person &);
 
-        Person& get_person();
+        const Person& get_person() const;
         void set_person(Person &);
 
-        void get_siblings(std::vector<Person>&);
-        void get_childrens(std::vector<Person>&, GenTreeItem *skip=nullptr);
-        void get_grandchildrens(std::vector<Person>&);
+        void get_siblings(std::vector<Person>&) const;
+        void get_childrens(std::vector<Person>&, const GenTreeItem *skip=nullptr) const;
+        void get_grandchildrens(std::vector<Person>&) const;
 
-        int get_id(GenTreeItem *, int &curr);
+        int get_id(const GenTreeItem *, int &curr) const;
         GenTreeItem * find_by_id(int id, int &curr);
 
         void remove_by_id(int id);
         void remove_child(GenTreeItem *);
 
-        GenTreeItem *get_parent();
-        GenTreeItem *get_leftmost_child();
+        GenTreeItem *get_parent() const;
+        GenTreeItem *get_leftmost_child() const;
 
-        int get_size();
+        int get_size() const;
 
-        void save(std::ostream &os);
+        void save(std::ostream &os) const;
         bool load(std::istream &os);
     protected:
 
     private:
-        bool has_right_sibling();
-        int count_childrens();
+        bool has_right_sibling() const;
+        int count_childrens() const;
 
         Person data;
         GenTreeItem* parent;

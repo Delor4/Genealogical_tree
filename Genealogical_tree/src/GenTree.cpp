@@ -25,20 +25,20 @@ GenTreeItem* GenTree::add_person(GenTreeItem* r, Person& p)
     return r->add_children(p);
 }
 
-void GenTree::show()
+void GenTree::show() const
 {
     if (root)
         root->show();
 }
 
-void GenTree::show(std::string indent, int line, GT_Menu& menu, Console& console)
+void GenTree::show(std::string indent, int line, GT_Menu& menu, Console& console) const
 {
     int start = 0;
     if (root)
         root->show(indent, line, menu, start, console);
 }
 
-int GenTree::get_size()
+int GenTree::get_size() const
 {
     return root ? root->get_size() : 0;
 }
@@ -57,7 +57,7 @@ void GenTree::remove_by_id(int id)
     }
 }
 
-GenTreeItem* GenTree::find_by_id(int id)
+GenTreeItem* GenTree::find_by_id(int id) const
 {
     int start = 0;
     return root ? root->find_by_id(id, start) : nullptr;
@@ -69,7 +69,7 @@ void GenTree::set_person(GenTreeItem* i, Person& p)
         i->set_person(p);
 }
 
-void GenTree::save(std::string path)
+void GenTree::save(std::string path) const
 {
     if (!root)
         return;
@@ -100,7 +100,7 @@ void GenTree::swap(GenTree& t)
 {
     std::swap(root, t.root);
 }
-int GenTree::get_id(GenTreeItem* i)
+int GenTree::get_id(GenTreeItem* i) const
 {
     int start = 0;
     return root ? root->get_id(i, start) : -1;

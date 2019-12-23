@@ -34,16 +34,16 @@ public:
     GT_Menu();
     virtual ~GT_Menu();
 
-    void show();
+    void show() const;
 
-    MENU_ITEMS get_option(WORD virtual_key);
+    MENU_ITEMS get_option(WORD virtual_key) const;
 
     void line_down();
     void line_up();
     void set_curr_max_lines(int);
-    int get_curr_line();
+    int get_curr_line() const;
     void set_curr_line(int line);
-    int get_skip_lines();
+    int get_skip_lines() const;
     static int get_max_lines() { return MAXLINES; };
 protected:
 private:

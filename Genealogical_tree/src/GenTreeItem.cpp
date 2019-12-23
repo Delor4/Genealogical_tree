@@ -82,7 +82,7 @@ GenTreeItem* GenTreeItem::add_children(Person& p)
     return i;
 }
 
-bool GenTreeItem::has_right_sibling()
+bool GenTreeItem::has_right_sibling() const
 {
     if (parent) {
         auto it = std::find(parent->childrens.begin(), parent->childrens.end(), this);
@@ -94,14 +94,14 @@ bool GenTreeItem::has_right_sibling()
     return false;
 }
 
-int GenTreeItem::get_size()
+int GenTreeItem::get_size() const
 {
     static auto get_item_size = [](int a, GenTreeItem* b) {
         return a + (b ? b->get_size() : 0);
     };
     return std::accumulate(childrens.begin(), childrens.end(), 1, get_item_size);
 }
-int GenTreeItem::count_childrens()
+int GenTreeItem::count_childrens() const
 {
     static auto count_item_childrens = [](int a, GenTreeItem* b) {
         return a + (b ? 1 : 0);
@@ -121,7 +121,7 @@ GenTreeItem* GenTreeItem::find_by_id(int id, int& curr)
     }
     return nullptr;
 }
-GenTreeItem* GenTreeItem::get_parent()
+GenTreeItem* GenTreeItem::get_parent() const
 {
     return parent;
 }
@@ -135,7 +135,7 @@ void GenTreeItem::remove_child(GenTreeItem* c)
         }
     }
 }
-Person& GenTreeItem::get_person()
+const Person& GenTreeItem::get_person() const
 {
     return data;
 }
@@ -143,7 +143,7 @@ void GenTreeItem::set_person(Person& p)
 {
     data = p;
 }
-void GenTreeItem::save(std::ostream& os)
+void GenTreeItem::save(std::ostream& os) const
 {
     data.save(os);
     short tmp;
@@ -167,7 +167,7 @@ bool GenTreeItem::load(std::istream& os)
     }
     return true;
 }
-int GenTreeItem::get_id(GenTreeItem* t, int& curr)
+int GenTreeItem::get_id(const GenTreeItem* t, int& curr) const
 {
     if (this == t)
         return curr;
@@ -178,7 +178,7 @@ int GenTreeItem::get_id(GenTreeItem* t, int& curr)
     }
     return -1;
 }
-GenTreeItem* GenTreeItem::get_leftmost_child()
+GenTreeItem* GenTreeItem::get_leftmost_child() const
 {
     for (auto i : childrens) {
         if (i)
@@ -186,18 +186,18 @@ GenTreeItem* GenTreeItem::get_leftmost_child()
     }
     return nullptr;
 }
-void GenTreeItem::get_siblings(std::vector<Person>& v)
+void GenTreeItem::get_siblings(std::vector<Person>& v) const
 {
     if(parent) parent->get_childrens(v, this);
 }
-void GenTreeItem::get_childrens(std::vector<Person>& v, GenTreeItem *skip)
+void GenTreeItem::get_childrens(std::vector<Person>& v, const GenTreeItem *skip) const
 {
     for (auto &i : childrens) {
         if (i && i != skip)
             v.push_back(i->get_person());
     }
 }
-void GenTreeItem::get_grandchildrens(std::vector<Person>& v)
+void GenTreeItem::get_grandchildrens(std::vector<Person>& v) const
 {
     for (auto i : childrens) {
         if (i)

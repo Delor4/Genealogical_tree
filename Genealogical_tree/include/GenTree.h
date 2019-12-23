@@ -8,20 +8,20 @@ public:
     GenTree();
     virtual ~GenTree();
 
-    void show();
-    void show(std::string indent, int line, GT_Menu& menu, Console&);
+    void show() const;
+    void show(std::string indent, int line, GT_Menu& menu, Console&) const;
 
     void set_person(GenTreeItem* p, Person&);
     GenTreeItem* add_person(GenTreeItem* p, Person&);
 
-    int get_id(GenTreeItem *);
+    int get_id(GenTreeItem *) const;
 
-    GenTreeItem* find_by_id(int id);
+    GenTreeItem* find_by_id(int id) const;
     void remove_by_id(int id);
 
-    int get_size();
+    int get_size() const;
 
-    void save(std::string path);
+    void save(std::string path) const;
     bool load(std::string path);
 
     void swap(GenTree &);

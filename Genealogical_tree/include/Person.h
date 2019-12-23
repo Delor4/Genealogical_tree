@@ -18,7 +18,7 @@ public:
     int birth_year;
     char sex;
 
-    void save(std::ostream &os);
+    void save(std::ostream &os) const;
     bool load(std::istream &os);
 protected:
 private:

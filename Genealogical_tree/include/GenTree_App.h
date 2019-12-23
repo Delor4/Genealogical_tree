@@ -18,10 +18,10 @@ class GenTree_App
         void run();
     protected:
     private:
-        void intro();
-        Person edit_person(const Person &p, std::string label = "Edycja osoby.");
-        Person input_new_person();
-        void show_info(GenTreeItem *p);
+        void intro() const;
+        Person edit_person(const Person &p, std::string label = "Edycja osoby.") const;
+        Person input_new_person() const;
+        void show_info(const GenTreeItem *p) const;
 
         void on_exit();
         void on_add_person();
@@ -39,9 +39,6 @@ class GenTree_App
         void on_page_up();
         void on_page_down();
         std::unordered_map<GT_Menu::MENU_ITEMS, loop_func, std::hash<int>> get_main_loop();
-
-
-
 
         Console console;
         GT_Menu menu;
