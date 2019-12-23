@@ -242,33 +242,35 @@ void App::on_page_down()
     menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines() - 1);
 }
 
-std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> App::get_main_loop()
+const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>>& App::get_main_loop()
 {
-    std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> loop_map;
+    static const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> loop_map =
+    {
 
-    loop_map[Menu::EXIT] = on_exit;
-    loop_map[Menu::ADD_PERSON] = on_add_person;
-    loop_map[Menu::EDIT_PERSON] = on_edit_person;
-    loop_map[Menu::DELETE_PERSON] = on_delete_person;
+        {Menu::EXIT, on_exit},
+        {Menu::ADD_PERSON, on_add_person},
 
-    loop_map[Menu::SHOW_INFO] = on_show_info;
+        {Menu::EDIT_PERSON, on_edit_person},
+        {Menu::DELETE_PERSON, on_delete_person},
 
-    loop_map[Menu::LOAD] = on_load;
-    loop_map[Menu::SAVE] = on_save;
+        {Menu::SHOW_INFO, on_show_info},
 
-    loop_map[Menu::NEW_TREE] = on_new_tree;
-    loop_map[Menu::ARROW_UP] = on_arrow_up;
-    loop_map[Menu::ARROW_DOWN] = on_arrow_down;
-    loop_map[Menu::ARROW_LEFT] = on_arrow_left;
-    loop_map[Menu::ARROW_RIGHT] = on_arrow_right;
+        {Menu::LOAD, on_load},
+        {Menu::SAVE, on_save},
 
-    loop_map[Menu::PAGE_UP] = on_page_up;
-    loop_map[Menu::PAGE_DOWN] = on_page_down;
+        {Menu::NEW_TREE, on_new_tree},
+        {Menu::ARROW_UP, on_arrow_up},
+        {Menu::ARROW_DOWN, on_arrow_down},
+        {Menu::ARROW_LEFT, on_arrow_left},
+        {Menu::ARROW_RIGHT, on_arrow_right},
 
-    loop_map[Menu::EXIT] = on_exit;
+        {Menu::PAGE_UP, on_page_up},
+        {Menu::PAGE_DOWN, on_page_down},
 
-    loop_map[Menu::VERSION] = on_version;
+        {Menu::EXIT, on_exit},
 
+        {Menu::VERSION, on_version},
+    };
     return loop_map;
 }
 
