@@ -1,30 +1,18 @@
 #include <iostream>
 #include <windows.h>
 
+#ifdef _DEBUG_
+#include <vector>
+#include <algorithm>
+#endif // _DEBUG_
+
 #include "App.h"
 
 namespace GenTree
 {
 
 #ifdef _DEBUG_
-static void init_tree(Tree& tree)
-{
-    Person p1("Jan", "Kowalski", 1954, 'M');
-    Node *i1 = tree.add_person(nullptr, p1);
-
-    Person p2("Janina", "Kowalska", 1974, 'K');
-    Node *i2 = tree.add_person(i1, p2);
-    Person p5("Dorota", "Kowalska", 1994, 'K');
-    tree.add_person(i2, p5);
-    Person p6("Daria", "Kowalska", 1994, 'K');
-    tree.add_person(i2, p6);
-
-    Person p3("Jambrozy", "Kowalski", 1977, 'M');
-    Node *i3 = tree.add_person(i1, p3);
-    Person p4("Grazyna", "Kowalska", 1994, 'K');
-    tree.add_person(i3, p4);
-
-}
+static void init_tree(Tree& tree);
 #endif // _DEBUG_
 
 App::App()
@@ -40,7 +28,7 @@ void App::intro()
     std::cout << "Drzewo genealogiczne potomkow.\n";
 }
 
-//get line from stdin, returns default string on error or empty line
+//get line from stdin, when error or empty line then returns default string
 static std::string get_string(std::string default_s)
 {
     char buff[256];
@@ -52,7 +40,7 @@ static std::string get_string(std::string default_s)
     return std::string(buff);
 }
 
-//string to integer (silent exeptions)
+//string to integer (silencing exeptions)
 static int s_to_i(std::string s)
 {
     int out;
@@ -139,14 +127,14 @@ void App::on_add_person()
     intro();
 
     Person p = input_new_person();
-    tree.add_person(tree.find_by_id(menu.get_curr_line()), p);
+    tree.add_person(tree.find_node_by_id(menu.get_curr_line()), p);
 }
 void App::on_edit_person()
 {
     console.cls();
     intro();
 
-    auto i = tree.find_by_id(menu.get_curr_line());
+    auto i = tree.find_node_by_id(menu.get_curr_line());
     if (i)
     {
         auto p = edit_person(i->get_person());
@@ -155,12 +143,12 @@ void App::on_edit_person()
 }
 void App::on_delete_person()
 {
-    tree.remove_by_id(menu.get_curr_line());
+    tree.remove_node_by_id(menu.get_curr_line());
 }
 void App::on_show_info()
 {
     console.cls();
-    auto i = tree.find_by_id(menu.get_curr_line());
+    auto i = tree.find_node_by_id(menu.get_curr_line());
     if(i)
     {
         show_info(i);
@@ -179,7 +167,7 @@ void App::on_load()
         return;
 
     Tree n_tree;
-    if (n_tree.load(path))
+    if (n_tree.load_tree(path))
     {
         tree.swap(n_tree);
     };
@@ -196,7 +184,7 @@ void App::on_save()
         if (!path.length())
             return;
 
-        tree.save(path);
+        tree.save_tree(path);
     }
 }
 void App::on_version()
@@ -213,7 +201,7 @@ void App::on_version()
 }
 void App::on_new_tree()
 {
-    tree.remove_by_id(0);
+    tree.remove_node_by_id(0);
 }
 void App::on_arrow_up()
 {
@@ -225,13 +213,13 @@ void App::on_arrow_down()
 }
 void App::on_arrow_left()
 {
-    menu.set_curr_line(tree.get_id(tree.find_by_id(menu.get_curr_line())->get_parent()));
+    menu.set_curr_line(tree.get_node_id(tree.find_node_by_id(menu.get_curr_line())->get_parent()));
 }
 void App::on_arrow_right()
 {
-    auto c = tree.find_by_id(menu.get_curr_line())->get_leftmost_child();
+    auto c = tree.find_node_by_id(menu.get_curr_line())->get_leftmost_child();
     if (c)
-        menu.set_curr_line(tree.get_id(c));
+        menu.set_curr_line(tree.get_node_id(c));
 }
 void App::on_page_up()
 {
@@ -252,7 +240,7 @@ void App::run()
         console.cls();
         intro();
         menu.show();
-        tree.show("", menu.get_curr_line(), menu.get_skip_lines(), menu.get_max_lines(), console);
+        tree.show_tree_indented("", menu.get_curr_line(), menu.get_skip_lines(), menu.get_max_lines(), console);
         std::cout.flush();
         Sleep(50);
 
@@ -299,4 +287,134 @@ const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> App::loop_
     {Menu::VERSION, on_version},
 };
 
+#ifdef _DEBUG_
+struct names {
+    std::string name;
+    int prob;
+};
+struct lnames {
+    std::string m_name;
+    std::string f_name;
+};
+#include "../gen_names.hpp"
+#include <stdlib.h>
+#include <time.h>
+
+int rnd_fname(int range, int n){
+    int out = rand() % range;
+    for(int i =1; i< n; i++){
+        int x = rand() % range;
+        if(x < out) out = x;
+    }
+    return out;
+}
+void add_rnd_child(Tree& tree, Node *p)
+{
+    int end_time = 2019;
+    int lsize = lastnames.size();
+    int size;
+    std::string fname;
+    std::string lname;
+    char sex;
+    int by = p->get_person().birth_year + 17 + (rand() % (35 - 17));
+    if(by > end_time){
+        return;
+    }
+    switch(rand()&1){
+    case 0:
+        size = female_fnames.size();
+        fname = female_fnames[rnd_fname(size,5)].name;
+        lname = lastnames[rand() % lsize].f_name;
+        sex = 'F';
+        break;
+    case 1:
+        size = male_fnames.size();
+        fname = male_fnames[rnd_fname(size,5)].name;
+        //lname = lastnames[rand() % lsize].m_name;
+        lname = p->get_person().last_name;
+        if(p->get_person().sex != 'M'){
+            //std::cout << "Jest " << lname << '\n';
+            auto it = std::find_if(lastnames.begin(), lastnames.end(), [&] (lnames l) { return l.f_name.compare(lname)==0; } );
+            lname = (*it).m_name;
+        }
+        sex = 'M';
+    };
+
+    Person p1(fname, lname, by, sex);
+    Node *i1 = tree.add_person(p, p1);
+
+    int kids = rand() % 5;
+    for(int i = 0; i< kids; i++){
+        add_rnd_child(tree, i1);
+    }
+
+}
+static void init_tree(Tree& tree)
+{
+    srand (time(NULL));
+    int start_time = 1900;
+    int end_time = 2019;
+    //int sizes[]={female_fnames.size(), male_fnames.size()};
+    int lsize = lastnames.size();
+    int size;
+    std::string fname;
+    std::string lname;
+    char sex;
+    switch(rand()&1){
+    case 0:
+        size = female_fnames.size();
+        fname = female_fnames[rand() % size].name;
+        lname = lastnames[rand() % lsize].f_name;
+        sex = 'F';
+        break;
+    case 1:
+        size = male_fnames.size();
+        fname = male_fnames[rand() % size].name;
+        lname = lastnames[rand() % lsize].m_name;
+        sex = 'M';
+
+    };
+    Person p1(fname, lname, start_time+rand()%5, sex);
+    //Person p1("Jan", "Kowalski", 1954, 'M');
+    Node *i1 = tree.add_person(nullptr, p1);
+
+    int kids = 1+ rand() % 3;
+    for(int i = 0; i< kids; i++){
+        add_rnd_child(tree, i1);
+    }
+    //Sleep(5000);
+    return;
+    Person p2("Janina", "Kowalska", 1974, 'K');
+    Node *i2 = tree.add_person(i1, p2);
+    Person p5("Dorota", "Kowalska", 1994, 'K');
+    tree.add_person(i2, p5);
+    Person p6("Daria", "Kowalska", 1994, 'K');
+    tree.add_person(i2, p6);
+
+    Person p3("Jambrozy", "Kowalski", 1977, 'M');
+    Node *i3 = tree.add_person(i1, p3);
+    Person p4("Grazyna", "Kowalska", 1994, 'K');
+    tree.add_person(i3, p4);
+
+}
+
+static void init_tree_old(Tree& tree)
+{
+    Person p1("Jan", "Kowalski", 1954, 'M');
+    Node *i1 = tree.add_person(nullptr, p1);
+
+    Person p2("Janina", "Kowalska", 1974, 'K');
+    Node *i2 = tree.add_person(i1, p2);
+    Person p5("Dorota", "Kowalska", 1994, 'K');
+    tree.add_person(i2, p5);
+    Person p6("Daria", "Kowalska", 1994, 'K');
+    tree.add_person(i2, p6);
+
+    Person p3("Jambrozy", "Kowalski", 1977, 'M');
+    Node *i3 = tree.add_person(i1, p3);
+    Person p4("Grazyna", "Kowalska", 1994, 'K');
+    tree.add_person(i3, p4);
+
+}
+#endif // _DEBUG_
 }

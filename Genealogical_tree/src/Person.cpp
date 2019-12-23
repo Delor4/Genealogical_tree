@@ -20,7 +20,7 @@ std::ostream& operator<<(std::ostream& os, const Person& p)
     return os;
 }
 
-void Person::save(std::ostream &os) const
+void Person::save_person(std::ostream &os) const
 {
     short tmp;
     tmp = first_name.length();
@@ -47,7 +47,7 @@ std::string read_string(std::istream &os)
     return out;
 }
 
-bool Person::load(std::istream &os)
+bool Person::load_person(std::istream &os)
 {
     first_name = read_string(os);
     last_name = read_string(os);
