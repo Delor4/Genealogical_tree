@@ -206,7 +206,7 @@ void App::on_version()
     intro();
     std::cout << "\n";
     std::cout << "by Sebastian Kucharczyk, 2019\n\n";
-    std::cout << "Ver: 1.0\n\n";
+    std::cout << "Ver: 1.1\n\n";
     std::cout << "Build: " __TIME__ " " __DATE__ "\n\n";
 
     console.get_key();
