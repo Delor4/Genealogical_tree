@@ -4,12 +4,10 @@ Console::Console()
     : h_stdout{ GetStdHandle(STD_OUTPUT_HANDLE) }
     , h_stdin{ GetStdHandle(STD_INPUT_HANDLE) }
 {
-    //ctor
 }
 
 Console::~Console()
 {
-    //dtor
 }
 
 WORD Console::get_key()
@@ -31,10 +29,6 @@ void Console::gotoxy(short x, short y)
 
 void Console::cls(void)
 {
-    #ifdef _DEBUG_
-        //std::cout << "Console.cls().\n";
-        return;
-    #endif // __DEBUG
     COORD coord_screen = { 0, 0 };
     DWORD chars_written;
     CONSOLE_SCREEN_BUFFER_INFO csbi;

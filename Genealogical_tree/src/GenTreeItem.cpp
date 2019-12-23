@@ -18,10 +18,6 @@ GenTreeItem::~GenTreeItem()
     for (auto i = childrens.begin(); i != childrens.end(); ++i) {
         delete *i;
     }
-    #ifdef _DEBUG_
-        std::cout << "GenTreeItem removed.\n";
-    #endif // __DEBUG
-
 }
 
 void GenTreeItem::show()
