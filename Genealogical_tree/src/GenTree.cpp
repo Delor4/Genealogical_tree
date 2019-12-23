@@ -10,6 +10,10 @@ GenTree::GenTree()
 GenTree::~GenTree()
 {
     delete root;
+    #ifdef _DEBUG_
+        std::cout << "[] GenTree removed.\n";
+    #endif // __DEBUG
+
 }
 
 GenTreeItem* GenTree::add_person(GenTreeItem* r, Person& p)

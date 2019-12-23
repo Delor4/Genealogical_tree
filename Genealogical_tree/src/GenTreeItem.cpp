@@ -18,6 +18,10 @@ GenTreeItem::~GenTreeItem()
     for (auto i = childrens.begin(); i != childrens.end(); ++i) {
         delete *i;
     }
+    #ifdef _DEBUG_
+        std::cout << "GenTreeItem removed.\n";
+    #endif // __DEBUG
+
 }
 
 void GenTreeItem::show()
@@ -131,7 +135,7 @@ void GenTreeItem::remove_child(GenTreeItem* c)
         }
     }
 }
-Person GenTreeItem::get_person()
+Person& GenTreeItem::get_person()
 {
     return data;
 }
@@ -145,7 +149,7 @@ void GenTreeItem::save(std::ostream& os)
     short tmp;
     tmp = count_childrens();
     os.write(reinterpret_cast<const char*>(&tmp), sizeof(tmp));
-    for (auto i : childrens) {
+    for (auto &i : childrens) {
         if (i)
             i->save(os);
     }
@@ -188,7 +192,7 @@ void GenTreeItem::get_siblings(std::vector<Person>& v)
 }
 void GenTreeItem::get_childrens(std::vector<Person>& v, GenTreeItem *skip)
 {
-    for (auto i : childrens) {
+    for (auto &i : childrens) {
         if (i && i != skip)
             v.push_back(i->get_person());
     }

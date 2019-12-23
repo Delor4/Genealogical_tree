@@ -15,6 +15,9 @@ Person::Person(std::string _first_name, std::string _last_name, int _birth_year,
 
 Person::~Person()
 {
+    #ifdef _DEBUG_
+        std::cout << "[] Person ("<< *this << ") removed.\n";
+    #endif // __DEBUG
 }
 
 std::ostream& operator<<(std::ostream& os, const Person& p)

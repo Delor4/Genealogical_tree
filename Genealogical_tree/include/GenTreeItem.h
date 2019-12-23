@@ -19,7 +19,7 @@ class GenTreeItem
 
         GenTreeItem * add_children(Person &);
 
-        Person get_person();
+        Person& get_person();
         void set_person(Person &);
 
         void get_siblings(std::vector<Person>&);
