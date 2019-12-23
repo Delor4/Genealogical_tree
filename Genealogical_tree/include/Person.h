@@ -1,5 +1,5 @@
-#ifndef PERSON_H
-#define PERSON_H
+#ifndef GENTREE_PERSON_H
+#define GENTREE_PERSON_H
 
 #include <iostream>
 #include <string>
@@ -27,4 +27,4 @@ protected:
 private:
 };
 }
-#endif // PERSON_H
+#endif // GENTREE_PERSON_H

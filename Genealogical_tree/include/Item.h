@@ -1,5 +1,5 @@
-#ifndef GENTREEITEM_H
-#define GENTREEITEM_H
+#ifndef GENTREE_ITEM_H
+#define GENTREE_ITEM_H
 
 #include <vector>
 #include <fstream>
@@ -51,4 +51,4 @@ private:
     std:: vector <Item*> childrens;
 };
 }
-#endif // GENTREEITEM_H
+#endif // GENTREE_ITEM_H

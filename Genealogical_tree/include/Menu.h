@@ -1,5 +1,5 @@
-#ifndef GT_MENU_H
-#define GT_MENU_H
+#ifndef GENTREE_MENU_H
+#define GENTREE_MENU_H
 
 #include <string>
 #include <vector>
@@ -98,4 +98,4 @@ private:
     std::unordered_map<int, MENU_ITEMS> keys_map;
 };
 }
-#endif // GT_MENU_H
+#endif // GENTREE_MENU_H

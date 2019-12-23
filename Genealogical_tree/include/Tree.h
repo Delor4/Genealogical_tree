@@ -1,5 +1,5 @@
-#ifndef GENTREE_H
-#define GENTREE_H
+#ifndef GENTREE_TREE_H
+#define GENTREE_TREE_H
 
 #include "Item.h"
 
@@ -34,4 +34,4 @@ private:
     Item* root;
 };
 }
-#endif // GENTREE_H
+#endif // GENTREE_TREE_H

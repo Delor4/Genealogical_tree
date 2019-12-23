@@ -1,5 +1,5 @@
-#ifndef CONSOLE_H
-#define CONSOLE_H
+#ifndef GENTREE_CONSOLE_H
+#define GENTREE_CONSOLE_H
 #include <windows.h>
 
 namespace GenTree
@@ -23,4 +23,4 @@ private:
     HANDLE h_stdin;
 };
 }
-#endif // CONSOLE_H
+#endif // GENTREE_CONSOLE_H
