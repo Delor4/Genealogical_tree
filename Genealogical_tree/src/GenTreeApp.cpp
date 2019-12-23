@@ -4,7 +4,7 @@
 #include "GenTreeApp.h"
 
 #ifdef _DEBUG_
-static void init_tree(GenTree& tree)
+static void init_tree(Tree& tree)
 {
     Person p1("Jan", "Kowalski", 1954, 'M');
     GenTreeItem *i1 = tree.add_person(nullptr, p1);
@@ -167,7 +167,7 @@ void GenTreeApp::on_load()
     if (!path.length())
         return;
 
-    GenTree n_tree;
+    Tree n_tree;
     if (n_tree.load(path)) {
         tree.swap(n_tree);
     };

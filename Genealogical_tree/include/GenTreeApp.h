@@ -3,7 +3,8 @@
 
 #include "Console.h"
 #include "GenTreeMenu.h"
-#include "GenTree.h"
+#include "Tree.h"
+
 
 class GenTreeApp;
 typedef void (GenTreeApp::*loop_func)();
@@ -42,7 +43,7 @@ private:
 
     Console console;
     GenTreeMenu menu;
-    GenTree tree;
+    Tree tree;
 
     bool done;
 };
