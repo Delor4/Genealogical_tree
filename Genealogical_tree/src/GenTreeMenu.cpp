@@ -1,18 +1,18 @@
-#include "GT_Menu.h"
+#include "GenTreeMenu.h"
 
 #include <iostream>
 
-GT_Menu::GT_Menu()
+GenTreeMenu::GenTreeMenu()
     : act_line{ 0 }
     , skip_lines{ 0 }
 {
     populate_map();
 }
 
-GT_Menu::~GT_Menu()
+GenTreeMenu::~GenTreeMenu()
 {
 }
-void GT_Menu::populate_map()
+void GenTreeMenu::populate_map()
 {
     for (auto& i : items) {
         for (auto k : i.short_keys) {
@@ -20,7 +20,7 @@ void GT_Menu::populate_map()
         }
     }
 }
-void GT_Menu::show() const
+void GenTreeMenu::show() const
 {
     bool first = true;
     for (auto& i : items) {
@@ -34,16 +34,16 @@ void GT_Menu::show() const
     std::cout << "\n";
 }
 
-GT_Menu::MENU_ITEMS GT_Menu::get_option(WORD virtual_key) const
+GenTreeMenu::MENU_ITEMS GenTreeMenu::get_option(WORD virtual_key) const
 {
     if(keys_map.find(virtual_key) != keys_map.end()){
         return keys_map.at(virtual_key);
     }
-    return GT_Menu::NONE;
+    return GenTreeMenu::NONE;
 };
 
 
-void GT_Menu::check_constraints()
+void GenTreeMenu::check_constraints()
 {
     if (act_line >= curr_max_items)
         act_line = curr_max_items - 1;
@@ -58,34 +58,34 @@ void GT_Menu::check_constraints()
         skip_lines = act_line - MAXLINES + 1;
 }
 
-void GT_Menu::line_down()
+void GenTreeMenu::line_down()
 {
     ++act_line;
     check_constraints();
 }
 
-void GT_Menu::line_up()
+void GenTreeMenu::line_up()
 {
     --act_line;
     check_constraints();
 }
 
-void GT_Menu::set_curr_max_lines(int _m)
+void GenTreeMenu::set_curr_max_lines(int _m)
 {
     curr_max_items = _m;
     check_constraints();
 }
 
-int GT_Menu::get_curr_line() const
+int GenTreeMenu::get_curr_line() const
 {
     return act_line;
 }
 
-int GT_Menu::get_skip_lines() const
+int GenTreeMenu::get_skip_lines() const
 {
     return skip_lines;
 }
-void GT_Menu::set_curr_line(int line)
+void GenTreeMenu::set_curr_line(int line)
 {
     act_line = line;
     check_constraints();

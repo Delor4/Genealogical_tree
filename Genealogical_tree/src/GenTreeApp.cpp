@@ -229,32 +229,32 @@ void GenTreeApp::on_page_down()
     menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines() - 1);
 }
 
-std::unordered_map<GT_Menu::MENU_ITEMS, loop_func, std::hash<int>> GenTreeApp::get_main_loop()
+std::unordered_map<GenTreeMenu::MENU_ITEMS, loop_func, std::hash<int>> GenTreeApp::get_main_loop()
 {
-    std::unordered_map<GT_Menu::MENU_ITEMS, loop_func, std::hash<int>> loop_map;
+    std::unordered_map<GenTreeMenu::MENU_ITEMS, loop_func, std::hash<int>> loop_map;
 
-    loop_map[GT_Menu::EXIT] = on_exit;
-    loop_map[GT_Menu::ADD_PERSON] = on_add_person;
-    loop_map[GT_Menu::EDIT_PERSON] = on_edit_person;
-    loop_map[GT_Menu::DELETE_PERSON] = on_delete_person;
+    loop_map[GenTreeMenu::EXIT] = on_exit;
+    loop_map[GenTreeMenu::ADD_PERSON] = on_add_person;
+    loop_map[GenTreeMenu::EDIT_PERSON] = on_edit_person;
+    loop_map[GenTreeMenu::DELETE_PERSON] = on_delete_person;
 
-    loop_map[GT_Menu::SHOW_INFO] = on_show_info;
+    loop_map[GenTreeMenu::SHOW_INFO] = on_show_info;
 
-    loop_map[GT_Menu::LOAD] = on_load;
-    loop_map[GT_Menu::SAVE] = on_save;
+    loop_map[GenTreeMenu::LOAD] = on_load;
+    loop_map[GenTreeMenu::SAVE] = on_save;
 
-    loop_map[GT_Menu::NEW_TREE] = on_new_tree;
-    loop_map[GT_Menu::ARROW_UP] = on_arrow_up;
-    loop_map[GT_Menu::ARROW_DOWN] = on_arrow_down;
-    loop_map[GT_Menu::ARROW_LEFT] = on_arrow_left;
-    loop_map[GT_Menu::ARROW_RIGHT] = on_arrow_right;
+    loop_map[GenTreeMenu::NEW_TREE] = on_new_tree;
+    loop_map[GenTreeMenu::ARROW_UP] = on_arrow_up;
+    loop_map[GenTreeMenu::ARROW_DOWN] = on_arrow_down;
+    loop_map[GenTreeMenu::ARROW_LEFT] = on_arrow_left;
+    loop_map[GenTreeMenu::ARROW_RIGHT] = on_arrow_right;
 
-    loop_map[GT_Menu::PAGE_UP] = on_page_up;
-    loop_map[GT_Menu::PAGE_DOWN] = on_page_down;
+    loop_map[GenTreeMenu::PAGE_UP] = on_page_up;
+    loop_map[GenTreeMenu::PAGE_DOWN] = on_page_down;
 
-    loop_map[GT_Menu::EXIT] = on_exit;
+    loop_map[GenTreeMenu::EXIT] = on_exit;
 
-    loop_map[GT_Menu::VERSION] = on_version;
+    loop_map[GenTreeMenu::VERSION] = on_version;
 
     return loop_map;
 }
@@ -273,7 +273,7 @@ void GenTreeApp::run()
         Sleep(50);
 
         auto opt = menu.get_option(console.get_key());
-        while (opt == GT_Menu::NONE)
+        while (opt == GenTreeMenu::NONE)
             opt = menu.get_option(console.get_key());
 
         if(loop.find(opt) != loop.end()){

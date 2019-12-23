@@ -9,7 +9,7 @@ public:
     virtual ~GenTree();
 
     void show() const;
-    void show(std::string indent, int line, GT_Menu& menu, Console&) const;
+    void show(std::string indent, int line, GenTreeMenu& menu, Console&) const;
 
     void set_person(GenTreeItem* p, Person&);
     GenTreeItem* add_person(GenTreeItem* p, Person&);

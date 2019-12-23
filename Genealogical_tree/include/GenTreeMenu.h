@@ -6,7 +6,7 @@
 #include <windows.h>
 #include <unordered_map>
 
-class GT_Menu
+class GenTreeMenu
     {
 public:
     static const int MAXLINES = 24;
@@ -31,8 +31,8 @@ public:
         GT_ERROR
     };
 
-    GT_Menu();
-    virtual ~GT_Menu();
+    GenTreeMenu();
+    virtual ~GenTreeMenu();
 
     void show() const;
 

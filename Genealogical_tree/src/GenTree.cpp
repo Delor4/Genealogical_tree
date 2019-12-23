@@ -31,7 +31,7 @@ void GenTree::show() const
         root->show();
 }
 
-void GenTree::show(std::string indent, int line, GT_Menu& menu, Console& console) const
+void GenTree::show(std::string indent, int line, GenTreeMenu& menu, Console& console) const
 {
     int start = 0;
     if (root)

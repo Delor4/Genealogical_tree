@@ -2,7 +2,7 @@
 #define GENTREE_APP_H
 
 #include "Console.h"
-#include "GT_Menu.h"
+#include "GenTreeMenu.h"
 #include "GenTree.h"
 
 class GenTreeApp;
@@ -38,10 +38,10 @@ private:
     void on_arrow_right();
     void on_page_up();
     void on_page_down();
-    std::unordered_map<GT_Menu::MENU_ITEMS, loop_func, std::hash<int>> get_main_loop();
+    std::unordered_map<GenTreeMenu::MENU_ITEMS, loop_func, std::hash<int>> get_main_loop();
 
     Console console;
-    GT_Menu menu;
+    GenTreeMenu menu;
     GenTree tree;
 
     bool done;

@@ -33,7 +33,7 @@ void GenTreeItem::show()
         }
     }
 }
-bool GenTreeItem::show(std::string indent, int line, GT_Menu& menu, int& curr_line, Console& console)
+bool GenTreeItem::show(std::string indent, int line, GenTreeMenu& menu, int& curr_line, Console& console)
 {
     if (curr_line == 0) {
         if (menu.get_skip_lines() == 0) {
