@@ -1,10 +1,11 @@
 #include "App.h"
 
-int main()
+int main(int argc, char *argv[])
 {
     GenTree::App app;
 
-    app.run();
+    app.run(argc, argv);
 
     return 0;
 }
+

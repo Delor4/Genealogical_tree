@@ -19,11 +19,12 @@ public:
     App();
     virtual ~App() = default;
 
-    void run();
+    void run(int argc, char *argv[]);
 protected:
 private:
     static void intro();
     static void show_info(const Node *p);
+    void load_tree(std::string path);
 
     void on_exit();
     void on_add_person();

@@ -129,6 +129,18 @@ void App::show_info(const Node *p)
     show_persons_list(grandchildrens, "\nWnuki:");
 }
 
+void App::load_tree(std::string path)
+{
+    if (!path.length())
+        return;
+
+    Tree n_tree;
+    if (n_tree.load(path))
+    {
+        tree.swap(n_tree);
+    };
+}
+
 void App::on_exit()
 {
     done = true;
@@ -174,15 +186,7 @@ void App::on_load()
 
     std::cout << "Wczytywanie drzewa z pliku.\n\n";
     std::cout << "Podaj nazwe pliku:\n";
-    std::string path = get_string("");
-    if (!path.length())
-        return;
-
-    Tree n_tree;
-    if (n_tree.load(path))
-    {
-        tree.swap(n_tree);
-    };
+    load_tree(get_string(""));
 }
 void App::on_save()
 {
@@ -243,8 +247,12 @@ void App::on_page_down()
 }
 
 
-void App::run()
+void App::run(int argc, char *argv[])
 {
+    if(argc > 1)
+    {
+        load_tree(argv[1]); //load file on start (first argument in command line)
+    }
     while (!done)
     {
         menu.set_curr_max_lines(tree.get_size());
