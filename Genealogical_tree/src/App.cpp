@@ -229,7 +229,6 @@ void App::on_randomize()
     randomize();
 }
 
-
 void App::run()
 {
     while (!done)
