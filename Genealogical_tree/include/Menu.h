@@ -31,6 +31,7 @@ public:
         PAGE_DOWN,
         PAGE_UP,
         VERSION,
+        RND_TREE,
         GT_ERROR
     };
 
@@ -87,6 +88,7 @@ private:
         { PAGE_DOWN,    "",                   { VK_NEXT },                            false },
         { PAGE_UP,      "",                   { VK_PRIOR },                           false },
         { VERSION,      "F1 - about",         { VK_F1 },                              false },
+        { RND_TREE,     "F9 - losowe drzewo", { VK_F9 },                              false },
     };
 
     int act_line;

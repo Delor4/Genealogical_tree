@@ -10,8 +10,7 @@ App::App()
     : done { false }
 {
 #ifdef _DEBUG_
-    Tree rt = rndtree.get_next_tree();
-    tree.swap(rt);
+    randomize();
 #endif // __DEBUG
 }
 
@@ -108,7 +107,11 @@ void App::show_info(const Node *p)
     p->get_grandchildrens(grandchildrens);
     show_persons_list(grandchildrens, "\nWnuki:");
 }
-
+void App::randomize()
+{
+    Tree rt = rndtree.get_next_tree();
+    tree.swap(rt);
+}
 void App::on_exit()
 {
     done = true;
@@ -221,6 +224,10 @@ void App::on_page_down()
 {
     menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines() - 1);
 }
+void App::on_randomize()
+{
+    randomize();
+}
 
 
 void App::run()
@@ -277,6 +284,8 @@ const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> App::loop_
     {Menu::EXIT, on_exit},
 
     {Menu::VERSION, on_version},
+
+    {Menu::RND_TREE, on_randomize},
 };
 
 

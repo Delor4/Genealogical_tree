@@ -25,6 +25,7 @@ protected:
 private:
     static void intro();
     static void show_info(const Node *p);
+    void randomize();
 
     void on_exit();
     void on_add_person();
@@ -41,6 +42,7 @@ private:
     void on_arrow_right();
     void on_page_up();
     void on_page_down();
+    void on_randomize();
 
     Console console;
     Menu menu;
