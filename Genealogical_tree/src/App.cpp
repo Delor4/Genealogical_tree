@@ -182,6 +182,15 @@ void App::on_save()
         tree.save_tree(path);
     }
 }
+void App::on_help()
+{
+    console.cls();
+
+    intro();
+    menu.show_help();
+
+    console.get_key();
+}
 void App::on_version()
 {
     console.cls();
@@ -282,6 +291,7 @@ const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> App::loop_
 
     {Menu::EXIT, on_exit},
 
+    {Menu::HELP, on_help},
     {Menu::VERSION, on_version},
 
     {Menu::RND_TREE, on_randomize},

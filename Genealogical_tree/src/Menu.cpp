@@ -35,7 +35,10 @@ void Menu::show() const
     }
     std::cout << "\n";
 }
-
+void Menu::show_help() const
+{
+    std::cout << help_text;
+}
 Menu::MENU_ITEMS Menu::get_option(WORD virtual_key) const
 {
     if(keys_map.find(virtual_key) != keys_map.end())
@@ -93,4 +96,17 @@ void Menu::set_curr_line(int line)
     act_line = line;
     check_constraints();
 }
+const char Menu::help_text[] = "\n"
+"F1         - ten tekst\n"
+"n          - usuwa aktualne i tworzy nowe drzewo\n"
+"i / space  - pokazuje informacje o osobie\n"
+"e / enter  - modyfikuje osobe\n"
+"a / ins    - dodaje potomka do aktualnie zaznaczonej osoby\n"
+"d / del    - usuwa osobe\n"
+"s          - zapisuje cale drzewo do pliku\n"
+"l          - odczytuje wczeœniej zapisane drzewo\n"
+"F9         - losowe drzewo genealogiczne\n"
+"F2         - informacje o programie\n"
+"q / esc    - wyjscie z programu\n"
+;
 }

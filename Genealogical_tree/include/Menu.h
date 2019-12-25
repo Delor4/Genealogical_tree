@@ -30,6 +30,7 @@ public:
         ARROW_RIGHT,
         PAGE_DOWN,
         PAGE_UP,
+        HELP,
         VERSION,
         RND_TREE,
         GT_ERROR
@@ -39,6 +40,7 @@ public:
     virtual ~Menu() = default;
 
     void show() const;
+    void show_help() const;
 
     MENU_ITEMS get_option(WORD virtual_key) const;
 
@@ -87,7 +89,8 @@ private:
         { ARROW_RIGHT,  "",                   { VK_RIGHT },                           false },
         { PAGE_DOWN,    "",                   { VK_NEXT },                            false },
         { PAGE_UP,      "",                   { VK_PRIOR },                           false },
-        { VERSION,      "F1 - about",         { VK_F1 },                              false },
+        { HELP,         "F1 - help",          { VK_F1 },                              false },
+        { VERSION,      "F2 - about",         { VK_F2 },                              false },
         { RND_TREE,     "F9 - losowe drzewo", { VK_F9 },                              false },
     };
 
@@ -98,6 +101,8 @@ private:
     void check_constraints();
     void populate_map();
     std::unordered_map<int, MENU_ITEMS> keys_map;
+
+    static const char help_text[];
 };
 }
 #endif // GENTREE_MENU_H

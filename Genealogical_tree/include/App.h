@@ -35,6 +35,7 @@ private:
     void on_load();
     void on_save();
     void on_version();
+    void on_help();
     void on_new_tree();
     void on_arrow_up();
     void on_arrow_down();
