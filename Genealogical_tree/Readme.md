@@ -8,4 +8,5 @@ a / ins		- dodaje potomka do aktualnie zaznaczonej osoby
 d / del		- usuwa osobe
 s			- zapisuje całe drzewo do pliku
 l			- odczytuje wcześniej zapisane drzewo
+F9			- losowe drzewo genealogiczne
 q / esc		- wyjście z programu

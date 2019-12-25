@@ -160,27 +160,27 @@ void Node::set_person(Person& p)
 {
     data = p;
 }
-void Node::save(std::ostream& os) const
+void Node::save_node(std::ostream& os) const
 {
-    data.save(os);
+    data.save_person(os);
     short tmp;
     tmp = count_childrens();
     os.write(reinterpret_cast<const char*>(&tmp), sizeof(tmp));
     for (auto &i : childrens)
     {
         if (i)
-            i->save(os);
+            i->save_node(os);
     }
 }
-bool Node::load(std::istream& os)
+bool Node::load_node(std::istream& os)
 {
-    data.load(os);
+    data.load_person(os);
     short tmp;
     os.read(reinterpret_cast<char*>(&tmp), sizeof(tmp));
     for (int i = 0; i < tmp; ++i)
     {
         Node* g = new Node();
-        g->load(os);
+        g->load_node(os);
         g->parent = this;
         childrens.push_back(g);
     }

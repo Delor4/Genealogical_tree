@@ -11,21 +11,21 @@ public:
     Tree();
     virtual ~Tree();
 
-    void show() const;
-    void show(std::string indent, int line, int skip_lines, int max_lines, Console&) const;
+    void show_tree() const;
+    void show_tree_indented(std::string indent, int line, int skip_lines, int max_lines, Console&) const;
 
     void set_person(Node* p, Person&);
     Node* add_person(Node* p, Person&);
 
-    int get_id(Node *) const;
+    int get_node_id(Node *) const;
 
-    Node* find_by_id(int id) const;
-    void remove_by_id(int id);
+    Node* find_node_by_id(int id) const;
+    void remove_node_by_id(int id);
 
     int get_size() const;
 
-    void save(std::string path) const;
-    bool load(std::string path);
+    void save_tree(std::string path) const;
+    bool load_tree(std::string path);
 
     void swap(Tree &);
 

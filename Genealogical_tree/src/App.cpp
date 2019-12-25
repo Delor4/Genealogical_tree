@@ -6,32 +6,11 @@
 namespace GenTree
 {
 
-#ifdef _DEBUG_
-static void init_tree(Tree& tree)
-{
-    Person p1("Jan", "Kowalski", 1954, 'M');
-    Node *i1 = tree.add_person(nullptr, p1);
-
-    Person p2("Janina", "Kowalska", 1974, 'K');
-    Node *i2 = tree.add_person(i1, p2);
-    Person p5("Dorota", "Kowalska", 1994, 'K');
-    tree.add_person(i2, p5);
-    Person p6("Daria", "Kowalska", 1994, 'K');
-    tree.add_person(i2, p6);
-
-    Person p3("Jambrozy", "Kowalski", 1977, 'M');
-    Node *i3 = tree.add_person(i1, p3);
-    Person p4("Grazyna", "Kowalska", 1994, 'K');
-    tree.add_person(i3, p4);
-
-}
-#endif // _DEBUG_
-
 App::App()
     : done { false }
 {
 #ifdef _DEBUG_
-    init_tree(tree);
+    randomize();
 #endif // __DEBUG
 }
 
@@ -40,7 +19,7 @@ void App::intro()
     std::cout << "Drzewo genealogiczne potomkow.\n";
 }
 
-//get line from stdin, returns default string on error or empty line
+//get line from stdin, when error or empty line then returns default string
 static std::string get_string(std::string default_s)
 {
     char buff[256];
@@ -52,7 +31,7 @@ static std::string get_string(std::string default_s)
     return std::string(buff);
 }
 
-//string to integer (silent exeptions)
+//string to integer (silencing exeptions)
 static int s_to_i(std::string s)
 {
     int out;
@@ -128,7 +107,11 @@ void App::show_info(const Node *p)
     p->get_grandchildrens(grandchildrens);
     show_persons_list(grandchildrens, "\nWnuki:");
 }
-
+void App::randomize()
+{
+    Tree rt = rndtree.get_next_tree();
+    tree.swap(rt);
+}
 void App::load_tree(std::string path)
 {
     if (!path.length())
@@ -151,14 +134,14 @@ void App::on_add_person()
     intro();
 
     Person p = input_new_person();
-    tree.add_person(tree.find_by_id(menu.get_curr_line()), p);
+    tree.add_person(tree.find_node_by_id(menu.get_curr_line()), p);
 }
 void App::on_edit_person()
 {
     console.cls();
     intro();
 
-    auto i = tree.find_by_id(menu.get_curr_line());
+    auto i = tree.find_node_by_id(menu.get_curr_line());
     if (i)
     {
         auto p = edit_person(i->get_person());
@@ -167,12 +150,12 @@ void App::on_edit_person()
 }
 void App::on_delete_person()
 {
-    tree.remove_by_id(menu.get_curr_line());
+    tree.remove_node_by_id(menu.get_curr_line());
 }
 void App::on_show_info()
 {
     console.cls();
-    auto i = tree.find_by_id(menu.get_curr_line());
+    auto i = tree.find_node_by_id(menu.get_curr_line());
     if(i)
     {
         show_info(i);
@@ -186,7 +169,15 @@ void App::on_load()
 
     std::cout << "Wczytywanie drzewa z pliku.\n\n";
     std::cout << "Podaj nazwe pliku:\n";
-    load_tree(get_string(""));
+    std::string path = get_string("");
+    if (!path.length())
+        return;
+
+    Tree n_tree;
+    if (n_tree.load_tree(path))
+    {
+        tree.swap(n_tree);
+    };
 }
 void App::on_save()
 {
@@ -200,8 +191,17 @@ void App::on_save()
         if (!path.length())
             return;
 
-        tree.save(path);
+        tree.save_tree(path);
     }
+}
+void App::on_help()
+{
+    console.cls();
+
+    intro();
+    menu.show_help();
+
+    console.get_key();
 }
 void App::on_version()
 {
@@ -217,7 +217,7 @@ void App::on_version()
 }
 void App::on_new_tree()
 {
-    tree.remove_by_id(0);
+    tree.remove_node_by_id(0);
 }
 void App::on_arrow_up()
 {
@@ -229,13 +229,13 @@ void App::on_arrow_down()
 }
 void App::on_arrow_left()
 {
-    menu.set_curr_line(tree.get_id(tree.find_by_id(menu.get_curr_line())->get_parent()));
+    menu.set_curr_line(tree.get_node_id(tree.find_node_by_id(menu.get_curr_line())->get_parent()));
 }
 void App::on_arrow_right()
 {
-    auto c = tree.find_by_id(menu.get_curr_line())->get_leftmost_child();
+    auto c = tree.find_node_by_id(menu.get_curr_line())->get_leftmost_child();
     if (c)
-        menu.set_curr_line(tree.get_id(c));
+        menu.set_curr_line(tree.get_node_id(c));
 }
 void App::on_page_up()
 {
@@ -245,7 +245,10 @@ void App::on_page_down()
 {
     menu.set_curr_line(menu.get_curr_line() + menu.get_max_lines() - 1);
 }
-
+void App::on_randomize()
+{
+    randomize();
+}
 
 void App::run(int argc, char *argv[])
 {
@@ -260,7 +263,7 @@ void App::run(int argc, char *argv[])
         console.cls();
         intro();
         menu.show();
-        tree.show("", menu.get_curr_line(), menu.get_skip_lines(), menu.get_max_lines(), console);
+        tree.show_tree_indented("", menu.get_curr_line(), menu.get_skip_lines(), menu.get_max_lines(), console);
         std::cout.flush();
         Sleep(50);
 
@@ -304,7 +307,11 @@ const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> App::loop_
 
     {Menu::EXIT, on_exit},
 
+    {Menu::HELP, on_help},
     {Menu::VERSION, on_version},
+
+    {Menu::RND_TREE, on_randomize},
 };
+
 
 }

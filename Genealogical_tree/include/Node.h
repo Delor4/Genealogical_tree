@@ -38,8 +38,8 @@ public:
 
     int get_size() const;
 
-    void save(std::ostream &os) const;
-    bool load(std::istream &os);
+    void save_node(std::ostream &os) const;
+    bool load_node(std::istream &os);
 protected:
 
 private:

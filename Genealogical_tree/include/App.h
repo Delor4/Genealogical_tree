@@ -4,6 +4,7 @@
 #include "Console.h"
 #include "Menu.h"
 #include "Tree.h"
+#include "RndTree.h"
 
 namespace GenTree
 {
@@ -24,7 +25,7 @@ protected:
 private:
     static void intro();
     static void show_info(const Node *p);
-    void load_tree(std::string path);
+    void randomize();
 
     void on_exit();
     void on_add_person();
@@ -34,6 +35,7 @@ private:
     void on_load();
     void on_save();
     void on_version();
+    void on_help();
     void on_new_tree();
     void on_arrow_up();
     void on_arrow_down();
@@ -41,12 +43,15 @@ private:
     void on_arrow_right();
     void on_page_up();
     void on_page_down();
+    void on_randomize();
 
     Console console;
     Menu menu;
     Tree tree;
 
     bool done;
+
+    RndTree rndtree;
 };
 }
 #endif // GENTREE_APP_H
