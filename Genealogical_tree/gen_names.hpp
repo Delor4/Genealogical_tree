@@ -1,4 +1,4 @@
-std::vector<names> female_fnames{
+std::vector<first_name> female_fnames{
     {"Zuzanna",8866},
     {"Julia",8468},
     {"Maja",8033},
@@ -752,7 +752,7 @@ std::vector<names> female_fnames{
     {"Zuzana",2},
     {"Zaklina",2},
 };
-std::vector<names> male_fnames{
+std::vector<first_name> male_fnames{
     {"Antoni",9329},
     {"Jakub",8908},
     {"Jan",8457},
@@ -1544,7 +1544,7 @@ std::vector<names> male_fnames{
     {"Zayan",2},
     {"Zbyszek",2},
 };
-std::vector<lnames> lastnames {
+std::vector<last_name> lastnames {
 {"Nowak", "Nowak"},
 {"Kowalski", "Kowalska"},
 {"Wisniewski", "Wisniewska"},

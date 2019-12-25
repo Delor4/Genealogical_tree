@@ -4,6 +4,7 @@
 #include "Console.h"
 #include "Menu.h"
 #include "Tree.h"
+#include "RndTree.h"
 
 namespace GenTree
 {
@@ -46,6 +47,8 @@ private:
     Tree tree;
 
     bool done;
+
+    RndTree rndtree;
 };
 }
 #endif // GENTREE_APP_H
