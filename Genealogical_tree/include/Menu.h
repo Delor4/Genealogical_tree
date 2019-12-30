@@ -6,6 +6,8 @@
 #include <windows.h>
 #include <unordered_map>
 
+#define CHAR_TO_VCODE(c) ((c) - 'a' + 65)
+
 namespace GenTree
 {
 class Menu
@@ -64,7 +66,7 @@ private:
         std::vector<int> short_keys;
         bool show;
     };
-#define CHAR_TO_VCODE(c) ((c) - 'a' + 65)
+
     std::vector<GT_MenuItem> items =
     {
         {

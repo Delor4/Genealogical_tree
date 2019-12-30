@@ -4,6 +4,8 @@
 
 #include "App.h"
 
+#define CHAR_TO_VCODE(c) ((c) - 'a' + 65)
+
 namespace GenTree
 {
 
@@ -326,6 +328,18 @@ void App::msgbox(std::vector<std::string> const &msgs, std::string const &title,
     draw_box(msgs, title, tmp, justify);
     console.get_key();
 }
+App::MSG_BOX_VAL App::yes_no_box(std::string const &msg, std::string const &title, bool justify) const
+{
+    std::vector<std::string> tmp{msg};
+    return yes_no_box(tmp, title, justify);
+}
+App::MSG_BOX_VAL App::yes_no_box(std::vector<std::string> const &msgs, std::string const &title, bool justify) const
+{
+    std::string const tmp{"[T]ak/[N]ie"};
+    draw_box(msgs, title, tmp, justify);
+    WORD k = console.get_key();
+    return k == CHAR_TO_VCODE('t')? MSG_YES : MSG_NO;
+}
 void App::draw_box(std::vector<std::string> const &msgs, std::string const &title, std::string const &outline, bool justify) const
 {
     size_t max_len = 0;
@@ -360,10 +374,12 @@ void App::draw_box(std::vector<std::string> const &msgs, std::string const &titl
         std::cout << " |";
     }
 
+    std::string bottom_line = " " + outline + " ";
+
     //border bottom line
     std::cout.fill('-');
     console.gotoxy(start_x - 2, start_y + msgs.size());
-    std::cout << "+-" << std::setw(max_len) << std::setfill('-') << "" << "-+";
+    std::cout << "+-" << std::setw(max_len) << std::setfill('-') << std::right << bottom_line << "-+";
     std::cout.fill(' ');
 }
 }
