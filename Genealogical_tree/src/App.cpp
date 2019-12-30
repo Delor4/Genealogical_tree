@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h>
+#include <iomanip>
 
 #include "App.h"
 
@@ -313,5 +314,51 @@ const std::unordered_map<Menu::MENU_ITEMS, loop_func, std::hash<int>> App::loop_
     {Menu::RND_TREE, on_randomize},
 };
 
+void App::msgbox(std::string const &msg, std::string const &title, bool justify) const
+{
+    std::vector<std::string> tmp{msg};
+    return msgbox(tmp, title, justify);
+}
+void App::msgbox(std::vector<std::string> const &msgs, std::string const &title, bool justify) const
+{
+    size_t max_len = 0;
+    for(auto m: msgs)
+    {
+        max_len = std::max(max_len, m.length());
+    }
+    int x = console.get_console_width();
+    int y = console.get_console_heigth();
 
+    int start_x = x/2 - max_len/2;
+    int start_y = y/2 - msgs.size()/2;
+
+    std::string title_line = " " + title + " ";
+    if(justify)
+            title_line.insert(0, max_len/2 - title_line.length()/2, '-');
+
+    //border top line
+    std::cout.fill('-');
+    console.gotoxy(start_x - 2, start_y - 1);
+    std::cout << "+-" << std::setw(max_len) << std::left << title_line << "-+";
+    std::cout.fill(' ');
+
+    for(size_t i = 0; i<msgs.size(); ++i)
+    {
+        std::string line{msgs[i]};
+        if(justify)
+            line.insert(0, max_len/2 - msgs[i].length()/2, ' ');
+        console.gotoxy(start_x - 2, start_y + i);
+        std::cout << "| ";
+        std::cout << std::setw(max_len) << std::left << line;
+        std::cout << " |";
+    }
+
+    //border bottom line
+    std::cout.fill('-');
+    console.gotoxy(start_x - 2, start_y + msgs.size());
+    std::cout << "+-" << std::setw(max_len) << std::setfill('-') << "" << "-+";
+    std::cout.fill(' ');
+
+    console.get_key();
+}
 }

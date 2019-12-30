@@ -28,6 +28,9 @@ private:
     void randomize();
     void load_tree(std::string path);
 
+    void msgbox(std::string const &msg, std::string const &title = "", bool justify = false) const;
+    void msgbox(std::vector<std::string> const &msg, std::string const &title = "", bool justify = false) const;
+
     void on_exit();
     void on_add_person();
     void on_edit_person();

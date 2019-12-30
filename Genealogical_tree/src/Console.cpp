@@ -8,7 +8,7 @@ Console::Console()
 {
 }
 
-WORD Console::get_key()
+WORD Console::get_key() const
 {
     DWORD events;
     INPUT_RECORD buffer;
@@ -21,7 +21,7 @@ WORD Console::get_key()
 
     return buffer.Event.KeyEvent.wVirtualKeyCode;
 };
-void Console::gotoxy(short x, short y)
+void Console::gotoxy(short x, short y) const
 {
     COORD coord_screen = { x, y };
     SetConsoleCursorPosition(h_stdout, coord_screen);
@@ -52,4 +52,20 @@ WORD Console::set_text_attr(WORD attr)
 
     return old_attr;
 }
+int Console::get_console_width() const
+{
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+    GetConsoleScreenBufferInfo(h_stdout, &csbi);
+    return csbi.srWindow.Right - csbi.srWindow.Left + 1;
+}
+
+int Console::get_console_heigth() const
+{
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+    GetConsoleScreenBufferInfo(h_stdout, &csbi);
+    return csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+}
+
 }
