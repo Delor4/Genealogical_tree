@@ -15,9 +15,11 @@ App::App()
 #endif // __DEBUG
 }
 
+const char App::name[] = "Drzewo genealogiczne potomkow.";
+
 void App::intro()
 {
-    std::cout << "Drzewo genealogiczne potomkow.\n";
+    std::cout << name << "\n";
 }
 
 //get line from stdin, when error or empty line then returns default string

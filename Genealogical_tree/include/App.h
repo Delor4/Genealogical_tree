@@ -56,6 +56,8 @@ private:
     bool done;
 
     RndTree rndtree;
+
+    static const char name[];
 };
 }
 #endif // GENTREE_APP_H
