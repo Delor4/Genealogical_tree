@@ -132,6 +132,7 @@ void App::load_tree(std::string path)
 void App::on_exit()
 {
     done = (ok_cancel_box("Zakonczyc program?") == MSG_OK);
+    console.gotoxy(console.get_console_width() - 1, console.get_console_heigth() - 1);
 }
 void App::on_add_person()
 {
@@ -169,6 +170,9 @@ void App::on_show_info()
 }
 void App::on_load()
 {
+    if(yes_no_box("Usunac drzewo i wczytac nowe z pliku?") == MSG_NO)
+        return;
+
     console.cls();
     intro();
 
@@ -182,6 +186,8 @@ void App::on_load()
     if (n_tree.load_tree(path))
     {
         tree.swap(n_tree);
+    }else{
+        msgbox("Blad z plikiem.", "Uwaga!");
     };
 }
 void App::on_save()
