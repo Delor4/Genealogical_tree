@@ -41,6 +41,7 @@ public:
 
     void show() const;
     void show_help() const;
+    std::vector<std::string> get_help() const;
 
     MENU_ITEMS get_option(WORD virtual_key) const;
 
@@ -102,7 +103,7 @@ private:
     void populate_map();
     std::unordered_map<int, MENU_ITEMS> keys_map;
 
-    static const char help_text[];
+    static std::vector<std::string> help_text;
 };
 }
 #endif // GENTREE_MENU_H
