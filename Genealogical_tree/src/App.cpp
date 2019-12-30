@@ -348,6 +348,26 @@ App::MSG_BOX_VAL App::yes_no_box(std::vector<std::string> const &msgs, std::stri
     }
     return MSG_NO;
 }
+App::MSG_BOX_VAL App::ok_cancel_box(std::string const &msg, std::string const &title, bool justify) const
+{
+    std::vector<std::string> tmp{msg};
+    return yes_no_box(tmp, title, justify);
+}
+App::MSG_BOX_VAL App::ok_cancel_box(std::vector<std::string> const &msgs, std::string const &title, bool justify) const
+{
+    std::string const tmp{"[O]k/[A]nuluj"};
+    draw_box(msgs, title, tmp, justify);
+
+    switch(console.get_key())
+    {
+        case CHAR_TO_VCODE('o'):
+        case CHAR_TO_VCODE('t'):
+        case CHAR_TO_VCODE('y'):
+        case VK_RETURN:
+            return MSG_OK;
+    }
+    return MSG_CANCEL;
+}
 void App::draw_box(std::vector<std::string> const &msgs, std::string const &title, std::string const &outline, bool justify) const
 {
     size_t max_len = 0;

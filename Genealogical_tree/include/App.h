@@ -38,6 +38,8 @@ private:
     void msgbox(std::vector<std::string> const &msg, std::string const &title = "", bool justify = false) const;
     App::MSG_BOX_VAL yes_no_box(std::string const &msg, std::string const &title = "", bool justify = false) const;
     App::MSG_BOX_VAL yes_no_box(std::vector<std::string> const &msg, std::string const &title = "", bool justify = false) const;
+    App::MSG_BOX_VAL ok_cancel_box(std::string const &msg, std::string const &title = "", bool justify = false) const;
+    App::MSG_BOX_VAL ok_cancel_box(std::vector<std::string> const &msg, std::string const &title = "", bool justify = false) const;
     void draw_box(std::vector<std::string> const &msgs, std::string const &title = "", std::string const &outline = "", bool justify = false) const;
 
     void on_exit();
