@@ -118,7 +118,7 @@ void App::load_tree(std::string path)
         return;
 
     Tree n_tree;
-    if (n_tree.load(path))
+    if (n_tree.load_tree(path))
     {
         tree.swap(n_tree);
     };

@@ -26,6 +26,7 @@ private:
     static void intro();
     static void show_info(const Node *p);
     void randomize();
+    void load_tree(std::string path);
 
     void on_exit();
     void on_add_person();

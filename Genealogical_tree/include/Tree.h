@@ -31,6 +31,11 @@ public:
 
 protected:
 private:
+    const char *save_tag_str = "GT_1.0";
+
+    void save_tag(std::fstream &os) const;
+    bool check_tag(std::fstream &is) const;
+
     Node* root;
 };
 }

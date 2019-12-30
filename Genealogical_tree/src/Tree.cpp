@@ -68,13 +68,33 @@ void Tree::set_person(Node* i, Person& p)
     if (i)
         i->set_person(p);
 }
+void Tree::save_tag(std::fstream &os) const
+{
+    os.write(save_tag_str, strlen(save_tag_str));
+}
+bool Tree::check_tag(std::fstream &is) const
+{
+    int slen = strlen(save_tag_str);
 
+    char * tmp = new char[slen + 1];
+
+    is.read(tmp, slen);
+    tmp[slen] = '\0';
+    int ret = strcmp(tmp, save_tag_str);
+
+    delete[] tmp;
+
+    return ret == 0;
+}
 void Tree::save_tree(std::string path) const
 {
     if (!root)
         return;
     std::fstream out;
     out.open(path, std::ios::out | std::ios::trunc | std::ios::binary);
+
+    save_tag(out);
+
     root->save_node(out);
     out.close();
 }
@@ -83,7 +103,7 @@ bool Tree::load_tree(std::string path)
     std::fstream in;
     in.open(path, std::ios::in | std::ios::binary);
 
-    if(!in.good())
+    if(!in.good() || !check_tag(in))
     {
         in.close();
         return false;
