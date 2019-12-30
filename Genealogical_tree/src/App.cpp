@@ -322,6 +322,12 @@ void App::msgbox(std::string const &msg, std::string const &title, bool justify)
 }
 void App::msgbox(std::vector<std::string> const &msgs, std::string const &title, bool justify) const
 {
+    std::string const tmp{""};
+    draw_box(msgs, title, tmp, justify);
+    console.get_key();
+}
+void App::draw_box(std::vector<std::string> const &msgs, std::string const &title, std::string const &outline, bool justify) const
+{
     size_t max_len = 0;
     for(auto m: msgs)
     {
@@ -359,7 +365,5 @@ void App::msgbox(std::vector<std::string> const &msgs, std::string const &title,
     console.gotoxy(start_x - 2, start_y + msgs.size());
     std::cout << "+-" << std::setw(max_len) << std::setfill('-') << "" << "-+";
     std::cout.fill(' ');
-
-    console.get_key();
 }
 }

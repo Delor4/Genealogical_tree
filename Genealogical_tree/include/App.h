@@ -30,6 +30,7 @@ private:
 
     void msgbox(std::string const &msg, std::string const &title = "", bool justify = false) const;
     void msgbox(std::vector<std::string> const &msg, std::string const &title = "", bool justify = false) const;
+    void draw_box(std::vector<std::string> const &msgs, std::string const &title = "", std::string const &outline = "", bool justify = false) const;
 
     void on_exit();
     void on_add_person();
