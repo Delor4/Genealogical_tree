@@ -353,9 +353,13 @@ void App::draw_box(std::vector<std::string> const &msgs, std::string const &titl
     int start_x = x/2 - max_len/2;
     int start_y = y/2 - msgs.size()/2;
 
-    std::string title_line = " " + title + " ";
-    if(justify)
+    std::string title_line;
+    if(title.length())
+    {
+        title_line = " " + title + " ";
+        if(justify)
             title_line.insert(0, max_len/2 - title_line.length()/2, '-');
+    }
 
     //border top line
     std::cout.fill('-');
@@ -374,7 +378,9 @@ void App::draw_box(std::vector<std::string> const &msgs, std::string const &titl
         std::cout << " |";
     }
 
-    std::string bottom_line = " " + outline + " ";
+    std::string bottom_line;
+    if(outline.length())
+        bottom_line = " " + outline + " ";
 
     //border bottom line
     std::cout.fill('-');
