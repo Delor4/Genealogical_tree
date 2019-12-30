@@ -222,7 +222,8 @@ void App::on_version()
 }
 void App::on_new_tree()
 {
-    tree.remove_node_by_id(0);
+    if(ok_cancel_box("Usunac poprzednie drzewo?") == MSG_OK)
+        tree.remove_node_by_id(0);
 }
 void App::on_arrow_up()
 {
@@ -351,7 +352,7 @@ App::MSG_BOX_VAL App::yes_no_box(std::vector<std::string> const &msgs, std::stri
 App::MSG_BOX_VAL App::ok_cancel_box(std::string const &msg, std::string const &title, bool justify) const
 {
     std::vector<std::string> tmp{msg};
-    return yes_no_box(tmp, title, justify);
+    return ok_cancel_box(tmp, title, justify);
 }
 App::MSG_BOX_VAL App::ok_cancel_box(std::vector<std::string> const &msgs, std::string const &title, bool justify) const
 {
