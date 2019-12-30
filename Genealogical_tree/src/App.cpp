@@ -204,15 +204,18 @@ void App::on_help()
 
 void App::on_version()
 {
-    console.cls();
-
-    intro();
-    std::cout << "\n";
-    std::cout << "by Sebastian Kucharczyk, 2019\n\n";
-    std::cout << "Ver: 1.1\n\n";
-    std::cout << "Build: " __TIME__ " " __DATE__ "\n\n";
-
-    console.get_key();
+    static std::vector<std::string> text{
+        "",
+        App::name,
+        "",
+        "Ver: 1.1",
+        "",
+        "by Sebastian Kucharczyk, 2019",
+        "",
+        "Build: " __TIME__ " " __DATE__ "",
+        "",
+    };
+    msgbox(text, "About", true);
 }
 void App::on_new_tree()
 {
