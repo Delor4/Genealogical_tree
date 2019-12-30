@@ -37,6 +37,7 @@ void Menu::show() const
 }
 void Menu::show_help() const
 {
+    std::cout << "\n";
     for(auto l: help_text)
         std::cout << l << "\n";
 }
@@ -102,7 +103,6 @@ std::vector<std::string> Menu::get_help() const
     return help_text;
 }
 std::vector<std::string> Menu::help_text{
-"",
 "F1         - ten tekst",
 "n          - usuwa aktualne i tworzy nowe drzewo",
 "i / space  - pokazuje informacje o osobie",
@@ -110,7 +110,7 @@ std::vector<std::string> Menu::help_text{
 "a / ins    - dodaje potomka do aktualnie zaznaczonej osoby",
 "d / del    - usuwa osobe",
 "s          - zapisuje cale drzewo do pliku",
-"l          - odczytuje wczeœniej zapisane drzewo",
+"l          - odczytuje wczesniej zapisane drzewo",
 "F9         - losowe drzewo genealogiczne",
 "F2         - informacje o programie",
 "q / esc    - wyjscie z programu",

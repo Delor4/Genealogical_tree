@@ -199,13 +199,9 @@ void App::on_save()
 }
 void App::on_help()
 {
-    console.cls();
-
-    intro();
-    menu.show_help();
-
-    console.get_key();
+    msgbox(menu.get_help(), "Klawisze");
 }
+
 void App::on_version()
 {
     console.cls();
