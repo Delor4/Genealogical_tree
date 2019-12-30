@@ -49,7 +49,7 @@ int RndTree::kids_nr()
 }
 int RndTree::birth_year(int base)
 {
-    return base + age_for_childrens_low + (rand() % (age_for_childrens_high - age_for_childrens_low));
+    return base + age_for_childrens_low + (rand() % (age_for_childrens_high - age_for_childrens_low + 1));
 }
 std::string get_rnd_female_firstname()
 {
