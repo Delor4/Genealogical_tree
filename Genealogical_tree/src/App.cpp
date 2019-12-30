@@ -206,7 +206,8 @@ void App::on_help()
 
 void App::on_version()
 {
-    static std::vector<std::string> text{
+    static std::vector<std::string> text
+    {
         "",
         App::name,
         "",
@@ -337,8 +338,15 @@ App::MSG_BOX_VAL App::yes_no_box(std::vector<std::string> const &msgs, std::stri
 {
     std::string const tmp{"[T]ak/[N]ie"};
     draw_box(msgs, title, tmp, justify);
-    WORD k = console.get_key();
-    return k == CHAR_TO_VCODE('t')? MSG_YES : MSG_NO;
+
+    switch(console.get_key())
+    {
+        case CHAR_TO_VCODE('t'):
+        case CHAR_TO_VCODE('y'):
+        case VK_RETURN:
+            return MSG_YES;
+    }
+    return MSG_NO;
 }
 void App::draw_box(std::vector<std::string> const &msgs, std::string const &title, std::string const &outline, bool justify) const
 {
