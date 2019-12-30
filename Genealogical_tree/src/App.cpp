@@ -131,7 +131,7 @@ void App::load_tree(std::string path)
 
 void App::on_exit()
 {
-    done = true;
+    done = (ok_cancel_box("Zakonczyc program?") == MSG_OK);
 }
 void App::on_add_person()
 {
