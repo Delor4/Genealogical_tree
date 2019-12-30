@@ -67,35 +67,7 @@ private:
         bool show;
     };
 
-    std::vector<GT_MenuItem> items =
-    {
-        {
-            ADD_PERSON,   "a/i/e/d - dodaj/pokaz/modyfikuj/usun osobe",
-            { CHAR_TO_VCODE('a'), VK_INSERT },      true
-        },
-        { EDIT_PERSON,  "e - modyfikuj osobe",  { CHAR_TO_VCODE('e'), VK_RETURN },      false },
-        { DELETE_PERSON, "d - usun osobe",      { CHAR_TO_VCODE('d'), VK_DELETE },      false },
-        {
-            SHOW_INFO,    "i - inform. o osobie",
-            { CHAR_TO_VCODE('i'), VK_SPACE },       false
-        },
-        { SAVE,         "s - zapisz drzewo",  { CHAR_TO_VCODE('s') },                 false },
-        {
-            LOAD,         "l/s - odczytaj/zapisz drzewo",
-            { CHAR_TO_VCODE('l') },                 true
-        },
-        { NEW_TREE,     "n - nowe drzewo",    { CHAR_TO_VCODE('n') },                 true },
-        { EXIT,         "q - zakoncz program",{ CHAR_TO_VCODE('q'), VK_ESCAPE },      true },
-        { ARROW_UP,     "",                   { VK_UP },                              false },
-        { ARROW_DOWN,   "",                   { VK_DOWN },                            false },
-        { ARROW_LEFT,   "",                   { VK_LEFT },                            false },
-        { ARROW_RIGHT,  "",                   { VK_RIGHT },                           false },
-        { PAGE_DOWN,    "",                   { VK_NEXT },                            false },
-        { PAGE_UP,      "",                   { VK_PRIOR },                           false },
-        { HELP,         "F1 - help",          { VK_F1 },                              false },
-        { VERSION,      "F2 - about",         { VK_F2 },                              false },
-        { RND_TREE,     "F9 - losowe drzewo", { VK_F9 },                              false },
-    };
+    static std::vector<GT_MenuItem> items;
 
     int act_line;
     int curr_max_items;
