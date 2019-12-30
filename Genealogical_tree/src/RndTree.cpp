@@ -45,13 +45,11 @@ int rnd_fname(int range, int n)
 }
 int RndTree::kids_nr()
 {
-    return rand() % 5;
+    return rand() % (max_childrens + 1);
 }
 int RndTree::birth_year(int base)
 {
-    int low = 17;
-    int high = 35;
-    return base + low + (rand() % (high - low));
+    return base + age_for_childrens_low + (rand() % (age_for_childrens_high - age_for_childrens_low));
 }
 std::string get_rnd_female_firstname()
 {
@@ -67,7 +65,6 @@ std::string get_rnd_male_lastname()
 }
 std::string get_rnd_male_firstname()
 {
-
     return male_fnames[rnd_fname(male_fnames.size(),5)].name;
 }
 std::string get_male_from_female_lastname(std::string lname)

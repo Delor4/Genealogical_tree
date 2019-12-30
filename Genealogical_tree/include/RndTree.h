@@ -1,5 +1,5 @@
-#ifndef RNDTREE_H
-#define RNDTREE_H
+#ifndef GENTREE_RNDTREE_H
+#define GENTREE_RNDTREE_H
 
 #include "Tree.h"
 
@@ -24,6 +24,10 @@ private:
 
     const int start_time = 1900;
     const int end_time = 2019;
+
+    const int max_childrens = 5;
+    const int age_for_childrens_low = 18;
+    const int age_for_childrens_high = 35;
 };
 }
-#endif // RNDTREE_H
+#endif // GENTREE_RNDTREE_H
